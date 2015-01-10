@@ -1,0 +1,15 @@
+package pe.gob.reniec.actacelebracion.dao;
+
+
+
+import pe.gob.reniec.actacelebracion.bean.UsuarioBean;
+
+public interface UsuarioDao {
+	
+	public UsuarioBean listaUsuario(UsuarioBean usuarioBean);
+	
+	public UsuarioBean cambiarContrasenia (UsuarioBean usuarioBean);
+	
+	public void cerrarSesion(UsuarioBean usuarioBean);
+
+}

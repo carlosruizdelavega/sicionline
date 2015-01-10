@@ -1,0 +1,216 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+public class CelebracionBean {
+	
+	private String nuActaCelebracion;
+	private String nuAnnio;
+	private String feEvento;
+	private String hoEvento;
+	private String idCrea;
+	private String feCrea;
+	private String idActualiza;
+	private String feActualiza;
+	private String deExpediente;
+	private String deCelebradoLugar;
+	private String nuDocCelebrante;
+	private String noCelebrante;
+	private String deCargoCelebrante;
+	private String deObservacion;
+	private String deCelebradoProv;
+	private String deCelebradoDist;
+	private String deCelebradoDpto;
+	private String esRegistro;
+	private String coTipoDocIdentidad;
+	private String coMotivo;
+	private String coCelebradoCont;
+	private String coCelebradoPais;
+	private String coCelebradoDpto;
+	private String coCelebradoProv;
+	private String coCelebradoDist;
+	private String coCelebradoLoca;
+	private String coEstado;
+	
+	
+	/* Movimientos */
+	private String seAce;
+	private String coAccion;
+		
+	
+	public String getNuActaCelebracion() {
+		return nuActaCelebracion;
+	}
+	public void setNuActaCelebracion(String nuActaCelebracion) {
+		this.nuActaCelebracion = nuActaCelebracion;
+	}
+	public String getNuAnnio() {
+		return nuAnnio;
+	}
+	public void setNuAnnio(String nuAnnio) {
+		this.nuAnnio = nuAnnio;
+	}
+	public String getFeEvento() {
+		return feEvento;
+	}
+	public void setFeEvento(String feEvento) {
+		this.feEvento = feEvento;
+	}
+	public String getHoEvento() {
+		return hoEvento;
+	}
+	public void setHoEvento(String hoEvento) {
+		this.hoEvento = hoEvento;
+	}
+	public String getIdCrea() {
+		return idCrea;
+	}
+	public void setIdCrea(String idCrea) {
+		this.idCrea = idCrea;
+	}
+	public String getFeCrea() {
+		return feCrea;
+	}
+	public void setFeCrea(String feCrea) {
+		this.feCrea = feCrea;
+	}
+	public String getIdActualiza() {
+		return idActualiza;
+	}
+	public void setIdActualiza(String idActualiza) {
+		this.idActualiza = idActualiza;
+	}
+	public String getFeActualiza() {
+		return feActualiza;
+	}
+	public void setFeActualiza(String feActualiza) {
+		this.feActualiza = feActualiza;
+	}
+	public String getDeExpediente() {
+		return deExpediente;
+	}
+	public void setDeExpediente(String deExpediente) {
+		this.deExpediente = deExpediente;
+	}
+	public String getDeCelebradoLugar() {
+		return deCelebradoLugar;
+	}
+	public void setDeCelebradoLugar(String deCelebradoLugar) {
+		this.deCelebradoLugar = deCelebradoLugar;
+	}
+	public String getNuDocCelebrante() {
+		return nuDocCelebrante;
+	}
+	public void setNuDocCelebrante(String nuDocCelebrante) {
+		this.nuDocCelebrante = nuDocCelebrante;
+	}
+	public String getNoCelebrante() {
+		return noCelebrante;
+	}
+	public void setNoCelebrante(String noCelebrante) {
+		this.noCelebrante = noCelebrante;
+	}
+	public String getDeCargoCelebrante() {
+		return deCargoCelebrante;
+	}
+	public void setDeCargoCelebrante(String deCargoCelebrante) {
+		this.deCargoCelebrante = deCargoCelebrante;
+	}
+	public String getDeObservacion() {
+		return deObservacion;
+	}
+	public void setDeObservacion(String deObservacion) {
+		this.deObservacion = deObservacion;
+	}
+	public String getDeCelebradoProv() {
+		return deCelebradoProv;
+	}
+	public void setDeCelebradoProv(String deCelebradoProv) {
+		this.deCelebradoProv = deCelebradoProv;
+	}
+	public String getDeCelebradoDist() {
+		return deCelebradoDist;
+	}
+	public void setDeCelebradoDist(String deCelebradoDist) {
+		this.deCelebradoDist = deCelebradoDist;
+	}
+	public String getDeCelebradoDpto() {
+		return deCelebradoDpto;
+	}
+	public void setDeCelebradoDpto(String deCelebradoDpto) {
+		this.deCelebradoDpto = deCelebradoDpto;
+	}
+	public String getEsRegistro() {
+		return esRegistro;
+	}
+	public void setEsRegistro(String esRegistro) {
+		this.esRegistro = esRegistro;
+	}
+	public String getCoTipoDocIdentidad() {
+		return coTipoDocIdentidad;
+	}
+	public void setCoTipoDocIdentidad(String coTipoDocIdentidad) {
+		this.coTipoDocIdentidad = coTipoDocIdentidad;
+	}
+	public String getCoMotivo() {
+		return coMotivo;
+	}
+	public void setCoMotivo(String coMotivo) {
+		this.coMotivo = coMotivo;
+	}
+	public String getCoCelebradoCont() {
+		return coCelebradoCont;
+	}
+	public void setCoCelebradoCont(String coCelebradoCont) {
+		this.coCelebradoCont = coCelebradoCont;
+	}
+	public String getCoCelebradoPais() {
+		return coCelebradoPais;
+	}
+	public void setCoCelebradoPais(String coCelebradoPais) {
+		this.coCelebradoPais = coCelebradoPais;
+	}
+	public String getCoCelebradoDpto() {
+		return coCelebradoDpto;
+	}
+	public void setCoCelebradoDpto(String coCelebradoDpto) {
+		this.coCelebradoDpto = coCelebradoDpto;
+	}
+	public String getCoCelebradoProv() {
+		return coCelebradoProv;
+	}
+	public void setCoCelebradoProv(String coCelebradoProv) {
+		this.coCelebradoProv = coCelebradoProv;
+	}
+	public String getCoCelebradoDist() {
+		return coCelebradoDist;
+	}
+	public void setCoCelebradoDist(String coCelebradoDist) {
+		this.coCelebradoDist = coCelebradoDist;
+	}
+	public String getCoCelebradoLoca() {
+		return coCelebradoLoca;
+	}
+	public void setCoCelebradoLoca(String coCelebradoLoca) {
+		this.coCelebradoLoca = coCelebradoLoca;
+	}
+	public String getCoEstado() {
+		return coEstado;
+	}
+	public void setCoEstado(String coEstado) {
+		this.coEstado = coEstado;
+	}
+	public String getSeAce() {
+		return seAce;
+	}
+	public void setSeAce(String seAce) {
+		this.seAce = seAce;
+	}
+	public String getCoAccion() {
+		return coAccion;
+	}
+	public void setCoAccion(String coAccion) {
+		this.coAccion = coAccion;
+	}
+	
+	
+	
+}

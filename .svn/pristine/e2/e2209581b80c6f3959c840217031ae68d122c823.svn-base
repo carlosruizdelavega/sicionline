@@ -1,0 +1,61 @@
+
+ 
+
+
+	<div id="actaSeleccionadas" title="Actas Seleccionadas" style=" display: none;">
+		<div style="display: block; height:32px; margin-top: 15px;">
+			<span class="titulo03">Imagenes Correctas</span>
+		</div>
+		<div>
+		 	<p>Las siguientes imagenes han sido seleccionadas y se ha  verificado que cumplen con los criterios determinados por el sistema .</p>
+		 	<p>Para dar inicio al poceso dar click sobre el bot&oacute;n &quot;Procesar Imagenes Correctas&quot;</p>
+		</div>
+		
+		<!-- Lista de imagenes -->
+		<div >
+			<table>
+				<tr>
+					<td bgcolor="#C0C0C0">Nombre Imagen </td>
+					<td bgcolor="#C0C0C0">Tamaño</td>
+				</tr>
+				<tr>
+					<td>--</td>
+					<td>--</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" onclick="fnCerrarSesion();">
+							<i class="icon-lock icon-white"></i>&nbsp;&nbsp;Procesar Imágenes Correctas
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	
+		<!--  imagenes observadas -->
+		<div >
+			<table>
+				<tr>
+					<td bgcolor="#C0C0C0">Nombre Imagen</td>
+					<td bgcolor="#C0C0C0">Tamaño</td>
+					<td bgcolor="#C0C0C0">Observación</td>
+				</tr>
+				<tr>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+				</tr>
+				<tr>
+					<td>
+						<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" onclick="fnCerrarSesion();">
+							<i class="icon-lock icon-white"></i>&nbsp;&nbsp;Cerrar
+						</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+					
+	</div>
+	
+	

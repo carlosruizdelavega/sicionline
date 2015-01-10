@@ -1,0 +1,34 @@
+package pe.gob.reniec.actacelebracion.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ActaCelebraDao;
+import pe.gob.reniec.actacelebracion.service.ActaCelebraService;
+
+@Service
+public class ActaCelebraServiceImpl implements ActaCelebraService {
+		
+	@Autowired
+	private ActaCelebraDao actaCelebraDao;
+	
+	public int registrarTestigo(TestigoBean testigoBean){
+		
+		return actaCelebraDao.registrarTestigo(testigoBean);
+		
+	}
+	
+	
+	@Transactional
+	public void registrarCelebracion(CelebracionBean celebracionBean){
+		
+		actaCelebraDao.registrarCelebracion(celebracionBean);
+		actaCelebraDao.registrarCelebracionMov(celebracionBean);
+		
+	}
+	
+
+}

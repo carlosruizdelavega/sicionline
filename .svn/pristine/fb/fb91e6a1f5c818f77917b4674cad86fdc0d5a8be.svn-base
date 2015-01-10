@@ -1,0 +1,498 @@
+package pe.gob.reniec.actacelebracion.dao.impl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
+import org.springframework.stereotype.Repository;
+
+import pe.gob.reniec.actacelebracion.bean.AniBean;
+import pe.gob.reniec.actacelebracion.bean.GeneroBean;
+import pe.gob.reniec.actacelebracion.bean.TipoNacionalidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoDocIdentidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoEstadoCivilBean;
+import pe.gob.reniec.actacelebracion.bean.UbigeoBean;
+import pe.gob.reniec.actacelebracion.dao.UtilDao;
+
+
+
+@Repository
+public class UtilDaoImpl implements UtilDao{
+	
+	// define templates
+		@Autowired
+		private JdbcTemplate jdbcTemplate;
+		
+		// define log
+		private static final Logger logger = Logger
+				.getLogger(UtilDaoImpl.class);
+	
+	
+	@Override
+	public List<TipoDocIdentidadBean> listarTipoDocumentoIdentidad() {
+		
+		
+		String sql =       "   SELECT \n" + 
+			      "         nvl(RTDI.CO_TIPO_DOC_IDENTIDAD,' ') CO_TIPO_DOC_IDENTIDAD,\n" + 
+			      "         nvl(RTDI.DE_DOC_IDENTIDAD,' ') DE_DOC_IDENTIDAD \n" + 
+			      "    FROM RCTR_TIPO_DOC_IDENTIDAD RTDI WHERE RTDI.ES_DOC_IDENTIDAD='1' AND RTDI.IN_ACTA_CELEBRA ='1'";
+		
+		List<TipoDocIdentidadBean> listTipoDocIdentidad = jdbcTemplate.query(sql,
+	            new RowMapper<TipoDocIdentidadBean>(){
+	            public TipoDocIdentidadBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+	            	TipoDocIdentidadBean tipoDocIdentidadBean = new TipoDocIdentidadBean();
+	            	
+	            	tipoDocIdentidadBean.setCoTipoDocIdentidad(rs.getString("CO_TIPO_DOC_IDENTIDAD"));
+	            	tipoDocIdentidadBean.setDeDocIdentidad(rs.getString("DE_DOC_IDENTIDAD"));
+	            	
+					return tipoDocIdentidadBean;
+	            }  
+	        });
+		
+		if(listTipoDocIdentidad.isEmpty()){
+			return null;
+			
+		}else{
+			return listTipoDocIdentidad;
+		}
+		
+	}
+
+
+	/*@Override
+	public AniBean buscarPorDniIndex(String dni) {
+		
+		
+        final String sql= "SELECT nvl(NU_DNI, ' ') NULEM, " +
+                "nvl(AP_PRIMER, ' ') DEAPP, " +
+                "nvl(AP_SEGUNDO,' ') ||  ' ' || nvl(AP_CASADA,' ') DEAPM, " +
+                "nvl(PRENOM_INSCRITO, ' ') DENOM, " +
+                "nvl(DE_GENERO, ' ') INSEX " +
+         "FROM  getm_ani_index " +
+         "WHERE NU_DNI = '" + dni + "'";
+        
+		
+        ParameterizedRowMapper<AniBean> mapper = new ParameterizedRowMapper<AniBean>() {
+			public AniBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+				AniBean aniBean  = null;
+				aniBean.setNuDni(rs.getString("NULEM"));
+				aniBean.setApPrimer(rs.getString("DEAPP"));
+				aniBean.setApSegundo(rs.getString("DEAPM"));
+				aniBean.setPreNomInscrito(rs.getString("DENOM"));
+				aniBean.setCoGenero(rs.getString("INSEX"));
+				logger.info("rowNum==>"+rowNum);
+				
+				return aniBean;
+            }
+			
+		};	
+	
+		
+			
+		return jdbcTemplate.queryForObject(sql, mapper); 
+	}*/
+
+	 @Override    
+	 public AniBean buscarPorDniIndex(String dni){   
+		 
+		 final String sql= "SELECT nvl(NU_DNI, ' ') NULEM, " +
+	                "nvl(AP_PRIMER, ' ') DEAPP, " +
+	                "nvl(AP_SEGUNDO,' ') ||  ' ' || nvl(AP_CASADA,' ') DEAPM, " +
+	                "nvl(PRENOM_INSCRITO, ' ') DENOM, " +
+	                "nvl(DE_GENERO, ' ') INSEX " +
+	         "FROM  getm_ani_index " +
+	         "WHERE NU_DNI = ?";
+		 
+		 
+
+   	  ParameterizedRowMapper<AniBean> mapper = new ParameterizedRowMapper<AniBean>() {
+ 			public AniBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+ 				 AniBean aniBean  = new AniBean();
+					aniBean.setNuDni(rs.getString("NULEM"));
+					aniBean.setApPrimer(rs.getString("DEAPP"));
+					aniBean.setApSegundo(rs.getString("DEAPM"));
+					aniBean.setPreNomInscrito(rs.getString("DENOM"));
+					aniBean.setCoGenero(rs.getString("INSEX"));
+					//logger.info("rowNum==>"+rowNum);
+					
+					return aniBean;
+            }
+ 			
+ 		};
+		 
+ 		AniBean aniBean= jdbcTemplate.queryForObject(sql, new Object[] { dni },mapper); 
+		 
+		 if (aniBean==null) {
+			 aniBean =new AniBean();
+			 aniBean.setExisteDni(false);
+			 
+		 }else{
+			 aniBean.setExisteDni(true);
+		 }
+		 
+		 
+		 
+		 return aniBean; 
+	}
+
+	@Override
+	public AniBean buscarPorDniAni(String dni) {
+		 final String sql= "SELECT nvl(CO_CONTINENTE_DOMICILIO, ' ') UBCON,\r\n" + 
+		 		"       nvl(CO_PAIS_DOMICILIO, ' ') UBPAI,\r\n" + 
+		 		"       nvl(CO_DEPARTAMENTO_DOMICILIO, ' ') UBDEP,\r\n" + 
+		 		"       nvl(CO_PROVINCIA_DOMICILIO, ' ') UBPRV,\r\n" + 
+		 		"       nvl(CO_DISTRITO_DOMICILIO, ' ') UBDIS,\r\n" + 
+		 		"       nvl(CO_CENTRO_POBLADO_DOMICILIO, ' ') UBLOC,\r\n" + 
+		 		"       nvl(GP_VOTACION, ' ') NULIB,\r\n" + 
+		 		"       nvl(NU_DNI, ' ') NULEM,\r\n" + 
+		 		"       nvl(AP_SEGUNDO, ' ') || ' ' || nvl(AP_CASADA, ' ') DEAPM,\r\n" + 
+		 		"       nvl(AP_PRIMER, ' ') DEAPP,\r\n" + 
+		 		"       nvl(PRENOM_INSCRITO, ' ') DENOM,\r\n" + 
+		 		"       IDOTABMAESTRA.GEFU_GET_DOMICILIO(DE_PREF_DIRECCION,\r\n" + 
+		 		"                                        DE_DIRECCION,\r\n" + 
+		 		"                                        NU_DIRECCION,\r\n" + 
+		 		"                                        DE_PREF_BLOCK,\r\n" + 
+		 		"                                        DE_BLOCK_CHALET,\r\n" + 
+		 		"                                        DE_PREF_INTERIOR,\r\n" + 
+		 		"                                        DE_INTERIOR,\r\n" + 
+		 		"                                        DE_PREF_URB,\r\n" + 
+		 		"                                        DE_URBANIZACION,\r\n" + 
+		 		"                                        DE_ETAPA,\r\n" + 
+		 		"                                        DE_MANZANA,\r\n" + 
+		 		"                                        DE_LOTE_DIRECCION) DEDOM,\r\n" + 
+		 		"       nvl(CO_ESTADO_CIVIL, ' ') INESC,\r\n" + 
+		 		"       nvl(CO_NIVEL_EDUCA, ' ') COGRI,\r\n" + 
+		 		"       nvl(DE_GENERO, ' ') INSEX,\r\n" + 
+		 		"       nvl(DE_ESTATURA, ' ') DEEST,\r\n" + 
+		 		"       nvl(CO_DOC_ADJ, ' ') TIDID,\r\n" + 
+		 		"       nvl(NU_DOC_ADJ, ' ') NUDID,\r\n" + 
+		 		"       nvl(CO_CONTINENTE_NACI, ' ') UNCON,\r\n" + 
+		 		"       nvl(CO_PAIS_NACI, ' ') UNPAI,\r\n" + 
+		 		"       nvl(CO_DEPARTAMENTO_NACI, ' ') UNDEP,\r\n" + 
+		 		"       nvl(CO_PROVINCIA_NACI, ' ') UNPRV,\r\n" + 
+		 		"       nvl(CO_DISTRITO_NACI, ' ') UNDIS,\r\n" + 
+		 		"       nvl(CO_CENTRO_POBLADO_NACI, ' ') UNLOC,\r\n" + 
+		 		"       nvl(TO_CHAR(FE_NACIMIENTO, 'YYYYMMDD'), ' ') FENAC,\r\n" + 
+		 		"       nvl(PRENOM_PADRE, ' ') NOPAD,\r\n" + 
+		 		"       nvl(PRENOM_MADRE, ' ') NOMAD,\r\n" + 
+		 		"       nvl(CO_TIPO_DOC_CONYUGE, ' ') TIDCO,\r\n" + 
+		 		"       nvl(NU_DOC_CONYUGE, ' ') NUDCO,\r\n" + 
+		 		"       nvl(IN_IMPRIME_CASADA, ' ') FLACO,\r\n" + 
+		 		"       nvl(US_MODI_AUDI, ' ') COAUD,\r\n" + 
+		 		"       nvl(TO_CHAR(FE_MODI_AUDI, 'YYYYMMDD'), ' ') FEACT,\r\n" + 
+		 		"       nvl(NU_FICHA_REG, ' ') NUFOR,\r\n" + 
+		 		"       nvl(NU_IMAG, ' ') NUFOP,\r\n" + 
+		 		"       nvl(NU_IMAG, ' ') NUFOF,\r\n" + 
+		 		"       nvl(NU_IMAG, ' ') NUFOH,\r\n" + 
+		 		"       nvl(CO_DEDO_DERECHO, ' ') COHUE,\r\n" + 
+		 		"       nvl(' ', ' ') COLOC,\r\n" + 
+		 		"       nvl(TO_CHAR(FE_INSCRIPCION, 'YYYYMMDD'), ' ') FEINS,\r\n" + 
+		 		"       nvl(TO_CHAR(FE_EMISION, 'YYYYMMDD'), ' ') FEEXP,\r\n" + 
+		 		"       nvl(CO_VOTACION, ' ') COVOT,\r\n" + 
+		 		"       nvl(CO_OBS, ' ') COOBS,\r\n" + 
+		 		"       nvl(CO_RESTRI, ' ') STRES,\r\n" + 
+		 		"       nvl(TO_CHAR(FE_RESTRI, 'YYYYMMDD'), ' ') FERST,\r\n" + 
+		 		"       nvl(CO_DEPARTAMENTO_RESTRI, ' ') USDEP,\r\n" + 
+		 		"       nvl(CO_PROVINCIA_RESTRI, ' ') USPRV,\r\n" + 
+		 		"       nvl(CO_DISTRITO_RESTRI, ' ') USDIS,\r\n" + 
+		 		"       nvl(TI_FICHA_REG, ' ') TIFIC\r\n" + 
+		 		"  FROM GETM_ANI\r\n" + 
+		 		" WHERE NU_DNI = '" + dni + "'";
+		 
+		 ParameterizedRowMapper<AniBean> mapper = new ParameterizedRowMapper<AniBean>() {
+				public AniBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+					AniBean aniBean  = new AniBean();
+					
+					
+			           aniBean.setNuDni(rs.getString("NULEM"));
+			           aniBean.setCoContinenteDomicilio(rs.getString("UBCON"));
+			           aniBean.setCoPaisDomicilio(rs.getString("UBPAI"));
+			           aniBean.setCoDepartamentoDomicilio(rs.getString("UBDEP"));
+			           aniBean.setCoProvinciaDomicilio(rs.getString("UBPRV"));
+			           aniBean.setCoDistritoDomicilio(rs.getString("UBDIS"));
+			           aniBean.setCoCentropobladoDomicilio(rs.getString("UBLOC"));
+			           aniBean.setGpVotacion(rs.getString("NULIB"));
+			           aniBean.setApPrimer(rs.getString("DEAPP"));
+			           aniBean.setApSegundo(rs.getString("DEAPM"));
+			           aniBean.setPreNomInscrito(rs.getString("DENOM"));
+			           aniBean.setDeDomicilio(rs.getString("DEDOM"));
+			           aniBean.setCoEstadoCivil(rs.getString("INESC"));
+			           aniBean.setCoDocAdj(rs.getString("TIDID"));
+			           aniBean.setNuDocAdj(rs.getString("NUDID"));
+			           aniBean.setCoContinenteNaci(rs.getString("UNCON"));
+			           aniBean.setCoPaisNaci(rs.getString("UNPAI"));
+			           aniBean.setCoDepartamentoNaci(rs.getString("UNDEP"));
+			           aniBean.setCoProvinciaNaci(rs.getString("UNPRV"));
+			            //
+			           aniBean.setCoDistritoNaci(rs.getString("UNDIS"));
+			           aniBean.setCoCentropobladoNaci(rs.getString("UNLOC"));
+			           aniBean.setFeNacimiento(rs.getString("FENAC"));
+			           aniBean.setPreNomPadre(rs.getString("NOPAD"));
+			           aniBean.setPreNomMadre(rs.getString("NOMAD"));
+			           aniBean.setCoTipoDocConyuge(rs.getString("TIDCO"));
+			           aniBean.setNuDocConyuge(rs.getString("NUDCO"));
+			           aniBean.setInImprimeCasada(rs.getString("FLACO"));
+			           aniBean.setUsModiAudi(rs.getString("COAUD"));
+			           aniBean.setFeModiAudi(rs.getString("FEACT"));
+			           aniBean.setNuFichaReg(rs.getString("NUFOR"));
+			           aniBean.setNuImag(rs.getString("NUFOP"));
+			           
+			            //
+			           aniBean.setCoDistritoRestri(rs.getString("USDIS"));
+			           aniBean.setCoProvinciaRestri(rs.getString("USPRV"));
+			           aniBean.setFeRestri(rs.getString("FERST"));
+			           aniBean.setCoRestri(rs.getString("STRES"));
+			           aniBean.setCoObs(rs.getString("COOBS"));
+			           aniBean.setCoVotacion(rs.getString("COVOT"));
+			           aniBean.setFeEmision(rs.getString("FEEXP"));
+			           aniBean.setFeInscripcion(rs.getString("FEINS"));
+			          // aniBean.setCOLOC(rs.getString("COLOC"));
+			           aniBean.setCoDedoDerecho(rs.getString("COHUE"));
+			           //aniBean(rs.getString("NUFOH"));
+			           aniBean.setCoGenero(rs.getString("INSEX"));
+			           aniBean.setTiFichaReg(rs.getString("TIFIC"));
+					
+					return aniBean;
+	            }
+				
+			};
+		
+			return jdbcTemplate.queryForObject(sql, mapper); 
+	}
+	
+	
+	
+    public  TipoNacionalidadBean obtenerNacionalidadDni(String coNacionalidad){
+               	 		 		
+        final String sql = "SELECT CO_NACIONALIDAD, NVL(RTN.DE_NACIONALIDAD, ' ') DE_NACIONALIDAD\r\n" + 
+        		"  FROM RCTR_TIPO_NACIONALIDAD RTN\r\n" + 
+        		" WHERE RTN.CO_NACIONALIDAD ='" + coNacionalidad +
+        		"' AND RTN.ES_NACIONALIDAD = '1'\r\n" + 
+        		" ORDER BY CO_NACIONALIDAD";
+        
+        ParameterizedRowMapper<TipoNacionalidadBean> mapper = new ParameterizedRowMapper<TipoNacionalidadBean>() {
+			public TipoNacionalidadBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+				TipoNacionalidadBean nacionalidadBean  = new TipoNacionalidadBean();
+				
+				nacionalidadBean.setCoNacionalidad(rs.getString("CO_NACIONALIDAD"));
+				nacionalidadBean.setDeNacionalidad(rs.getString("DE_NACIONALIDAD"));
+				return nacionalidadBean;
+            }
+			
+		};
+	
+		return jdbcTemplate.queryForObject(sql, mapper); 
+        
+      
+    }
+    
+    public List<TipoNacionalidadBean>  listarTipoNacionalidad(){
+	 		
+        final String sql = "SELECT CO_NACIONALIDAD, NVL(RTN.DE_NACIONALIDAD, ' ') DE_NACIONALIDAD\r\n" + 
+        		"  FROM RCTR_TIPO_NACIONALIDAD RTN\r\n" + 
+        		" WHERE RTN.ES_NACIONALIDAD = '1'\r\n" + 
+        		" ORDER BY CO_NACIONALIDAD";
+        
+       
+		List<TipoNacionalidadBean> listTipoNacionalidad = jdbcTemplate.query(sql,
+	            new RowMapper<TipoNacionalidadBean>(){
+	            public TipoNacionalidadBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+	            	TipoNacionalidadBean nacionalidadBean = new TipoNacionalidadBean();
+	            	
+	            	nacionalidadBean.setCoNacionalidad(rs.getString("CO_NACIONALIDAD"));
+					nacionalidadBean.setDeNacionalidad(rs.getString("DE_NACIONALIDAD"));
+					return nacionalidadBean;
+	            }  
+	        });
+		
+		if(listTipoNacionalidad.isEmpty()){
+			return null;
+			
+		}else{
+			return listTipoNacionalidad;
+		}
+		
+        
+      
+    }
+	
+    
+	
+    
+    public GeneroBean obtenerGeneroDni(String coGenero){
+	 		
+        final String sql = 
+        		"		 SELECT nvl(RTS.CO_SEXO, ' ') CO_SEXO, \r\n" + 
+        		"         nvl(RTS.DE_SEXO, ' ') DE_SEXO\r\n" + 
+        		"    FROM RCTR_TIPO_SEXO RTS\r\n" + 
+        		"   WHERE RTS.CO_SEXO  ='" + coGenero + 
+        		"'     AND RTS.ES_SEXO = '1'";
+        
+        ParameterizedRowMapper<GeneroBean> mapper = new ParameterizedRowMapper<GeneroBean>() {
+			public GeneroBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+				GeneroBean generoBean  = new GeneroBean();
+				
+				generoBean.setCoSExo(rs.getString("CO_SEXO"));
+				generoBean.setDeSexo(rs.getString("DE_SEXO"));
+				return generoBean;
+            }
+			
+		};
+	
+		return jdbcTemplate.queryForObject(sql, mapper); 
+        
+      
+    }
+	
+    public UbigeoBean obtenerDescripcionUbigeo( String pCont, String pPais, 
+    											String pDpto,String pProv,
+    											String pDist,String pLoca){
+ 		
+        final String sql = " SELECT DE_UBIGEO\r\n" + 
+        		"    FROM IDORRCC.GEVW_UBIGEOS\r\n" + 
+        		"   WHERE CO_CONTINENTE ='" + pCont + 
+        		"'     AND CO_PAIS ='" + pPais + 
+        		"'     AND CO_DEPARTAMENTO ='" + pDpto +  
+        		"'     AND CO_PROVINCIA='" + pProv + 
+        		"'     AND CO_DISTRITO ='" + pDist + 
+        		"'     AND CO_CENTRO_POBLADO_O ='" + pLoca +"'";
+        		
+        ParameterizedRowMapper<UbigeoBean> mapper = new ParameterizedRowMapper<UbigeoBean>() {
+			public UbigeoBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+				UbigeoBean ubigeoBean  = new UbigeoBean();
+				
+				ubigeoBean.setDeUbigeo(rs.getString("DE_UBIGEO"));
+				
+				return ubigeoBean;
+            }
+			
+		};
+	
+		return jdbcTemplate.queryForObject(sql, mapper); 
+        
+      
+    }
+	
+    
+    
+    
+    public TipoEstadoCivilBean obtenerDescripcionEstadoCivil(String coEstadoCivil) {
+      
+    	
+    	 final String sql ="SELECT NVL(RTEC.CO_ESTADO_CIVIL, ' ') CO_ESTADO_CIVIL,\r\n" + 
+         		"       NVL(RTEC.DE_ESTADO_CIVIL, ' ') DE_ESTADO_CIVIL\r\n" + 
+         		"  FROM RCTR_TIPO_ESTADO_CIVIL RTEC \r\n" + 
+         		" WHERE RTEC.CO_ESTADO_CIVIL = ?\r\n" + 
+         		" AND   RTEC.ES_ESTADO_CIVIL = '1'";
+    	
+    	
+    	  ParameterizedRowMapper<TipoEstadoCivilBean> mapper = new ParameterizedRowMapper<TipoEstadoCivilBean>() {
+  			public TipoEstadoCivilBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+  				TipoEstadoCivilBean tipoEstadoCivilBean  = new TipoEstadoCivilBean();
+  				
+  				tipoEstadoCivilBean.setCoEstadoCivil(rs.getString("CO_ESTADO_CIVIL"));
+  				tipoEstadoCivilBean.setDeEstadoCivil(rs.getString("DE_ESTADO_CIVIL"));
+  				
+  				return tipoEstadoCivilBean;
+             }
+  			
+  		};
+    	      
+             
+            return jdbcTemplate.queryForObject(sql, new Object[] { coEstadoCivil },mapper);
+       
+    }
+  
+    
+    
+  
+
+
+
+
+  
+	
+	/* public final static String obtenerEdad(String fecha) { 
+	        Date fechaActual = new Date(); 
+	        int agnos = 0; 
+	        try { 
+	            agnos = fechaActual.getYear() + 1900 - Integer.parseInt( fecha.substring(0, 4) ); 
+	        } catch(Exception e) { } 
+	        
+	        try { 
+	            if ( Long.parseLong( fecha.substring(4) ) > 
+	                 ( (fechaActual.getMonth() + 1) * 100 + fechaActual.getDate() ) )
+	                agnos--; 
+	        } catch(Exception e) { } 
+	        
+	        return (String.valueOf(agnos)); 
+	    }  */
+	 
+	 
+	
+	//Calculo de la Edad de un Ciudadano a partir de su Fecha de Nacimiento 
+
+		@Override
+		public String calcularEdadDni(String fecha) {
+			 Date fechaNac=null;
+
+		        try {
+
+		            /**Se puede cambiar la mascara por el formato de la fecha 
+
+		            que se quiera recibir, por ejemplo año mes día "yyyy-MM-dd"
+
+		            en este caso es día mes año*/
+
+		            fechaNac = new SimpleDateFormat("yyyyMMdd").parse(fecha);
+
+		        } catch (Exception ex) {
+
+		            System.out.println("Error:"+ex);
+
+		        }
+
+		        Calendar fechaNacimiento = Calendar.getInstance();
+
+		        //Se crea un objeto con la fecha actual
+
+		        Calendar fechaActual = Calendar.getInstance();
+
+		        //Se asigna la fecha recibida a la fecha de nacimiento.
+
+		        fechaNacimiento.setTime(fechaNac);
+
+		        //Se restan la fecha actual y la fecha de nacimiento
+
+		        int anio = fechaActual.get(Calendar.YEAR)- fechaNacimiento.get(Calendar.YEAR);
+
+		        int mes =fechaActual.get(Calendar.MONTH)- fechaNacimiento.get(Calendar.MONTH);
+
+		        int dia = fechaActual.get(Calendar.DATE)- fechaNacimiento.get(Calendar.DATE);
+
+		        //Se ajusta el año dependiendo el mes y el día
+
+		        if(mes<0 || (mes==0 && dia<0)){
+
+		            anio--;
+
+		        }
+
+		        //Regresa la edad en base a la fecha de nacimiento
+
+		        return String.valueOf(anio);
+
+		}
+		
+		
+
+	
+}

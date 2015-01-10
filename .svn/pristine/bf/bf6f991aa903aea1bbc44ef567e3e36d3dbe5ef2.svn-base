@@ -1,0 +1,146 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.service.ImpresionService;
+
+@Controller
+public class ImpresionController {
+
+	@Autowired
+	private ImpresionService impresionService;
+	
+	/**
+	 * Metodo que permite consultar datos del acta de celebracion
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/consultarDatosActaCeleb.htm")
+	public ModelAndView consultarDatosActaCelebracion(HttpServletRequest req, 
+										   			  HttpServletResponse res,
+										   			  HttpSession session) throws Exception {
+
+		//obtener numero de acta de celebracion de sesion
+		String acta = (String) session.getAttribute("numeroActaCelebra");
+		
+		// consultar datos del acta de celebracion
+		CelebracionBean celebracionBean = impresionService.consultarDatosCelebracion(acta);
+		
+		//consultar contrayentes
+		List<ContrayenteBean> listaContrayentes = impresionService.consultarContrayentes(acta);
+		
+		//consultar testigos
+		List<TestigoBean> listaTestigos = impresionService.consultarTestigos(acta);
+		
+		//identificar contrayentes
+		ContrayenteBean primerContrayente = null;
+		ContrayenteBean segundoContrayente = null;
+		for (int i = 0; i < listaContrayentes.size(); i++) {
+			if(listaContrayentes.get(i).getCoContrayente().equals("01") && listaContrayentes.get(i).getCoSexo().equals("01")){
+				primerContrayente = listaContrayentes.get(i);
+			}else if(listaContrayentes.get(i).getCoContrayente().equals("02") && listaContrayentes.get(i).getCoSexo().equals("02")){
+				segundoContrayente = listaContrayentes.get(i);
+			}
+		}
+		
+		//identificar testigos
+		TestigoBean primerTestigo = null;
+		TestigoBean segundoTestigo = null;
+		for (int i = 0; i < listaTestigos.size(); i++) {
+			if(listaTestigos.get(i).getCoTestigo().equals("03")){
+				primerTestigo = listaTestigos.get(i);
+			}else if(listaTestigos.get(i).getCoTestigo().equals("04")){
+				segundoTestigo = listaTestigos.get(i);
+			}
+		}
+		
+		// retorna objeto ModelAndView
+		ModelAndView mv = new ModelAndView("registrarActa/tabImpresion");
+		mv.addObject("celebracionBean", celebracionBean);
+		mv.addObject("primerContrayente", primerContrayente);
+		mv.addObject("segundoContrayente", segundoContrayente);
+		mv.addObject("primerTestigo", primerTestigo);
+		mv.addObject("segundoTestigo", segundoTestigo);
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}	
+	
+	/**
+	 * Metodo que permite generar acta de celebracion impresa
+	 * @param req
+	 * @param res
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/generarActaImpresa.htm")
+	public @ResponseBody Object[] generarActaImpresa(HttpServletRequest req, 
+										   			HttpServletResponse res,
+										   			HttpSession session) throws Exception {
+
+		//obtener numero de acta de celebracion de sesion
+		String acta = (String) session.getAttribute("numeroActaCelebra");
+		
+		//obtener codigo de usuario de sesion
+		String codUsuario = (String) session.getAttribute("coUsuario");
+		
+		// actualizar estado del acta de celebracion a estado 02:impreso
+		Boolean ind = impresionService.actualizarEstadoImpresoActa(acta, codUsuario);
+		
+		//retornar respuesta
+		return new Object[]{ind, acta};
+		
+	}	
+	
+	/**
+	 * Metodo que permite generar PDF con los datos del acta de celebracion
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/actaCelebracionPreview.pdf")
+	public ModelAndView MostrarFormuPdfPdf(HttpServletRequest req, 
+										   HttpServletResponse res) throws Exception {
+
+		// recibir parametros
+		String acta = req.getParameter("acta");
+		
+		// consultar datos del acta de celebracion
+		CelebracionBean celebracionBean = impresionService.consultarDatosCelebracion(acta);
+		
+		//consultar contrayentes
+		List<ContrayenteBean> listaContrayentes = impresionService.consultarContrayentes(acta);
+		
+		//consultar testigos
+		List<TestigoBean> listaTestigos = impresionService.consultarTestigos(acta);
+		
+		// retorna objeto ModelAndView
+		ModelAndView mv = new ModelAndView("impresionView");
+		mv.addObject("celebracionBean", celebracionBean);
+		mv.addObject("listaContrayentes", listaContrayentes);
+		mv.addObject("listaTestigos", listaTestigos);
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}	
+	
+}

@@ -1,0 +1,353 @@
+package pe.gob.reniec.actacelebracion.util;
+
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.html.WebColors;
+import com.lowagie.text.pdf.PdfCell;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+
+/**
+ * Clase util para crear documentos PDFs
+ * @author csantos
+ * @version 1.0
+ * @since 29/05/2014 11:03 hrs
+ *
+ */
+public class PdfUtil {
+	  
+	//define constantes
+	public final static String FONT1_B_5 = "1@5@1";
+	public final static String FONT1_B_6 = "1@6@1";
+	public final static String FONT1_B_7 = "1@7@1";
+	public final static String FONT1_B_8 = "1@8@1";
+	public final static String FONT1_B_9 = "1@9@1";
+	public final static String FONT1_B_10 = "1@10@1";
+	public final static String FONT1_B_11 = "1@11@1";
+	public final static String FONT1_B_12 = "1@12@1";
+	public final static String FONT1_B_13 = "1@13@1";
+	public final static String FONT1_B_14 = "1@14@1";
+
+	public final static String FONT1_N_6 = "1@6@0";
+	public final static String FONT1_N_7 = "1@7@0";
+	public final static String FONT1_N_8 = "1@8@0";
+	public final static String FONT1_N_9 = "1@9@0";
+	public final static String FONT1_N_10 = "1@10@0";
+	public final static String FONT1_N_11 = "1@11@0";
+	public final static String FONT1_N_12 = "1@12@0";
+	
+	public final static String FONT1_U_6 = "1@6@4";
+	public final static String FONT1_U_7 = "1@7@4";
+	public final static String FONT1_U_8 = "1@8@4";
+	public final static String FONT1_U_9 = "1@9@4";
+	public final static String FONT1_U_10 = "1@10@4";
+	
+	public final static int HEIGHT_3 = 3;
+	public final static int HEIGHT_5 = 5;
+	public final static int HEIGHT_8 = 8;
+	public final static int HEIGHT_9 = 9;
+	public final static int HEIGHT_10 = 10;
+	public final static int HEIGHT_11 = 11;
+	public final static int HEIGHT_12 = 12;
+	public final static int HEIGHT_13 = 13;
+	public final static int HEIGHT_14 = 14;
+	public final static int HEIGHT_15 = 15;
+	public final static int HEIGHT_16 = 16;
+	public final static int HEIGHT_17 = 17;
+	public final static int HEIGHT_18 = 18;
+	public final static int HEIGHT_19 = 19;
+	public final static int HEIGHT_20 = 20;
+	public final static int HEIGHT_22 = 22;	
+	public final static int HEIGHT_36 = 36;
+	public final static int HEIGHT_40 = 40;
+	public final static int HEIGHT_50 = 50;
+	public final static int HEIGHT_55 = 55;
+	public final static int HEIGHT_60 = 60;
+	public final static int HEIGHT_62 = 62;
+	public final static int HEIGHT_63 = 63;
+	public final static int HEIGHT_65 = 65;
+	public final static int HEIGHT_70 = 70;
+	public final static int HEIGHT_80 = 80;
+	public final static int HEIGHT_90 = 90;	
+	
+	public final static float NO_BORDER = 0f;
+	public final static float BORDER_F = 0.5f;
+	public final static float BORDER_M = 0.7f;	
+	
+	public final static float[] BORDER_L = {BORDER_F, PdfCell.NO_BORDER, PdfCell.NO_BORDER, PdfCell.NO_BORDER};
+	public final static float[] BORDER_T = {PdfCell.NO_BORDER, BORDER_F, PdfCell.NO_BORDER, PdfCell.NO_BORDER};
+	public final static float[] BORDER_R = {PdfCell.NO_BORDER, PdfCell.NO_BORDER, BORDER_F, PdfCell.NO_BORDER};	
+	public final static float[] BORDER_B = {PdfCell.NO_BORDER, PdfCell.NO_BORDER, PdfCell.NO_BORDER, BORDER_F};
+	
+	public final static float[] BORDER_LT = {BORDER_F, BORDER_F, PdfCell.NO_BORDER, PdfCell.NO_BORDER};
+	public final static float[] BORDER_LR = {BORDER_F, PdfCell.NO_BORDER, BORDER_F, PdfCell.NO_BORDER};
+	public final static float[] BORDER_LB = {BORDER_F, PdfCell.NO_BORDER, PdfCell.NO_BORDER, BORDER_F};
+	public final static float[] BORDER_TR = {PdfCell.NO_BORDER, BORDER_F, BORDER_F, PdfCell.NO_BORDER};
+	public final static float[] BORDER_TB = {PdfCell.NO_BORDER, BORDER_F, PdfCell.NO_BORDER, BORDER_F};
+	public final static float[] BORDER_RB = {PdfCell.NO_BORDER, PdfCell.NO_BORDER, BORDER_F, BORDER_F};
+	
+	public final static float[] BORDER_LTR = {BORDER_F, BORDER_F, BORDER_F, PdfCell.NO_BORDER};
+	public final static float[] BORDER_LTB = {BORDER_F, BORDER_F, PdfCell.NO_BORDER, BORDER_F};
+	public final static float[] BORDER_TRB = {PdfCell.NO_BORDER, BORDER_F, BORDER_F, BORDER_F};
+	public final static float[] BORDER_RBL = {BORDER_F, PdfCell.NO_BORDER, BORDER_F, BORDER_F};
+	
+	public final static float[] ALL_BORDER = {BORDER_F, BORDER_F, BORDER_F, BORDER_F};
+	public final static float[] NON_BORDER = {PdfCell.NO_BORDER, PdfCell.NO_BORDER, PdfCell.NO_BORDER, PdfCell.NO_BORDER};
+
+	
+	public final static String CELESTE1 = "#E3EBF2";
+	public final static String GRAY1 = "#EFEFEF";
+	public final static String GRAY2 = "#FAFAFA";
+	public final static String GRAY3 = "#D7D7D7";
+	public final static String GRAY4 = "#444444";
+	public final static String BLANCO = "#FFFFFF";	
+	
+	/**
+	 * Metodo que permite obtener un estilo de fuente
+	 * @param varStyle
+	 * @return
+	 */
+	public static Font getStyle(String varStyle) {
+
+		// definir tipo de estilo de fuente
+		Font fontStyle = null;
+		
+		// obtener valores 
+		String[] valores = varStyle.split("@");
+		int family = Integer.parseInt(valores[0]);
+		int size = Integer.parseInt(valores[1]);
+		int style = Integer.parseInt(valores[2]);
+
+		//definir fuente
+		fontStyle = new Font(family, size, style);
+		
+		// retornar objeto de estilo de fuente
+		return fontStyle;
+	}
+	
+	/**
+	 * Metodo que permite crear un registro
+	 * @param data: arreglo con los dalores de un registro {value, colspan, rowspan, backgroundColor, horizontalAlign}
+	 * @param table: objeto PdfPTable
+	 * @param indBorder: indicador de borde (2:BORDER2, 1:BORDER, 0:NO_BORDER)
+	 * @param fontStyle: estilo de texto de la celda
+	 * @param minimumHeight: alto minimo de la celda
+	 * @return
+	 */
+	public static void creaRow(PdfPTable table, 
+							   String[][] data,								  
+							   float borderWidth, 
+							   String fontStyle,
+							   int minimumHeight) {
+		
+		// iterar elementos
+		for(int k = 0; k < data.length; k++){
+
+			// definir objeto PdfPCelda
+			PdfPCell celda = null;
+			
+			// crear celda						
+			celda = new PdfPCell(new Paragraph(data[k][0], getStyle(fontStyle)));
+				
+			// aplicar colspan
+			celda.setColspan(Integer.parseInt(data[k][1]));
+			
+			// aplicar rowspan
+			celda.setRowspan(Integer.parseInt(data[k][2]));
+				
+			// definir ancho de borde
+			celda.setBorderWidthLeft(borderWidth);
+			celda.setBorderWidthTop(borderWidth);
+			celda.setBorderWidthRight(borderWidth);
+			celda.setBorderWidthBottom(borderWidth);
+
+			// definir color de borde
+			celda.setBorderColor(WebColors.getRGBColor(GRAY4));
+			
+			// definir color
+			celda.setBackgroundColor(WebColors.getRGBColor(data[k][3]));
+			
+			// definir alineacion horizontal
+			celda.setHorizontalAlignment(Integer.parseInt(data[k][4]));
+			
+			// definir alinacion vertical
+			celda.setVerticalAlignment(PdfPCell.ALIGN_MIDDLE);
+			
+			// definir alto minimo de celda
+			celda.setMinimumHeight(minimumHeight);
+			
+			// definir espacio entre contenido y celda
+			celda.setPadding(2);
+			
+			// cargar celda en tabla
+			table.addCell(celda);
+		
+		}
+
+	}
+	
+	/**
+	 * Metodo que permite crear una celda
+	 * @param table
+	 * @param value
+	 * @param fontStyle
+	 * @param borderWidth
+	 * @param horizontalAlign
+	 * @param verticalAlign
+	 * @param minHeight
+	 * @param bgColor
+	 */
+	public static void creaCell(PdfPTable table, 
+								String value, 
+								String fontStyle,
+								float[] borderWidth,
+								int horizontalAlign,
+								int verticalAlign,
+								int minHeight,
+								String bgColor,
+								int colspan,
+								int rowspan){
+		
+		PdfPCell celda = new PdfPCell(new Paragraph(value, getStyle(fontStyle)));
+		celda.setBorderWidthLeft(borderWidth[0]);
+		celda.setBorderWidthTop(borderWidth[1]);
+		celda.setBorderWidthRight(borderWidth[2]);
+		celda.setBorderWidthBottom(borderWidth[3]);
+		celda.setHorizontalAlignment(horizontalAlign);
+		celda.setVerticalAlignment(verticalAlign);
+		celda.setMinimumHeight(minHeight);
+		celda.setBackgroundColor(WebColors.getRGBColor(bgColor));
+		celda.setColspan(colspan);
+		celda.setRowspan(rowspan);
+		table.addCell(celda);
+		
+	}
+	
+	/**
+	 * Metodo que permite crear una celda
+	 * @param table
+	 * @param value
+	 * @param fontStyle
+	 * @param borderWidth
+	 * @param horizontalAlign
+	 * @param verticalAlign
+	 * @param minHeight
+	 * @param bgColor
+	 */
+	public static void creaCell(PdfPTable table, 
+								Image img, 
+								float[] borderWidth,
+								int horizontalAlign,
+								int verticalAlign,
+								int minHeight,
+								String bgColor,
+								int colspan,
+								int rowspan){
+		
+		PdfPCell celda = new PdfPCell(img, true);
+		celda.setBorderWidthLeft(borderWidth[0]);
+		celda.setBorderWidthTop(borderWidth[1]);
+		celda.setBorderWidthRight(borderWidth[2]);
+		celda.setBorderWidthBottom(borderWidth[3]);
+		celda.setHorizontalAlignment(horizontalAlign);
+		celda.setVerticalAlignment(verticalAlign);
+		celda.setMinimumHeight(minHeight);
+		celda.setBackgroundColor(WebColors.getRGBColor(bgColor));
+		celda.setColspan(colspan);
+		celda.setRowspan(rowspan);
+		table.addCell(celda);
+		
+	}
+	
+	/**
+	 * Metodo que permite crear una celda
+	 * @param table
+	 * @param value
+	 * @param fontStyle
+	 * @param borderWidth
+	 * @param horizontalAlign
+	 * @param verticalAlign
+	 * @param minHeight
+	 * @param bgColor
+	 */
+	public static void creaCell(PdfPTable table, 
+								PdfPTable tab, 
+								float[] borderWidth,
+								int horizontalAlign,
+								int verticalAlign,
+								int minHeight,
+								String bgColor,
+								int colspan,
+								int rowspan){
+		
+		PdfPCell celda = new PdfPCell(tab);
+		celda.setBorderWidthLeft(borderWidth[0]);
+		celda.setBorderWidthTop(borderWidth[1]);
+		celda.setBorderWidthRight(borderWidth[2]);
+		celda.setBorderWidthBottom(borderWidth[3]);
+		celda.setHorizontalAlignment(horizontalAlign);
+		celda.setVerticalAlignment(verticalAlign);
+		celda.setMinimumHeight(minHeight);
+		celda.setBackgroundColor(WebColors.getRGBColor(bgColor));
+		celda.setColspan(colspan);
+		celda.setRowspan(rowspan);
+		table.addCell(celda);
+		
+	}
+	
+	/**
+	 * Metodo que permite crear tabla
+	 * @param column
+	 * @param border
+	 * @param widthPercent
+	 * @param widths
+	 * @param horizontalAlign
+	 * @return
+	 */
+	public static PdfPTable creaTabla(int column,
+									  int border,
+									  int widthPercent,
+									  float[] widths,
+									  int horizontalAlign){
+		
+		//definir tabla
+		PdfPTable tabla = null;
+		
+		try{
+			
+			//configurar tabla
+			tabla = new PdfPTable(column);
+			tabla.getDefaultCell().setBorder(border);
+			tabla.setWidthPercentage(widthPercent);
+			tabla.setWidths(widths);
+			tabla.setHorizontalAlignment(horizontalAlign);
+			
+		}catch(Exception ex){
+			
+			//asignar valor null
+			tabla = null;
+			
+		}
+
+		//retornar tabla
+		return tabla;
+	
+	}
+	
+	/**
+	 * Metodo main
+	 * @param args
+	 */
+	public static void main(String[] args){
+		String estilo = "1@7@1";
+		String[] valores = estilo.split("@");
+		int fontFamily = Integer.parseInt(valores[0]);
+		int fontSize = Integer.parseInt(valores[1]);
+		int fontStyle = Integer.parseInt(valores[2]);
+		System.out.println("fontFamily: " + fontFamily);
+		System.out.println("fontSize: " + fontSize);
+		System.out.println("fontStyle: " + fontStyle);
+	}
+
+}

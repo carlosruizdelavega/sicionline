@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+<<<<<<< .mine
+Built-By: csantos
+Build-Jdk: 1.7.0
+=======
+Built-By: glinares
+Build-Jdk: 1.6.0_45
+>>>>>>> .r8
+Created-By: Maven Integration for Eclipse
+

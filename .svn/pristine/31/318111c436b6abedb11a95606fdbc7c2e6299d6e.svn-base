@@ -1,0 +1,133 @@
+package pe.gob.reniec.actacelebracion.dao.impl;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ActaCelebraDao;
+
+
+@Repository
+public class ActaCelebraDaoImpl implements ActaCelebraDao {
+
+	private static Logger logger = Logger.getLogger(ActaCelebraDaoImpl.class);
+	
+	@Autowired
+    private JdbcTemplate jdbcTemplate;
+		
+	
+	public int registrarTestigo(TestigoBean testigoBean) {
+		logger.info("Inicia metodo registrarTestigo");
+
+		int respInsert = 0;
+		
+		String query = "INSERT INTO IDOACE.ACTM_ACE_TESTIGO\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n" + 
+				" CO_TIPO_DOC_IDENTIDAD,\r\n" + 
+				" NU_DOC_IDENTIDAD,\r\n" + 
+				" DE_PRIMER_APELLIDO,\r\n" + 
+				" DE_SEGUNDO_APELLIDO,\r\n" + 
+				" DE_PRE_NOMBRES,\r\n" + 
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				"?,\r\n" + //CO_TIPO_DOC_IDENTIDAD
+				"?,\r\n" + //NU_DOC_IDENTIDAD
+				"?,\r\n" + //DE_PRIMER_APELLIDO
+				"?,\r\n" + //DE_SEGUNDO_APELLIDO
+				"?,\r\n" + //DE_PRE_NOMBRES
+				"'RRCC',\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		respInsert = jdbcTemplate.update(
+				query,
+				new Object[] { testigoBean.getNuActaCelebracion(),
+						testigoBean.getCoTipoDocIdentidad(),
+						testigoBean.getNuDocIdentidad(),
+						testigoBean.getDePrimerApellido(),
+						testigoBean.getDeSegundoApellido(),
+						testigoBean.getDePreNombres() });
+		
+		return respInsert;
+		
+	}
+
+	
+	public void registrarCelebracion(CelebracionBean celebracionBean) {
+		logger.info("Inicia metodo registrarCelebracion");
+		
+		String query = "INSERT INTO IDOACE.ACTM_ACE\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n" + 
+				" NU_DOC_CELEBRANTE,\r\n" + 
+				" DE_CARGO_CELEBRANTE,\r\n" + 
+				" NO_CELEBRANTE,\r\n" + 
+				" FE_EVENTO,\r\n" + 
+				" HO_EVENTO,\r\n" + 
+				" DE_EXPEDIENTE,\r\n" + 
+				" DE_OBSERVACION,\r\n" + 
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				"?,\r\n" + //NU_DOC_CELEBRANTE
+				"?,\r\n" + //DE_CARGO_CELEBRANTE
+				"?,\r\n" + //NO_CELEBRANTE
+				"?,\r\n" + //FE_EVENTO
+				"?,\r\n" + //HO_EVENTO
+				"?,\r\n" + //DE_EXPEDIENTE
+				"?,\r\n" + //DE_OBSERVACION
+				"'RRCC',\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		jdbcTemplate.update(query, new Object[]{
+				celebracionBean.getNuActaCelebracion(),
+				celebracionBean.getNuDocCelebrante(),
+				celebracionBean.getDeCargoCelebrante(),
+				celebracionBean.getNoCelebrante(),
+				celebracionBean.getFeEvento(),
+				celebracionBean.getHoEvento(),
+				celebracionBean.getDeExpediente(),
+				celebracionBean.getDeObservacion()
+	        });
+	}
+
+	
+	public void registrarCelebracionMov(CelebracionBean celebracionBean) {
+		logger.info("Inicia metodo registrarCelebracionMov");
+		
+		String query = "INSERT INTO IDOACE.ACTV_ACE\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n" + 
+				" SE_ACE,\r\n" + 
+				" CO_ACCION,\r\n" + 
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				"(SELECT NVL(MAX(V.SE_ACE),'0') + 1\r\n" + 
+				"FROM IDOACE.ACTV_ACE V\r\n" + 
+				"WHERE V.NU_ACTA_CELEBRACION = ?),\r\n" + //NU_ACTA_CELEBRACION
+				"'01'\r\n" + //CO_ACCION
+				"'RRCC',\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		jdbcTemplate.update(query, new Object[]{
+				celebracionBean.getNuActaCelebracion(),
+				celebracionBean.getNuActaCelebracion()
+	        });
+		
+	}
+
+	
+
+
+}

@@ -1,0 +1,142 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.min.css" />
+		
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/actaCeleb/actaCeleb.js"></script>
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+				
+		<!-- estilos propios -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/estiloGlobal.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+
+	</head>
+
+	<body>
+	
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10"  style="height:103px; margin-top:30px; margin-bottom:40px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>				
+			<div class="span10">
+
+				<!-- ini:content -->			
+				<div class="backContent" style="display:block; width: 800px; height:370px; margin:auto;">
+					
+						<!-- titulo -->
+						<div style="display: block; text-align:center; height:32px;">
+							<span class="titulo01">Men&uacute; principal</span>
+						</div>
+						
+						<!-- linea -->
+						<div style="display:block; height:8px; min-height:8px; border-top:1px solid #E5E5E5;"></div>
+						
+										
+						<div style="display:block; width:800px; height:280px; margin:auto;">
+							<div style="display:block; width:760px; height:200px; margin:auto; margin-top:40px;">
+							
+								
+									<div style="float:left; margin-left:45px; width:674px; height:82px;">
+									<a href="#" onclick="fnRegistrarActa();" style="text-decoration:false; border:0px; float:left;">
+										<div class="btnIcon03" style="border:0px;"></div>
+									</a>
+									
+									<a href="#" onclick="fnCargarActa();" style="text-decoration:false; border:0px; float:left;">
+										<div class="btnIcon04" style="border:0px;"></div>
+									</a>
+									
+									<a href="#" onclick="fnEnviarActa();" style="text-decoration:false; border:0px; float:left;">
+										<div class="btnIcon05" style="border:0px;"></div>
+									</a>
+								</div>
+							
+								<div style="float:left; margin-left:155px; clear:left; width:450px; height:85px;">
+									<a href="#" onclick="fnReporteActa();" style="text-decoration:false; border:0px; float:left;">
+										<div class="btnIcon06" style="border:0px;"></div>
+									</a>
+									
+									<a href="#" onclick="fnActasObservadas();" style="text-decoration:false; border:0px; float:left;">
+										<div class="btnIcon07" style="border:0px;"></div>
+									</a>
+									
+								</div>
+								
+							</div>
+							<div style="display:block; width:400px; height:auto; margin:auto; margin-top:40px; 
+								text-align:center;">
+								<button type="button" class="btn btn-primary" onclick="fnCerrarSesion();">
+									<i class="icon-lock icon-white"></i>
+									&nbsp;Cerrar sesi&oacute;n
+								</button>
+							</div>	
+						</div>
+					
+	
+				</div>
+				<!-- fin:content -->
+										
+			</div>
+			<div class="span1"></div>			
+		</div>
+		
+		<!-- modal -->
+		<div id="dialogAvisos" style="width:750px; display:none;"></div>
+			
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top:30px; margin-bottom: 30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+				
+			</div>
+			<div class="span3"></div>
+		</div>
+		
+	</body>
+
+</html>

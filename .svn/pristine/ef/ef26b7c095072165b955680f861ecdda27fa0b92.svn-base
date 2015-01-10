@@ -1,0 +1,39 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class ImpresionController {
+
+	@RequestMapping("/actaCelebracionPreview.pdf")
+	public ModelAndView MostrarFormuPdfPdf(HttpServletRequest req, 
+										   HttpServletResponse res) throws Exception {
+
+		// recibir parametros
+		String nuCargoRn = req.getParameter("nuCargoRn");
+		String nuCargoMadre = req.getParameter("nuCargoMadre");		
+		
+		// consultar datos de envio (responsable y fechas de emision)
+		//DatosEnvioBean datosEnvioBean = cargoEnvioService.consultarDatosEnvio(nuCargoRn, nuCargoMadre);
+		
+		//consultar muestras biologicas enviadas
+		//List<CargoBean> muestras = cargoEnvioService.consultarMuestrasEnviadas(nuCargoRn);
+		
+		// retorna objeto ModelAndView
+		ModelAndView mv = new ModelAndView("impresionView");
+		//mv.addObject("muestras", muestras);
+		//mv.addObject("datosEnvioBean", datosEnvioBean);
+		mv.addObject("nuCargoRn", nuCargoRn);
+		mv.addObject("nuCargoMadre", nuCargoMadre);
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}	
+	
+}

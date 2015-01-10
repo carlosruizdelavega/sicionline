@@ -1,0 +1,304 @@
+package pe.gob.reniec.actacelebracion.bean;
+ 
+public class UbigeoBean {
+	
+	  private String  coContinente,
+					  noContinente,
+					  coPais,
+					  noPais,
+					  coDepartamento,
+					  noDepartamento,
+					  coProvincia,
+					  noProvincia,
+					  coDistrito,
+					  noDistrito,
+					  coCentroPobladoO,
+					  coCentroPoblado,
+					  deCentroPoblado,
+					  deUbigeo,
+					  deUbigeoDetalle,
+					  coUbigeo,
+					  deUbigeoCaptu,
+					  coPostal,
+					  coRegion,
+					  inReinscripcion,
+					  esUbigeo,
+					  coDeno,
+					  deDeno,
+					  inNacimiento,
+					  inRevocatoria,
+					  deRegion,
+					  feAlta,
+					  feBaja,
+					  deResolAlta,
+					  deResolBaja,
+					  coUbigeoo,
+					  coUbigeom,
+					  inPadronNominal;
+
+	public String getCoContinente() {
+		return coContinente;
+	}
+
+	public void setCoContinente(String coContinente) {
+		this.coContinente = coContinente;
+	}
+
+	public String getNoContinente() {
+		return noContinente;
+	}
+
+	public void setNoContinente(String noContinente) {
+		this.noContinente = noContinente;
+	}
+
+	public String getCoPais() {
+		return coPais;
+	}
+
+	public void setCoPais(String coPais) {
+		this.coPais = coPais;
+	}
+
+	public String getNoPais() {
+		return noPais;
+	}
+
+	public void setNoPais(String noPais) {
+		this.noPais = noPais;
+	}
+
+	public String getCoDepartamento() {
+		return coDepartamento;
+	}
+
+	public void setCoDepartamento(String coDepartamento) {
+		this.coDepartamento = coDepartamento;
+	}
+
+	public String getNoDepartamento() {
+		return noDepartamento;
+	}
+
+	public void setNoDepartamento(String noDepartamento) {
+		this.noDepartamento = noDepartamento;
+	}
+
+	public String getCoProvincia() {
+		return coProvincia;
+	}
+
+	public void setCoProvincia(String coProvincia) {
+		this.coProvincia = coProvincia;
+	}
+
+	public String getNoProvincia() {
+		return noProvincia;
+	}
+
+	public void setNoProvincia(String noProvincia) {
+		this.noProvincia = noProvincia;
+	}
+
+	public String getCoDistrito() {
+		return coDistrito;
+	}
+
+	public void setCoDistrito(String coDistrito) {
+		this.coDistrito = coDistrito;
+	}
+
+	public String getNoDistrito() {
+		return noDistrito;
+	}
+
+	public void setNoDistrito(String noDistrito) {
+		this.noDistrito = noDistrito;
+	}
+
+	public String getCoCentroPobladoO() {
+		return coCentroPobladoO;
+	}
+
+	public void setCoCentroPobladoO(String coCentroPobladoO) {
+		this.coCentroPobladoO = coCentroPobladoO;
+	}
+
+	public String getCoCentroPoblado() {
+		return coCentroPoblado;
+	}
+
+	public void setCoCentroPoblado(String coCentroPoblado) {
+		this.coCentroPoblado = coCentroPoblado;
+	}
+
+	public String getDeCentroPoblado() {
+		return deCentroPoblado;
+	}
+
+	public void setDeCentroPoblado(String deCentroPoblado) {
+		this.deCentroPoblado = deCentroPoblado;
+	}
+
+	public String getDeUbigeo() {
+		return deUbigeo;
+	}
+
+	public void setDeUbigeo(String deUbigeo) {
+		this.deUbigeo = deUbigeo;
+	}
+
+	public String getDeUbigeoDetalle() {
+		return deUbigeoDetalle;
+	}
+
+	public void setDeUbigeoDetalle(String deUbigeoDetalle) {
+		this.deUbigeoDetalle = deUbigeoDetalle;
+	}
+
+	public String getCoUbigeo() {
+		return coUbigeo;
+	}
+
+	public void setCoUbigeo(String coUbigeo) {
+		this.coUbigeo = coUbigeo;
+	}
+
+	public String getDeUbigeoCaptu() {
+		return deUbigeoCaptu;
+	}
+
+	public void setDeUbigeoCaptu(String deUbigeoCaptu) {
+		this.deUbigeoCaptu = deUbigeoCaptu;
+	}
+
+	public String getCoPostal() {
+		return coPostal;
+	}
+
+	public void setCoPostal(String coPostal) {
+		this.coPostal = coPostal;
+	}
+
+	public String getCoRegion() {
+		return coRegion;
+	}
+
+	public void setCoRegion(String coRegion) {
+		this.coRegion = coRegion;
+	}
+
+	public String getInReinscripcion() {
+		return inReinscripcion;
+	}
+
+	public void setInReinscripcion(String inReinscripcion) {
+		this.inReinscripcion = inReinscripcion;
+	}
+
+	public String getEsUbigeo() {
+		return esUbigeo;
+	}
+
+	public void setEsUbigeo(String esUbigeo) {
+		this.esUbigeo = esUbigeo;
+	}
+
+	public String getCoDeno() {
+		return coDeno;
+	}
+
+	public void setCoDeno(String coDeno) {
+		this.coDeno = coDeno;
+	}
+
+	public String getDeDeno() {
+		return deDeno;
+	}
+
+	public void setDeDeno(String deDeno) {
+		this.deDeno = deDeno;
+	}
+
+	public String getInNacimiento() {
+		return inNacimiento;
+	}
+
+	public void setInNacimiento(String inNacimiento) {
+		this.inNacimiento = inNacimiento;
+	}
+
+	public String getInRevocatoria() {
+		return inRevocatoria;
+	}
+
+	public void setInRevocatoria(String inRevocatoria) {
+		this.inRevocatoria = inRevocatoria;
+	}
+
+	public String getDeRegion() {
+		return deRegion;
+	}
+
+	public void setDeRegion(String deRegion) {
+		this.deRegion = deRegion;
+	}
+
+	public String getFeAlta() {
+		return feAlta;
+	}
+
+	public void setFeAlta(String feAlta) {
+		this.feAlta = feAlta;
+	}
+
+	public String getFeBaja() {
+		return feBaja;
+	}
+
+	public void setFeBaja(String feBaja) {
+		this.feBaja = feBaja;
+	}
+
+	public String getDeResolAlta() {
+		return deResolAlta;
+	}
+
+	public void setDeResolAlta(String deResolAlta) {
+		this.deResolAlta = deResolAlta;
+	}
+
+	public String getDeResolBaja() {
+		return deResolBaja;
+	}
+
+	public void setDeResolBaja(String deResolBaja) {
+		this.deResolBaja = deResolBaja;
+	}
+
+	public String getCoUbigeoo() {
+		return coUbigeoo;
+	}
+
+	public void setCoUbigeoo(String coUbigeoo) {
+		this.coUbigeoo = coUbigeoo;
+	}
+
+	public String getCoUbigeom() {
+		return coUbigeom;
+	}
+
+	public void setCoUbigeom(String coUbigeom) {
+		this.coUbigeom = coUbigeom;
+	}
+
+	public String getInPadronNominal() {
+		return inPadronNominal;
+	}
+
+	public void setInPadronNominal(String inPadronNominal) {
+		this.inPadronNominal = inPadronNominal;
+	}
+
+	
+}

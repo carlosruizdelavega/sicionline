@@ -1,0 +1,205 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+
+public class TestigoBean {
+	
+	private String nuActaCelebracion;
+	private String coTestigo;
+	private String coTipoDocIdentidad;
+	private String deTipoDocIdentidad;
+	private String dePrimerApellido;
+	private String deSegundoApellido;
+	private String dePreNombres;
+	private String nuEdad;
+	private String nuDocIdentidad;
+	private String deDireccion;
+	private String coSexo;
+	private String coNacionalidad;
+	private String coNaturalCont;
+	private String coNaturalPais;
+	private String coNaturalDpto;
+	private String coNaturalProv;
+	private String coNaturalDist;
+	private String coNaturalLoca;
+	private String coDomCont;
+	private String coDomPais;
+	private String coDomDpto;
+	private String coDomProv;
+	private String coDomDist;
+	private String coDomLoca;
+	private String idCrea;
+	private String feCrea;
+	private String idActualiza;
+	private String feActualiza;
+	
+	
+	public String getNuActaCelebracion() {
+		return nuActaCelebracion;
+	}
+	public void setNuActaCelebracion(String nuActaCelebracion) {
+		this.nuActaCelebracion = nuActaCelebracion;
+	}
+	public String getCoTestigo() {
+		return coTestigo;
+	}
+	public void setCoTestigo(String coTestigo) {
+		this.coTestigo = coTestigo;
+	}
+	public String getCoTipoDocIdentidad() {
+		return coTipoDocIdentidad;
+	}
+	public void setCoTipoDocIdentidad(String coTipoDocIdentidad) {
+		this.coTipoDocIdentidad = coTipoDocIdentidad;
+	}
+	public String getDePrimerApellido() {
+		return dePrimerApellido;
+	}
+	public void setDePrimerApellido(String dePrimerApellido) {
+		this.dePrimerApellido = dePrimerApellido;
+	}
+	public String getDeSegundoApellido() {
+		return deSegundoApellido;
+	}
+	public void setDeSegundoApellido(String deSegundoApellido) {
+		this.deSegundoApellido = deSegundoApellido;
+	}
+	public String getDePreNombres() {
+		return dePreNombres;
+	}
+	public void setDePreNombres(String dePreNombres) {
+		this.dePreNombres = dePreNombres;
+	}
+	public String getNuEdad() {
+		return nuEdad;
+	}
+	public void setNuEdad(String nuEdad) {
+		this.nuEdad = nuEdad;
+	}
+	public String getNuDocIdentidad() {
+		return nuDocIdentidad;
+	}
+	public void setNuDocIdentidad(String nuDocIdentidad) {
+		this.nuDocIdentidad = nuDocIdentidad;
+	}
+	public String getDeDireccion() {
+		return deDireccion;
+	}
+	public void setDeDireccion(String deDireccion) {
+		this.deDireccion = deDireccion;
+	}
+	public String getCoSexo() {
+		return coSexo;
+	}
+	public void setCoSexo(String coSexo) {
+		this.coSexo = coSexo;
+	}
+	public String getCoNacionalidad() {
+		return coNacionalidad;
+	}
+	public void setCoNacionalidad(String coNacionalidad) {
+		this.coNacionalidad = coNacionalidad;
+	}
+	public String getCoNaturalCont() {
+		return coNaturalCont;
+	}
+	public void setCoNaturalCont(String coNaturalCont) {
+		this.coNaturalCont = coNaturalCont;
+	}
+	public String getCoNaturalPais() {
+		return coNaturalPais;
+	}
+	public void setCoNaturalPais(String coNaturalPais) {
+		this.coNaturalPais = coNaturalPais;
+	}
+	public String getCoNaturalDpto() {
+		return coNaturalDpto;
+	}
+	public void setCoNaturalDpto(String coNaturalDpto) {
+		this.coNaturalDpto = coNaturalDpto;
+	}
+	public String getCoNaturalProv() {
+		return coNaturalProv;
+	}
+	public void setCoNaturalProv(String coNaturalProv) {
+		this.coNaturalProv = coNaturalProv;
+	}
+	public String getCoNaturalDist() {
+		return coNaturalDist;
+	}
+	public void setCoNaturalDist(String coNaturalDist) {
+		this.coNaturalDist = coNaturalDist;
+	}
+	public String getCoNaturalLoca() {
+		return coNaturalLoca;
+	}
+	public void setCoNaturalLoca(String coNaturalLoca) {
+		this.coNaturalLoca = coNaturalLoca;
+	}
+	public String getCoDomCont() {
+		return coDomCont;
+	}
+	public void setCoDomCont(String coDomCont) {
+		this.coDomCont = coDomCont;
+	}
+	public String getCoDomPais() {
+		return coDomPais;
+	}
+	public void setCoDomPais(String coDomPais) {
+		this.coDomPais = coDomPais;
+	}
+	public String getCoDomDpto() {
+		return coDomDpto;
+	}
+	public void setCoDomDpto(String coDomDpto) {
+		this.coDomDpto = coDomDpto;
+	}
+	public String getCoDomProv() {
+		return coDomProv;
+	}
+	public void setCoDomProv(String coDomProv) {
+		this.coDomProv = coDomProv;
+	}
+	public String getCoDomDist() {
+		return coDomDist;
+	}
+	public void setCoDomDist(String coDomDist) {
+		this.coDomDist = coDomDist;
+	}
+	public String getCoDomLoca() {
+		return coDomLoca;
+	}
+	public void setCoDomLoca(String coDomLoca) {
+		this.coDomLoca = coDomLoca;
+	}
+	public String getIdCrea() {
+		return idCrea;
+	}
+	public void setIdCrea(String idCrea) {
+		this.idCrea = idCrea;
+	}
+	public String getFeCrea() {
+		return feCrea;
+	}
+	public void setFeCrea(String feCrea) {
+		this.feCrea = feCrea;
+	}
+	public String getIdActualiza() {
+		return idActualiza;
+	}
+	public void setIdActualiza(String idActualiza) {
+		this.idActualiza = idActualiza;
+	}
+	public String getFeActualiza() {
+		return feActualiza;
+	}
+	public void setFeActualiza(String feActualiza) {
+		this.feActualiza = feActualiza;
+	}
+	public String getDeTipoDocIdentidad() {
+		return deTipoDocIdentidad;
+	}
+	public void setDeTipoDocIdentidad(String deTipoDocIdentidad) {
+		this.deTipoDocIdentidad = deTipoDocIdentidad;
+	}
+
+}

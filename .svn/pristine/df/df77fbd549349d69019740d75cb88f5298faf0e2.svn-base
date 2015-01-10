@@ -1,0 +1,563 @@
+
+
+$(document).ready(function(){
+
+	$("#txtUser").focus();
+	$(function() {
+		$("#tabs").tabs();
+	});
+	
+	 /*$(function() {
+			$("#btnImprimirActa").button.click(function(){
+				var confirmar=confirm("Imprimio Correctamente");
+			});
+			  
+	});*/
+	//Carga valores por defecto
+	//loadValuesDefault();
+});
+
+function fnRegistrarActa(){
+	window.location.href = "cargarRegistroActa.htm";
+}
+
+function fnEditarActa(){
+	
+	window.location.href="editarActa01.htm";
+}
+
+function fnCargarActa(){
+	
+	window.location.href="cargarActa.htm";
+	
+}
+
+function fnEnviarActa(){
+	
+	window.location.href="enviarActa.htm";
+	
+}
+
+function fnReporteActa(){
+	
+	window.location.href="consultaReporte.htm";
+	
+}
+
+
+function fnActasObservadas(){
+	
+	window.location.href="actasObservadas.htm";
+	
+}
+
+
+
+function fnProcesamientoActa(){
+	
+	window.location.href="asignacionActa.htm";
+}
+
+
+
+function fnBuscarCiudadano() {
+	
+	//carga modal
+	var title = "Verificar Ciudadano";
+	
+	
+	
+	$("#dialogVerificarCiudadano").dialog({
+		autoOpen:true,
+		width: 600,
+		height:240,
+	    modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  /*	    
+	  	buttons : {
+				
+		/*		"Cancelar" : function() {
+					
+				$(this).dialog("close");
+				}
+		},
+	
+  	    
+			close : function() {
+				
+				$(this).dialog("close");
+			}*/	
+	
+		});		
+}
+
+function fnVerificarCiudadano(){
+	
+}
+function fnEditarActa(){
+	window.location.href='editarActa02.htm';
+}
+function fnAnularActa(){
+	
+	//carga modal
+	var title = "Anulación del Acta de Celebración";
+
+		
+		$("#AnularActa").dialog({
+			autoOpen:true,
+			 width:500,
+	  	     height:320,
+	  	     modal: true,
+			 resizable: false,
+			 title: title,
+			 closeText: "Cerrar",
+			 /*
+			 close : function() {
+					
+					$(this).dialog("close");
+				}*/
+		});
+}
+function fnRealizarAnularActa(){
+	window.location.href='editarActa01.htm';
+}
+function fnDetalleActObs(){
+	//carga modal
+	var title = "Detalle de Observación del Acta de Celebración";
+	
+	$("#DetalleActObs").dialog({
+		autoOpen:true,
+		width:500,
+		height:364,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  	    /*
+	  	  buttons : {
+				
+	  		  	
+				"Editar" : function() {
+					
+					$(this).dialog("close");
+				},
+	
+				"Anular" : function() {
+					
+				$(this).dialog("close");
+				
+				}
+			},
+			*/
+		});
+	
+}
+function fnCargoAutoridad(){
+		$('#busox1, #busox2').hide();
+		fnlimpiarCargoAutoridad();
+		$('#busox' + $('#CargoAutoridadCelebrante').find('option:selected').attr('id')).show();	
+}
+function fnlimpiarCargoAutoridad(){
+	$("#autoridadCelebrante").val('');
+	
+}
+function fnRenombrarActa(){
+	
+	//carga modal
+	var title = "Validación de Código de Barras";
+	
+	$("#validacionCodigo").dialog({
+		autoOpen:true,
+		width:600,
+		height:340,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  /*	    
+	  	   buttons: {
+	        "Actualizar": function() {
+	        	$(this).dialog("close");
+	        	guardarOrec();
+	        },
+	        "Cancelar": function() {
+	        	$(this).dialog("close");
+	        }
+	      },
+*/		
+			close : function() {
+				
+				$(this).dialog("close");
+			}
+		
+		});
+	
+}
+
+function fncargarActa(){
+	
+	//carga modal
+	var title = "Actas seleccionadas";
+	
+	$("#actasSeleccionadas").dialog({
+		autoOpen:true,
+		width:600,
+		height:310,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  /*	    
+	  	   buttons: {
+	        "Actualizar": function() {
+	        	$(this).dialog("close");
+	        	guardarOrec();
+	        },
+	        "Cancelar": function() {
+	        	$(this).dialog("close");
+	        }
+	      },
+*/		
+			close : function() {
+				
+				$(this).dialog("close");
+			}
+		
+		});
+	
+}
+function fnFecha(){
+	
+//define variables
+var monthNamesShort = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+var dayNames = [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ];
+var dayNamesMin = [ "Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab" ];	
+	
+//carga fechas iniciales
+$("#feInicio").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      monthNamesShort: monthNamesShort,
+      dayNames: dayNames,
+      dayNamesMin: dayNamesMin,
+      dateFormat: "dd/mm/yy",
+      onSelect: function(selected) {
+    	  $("#feFin").datepicker("option","minDate",selected);
+	  }
+});
+
+//carga fechas finales
+$("#feFin").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      monthNamesShort: monthNamesShort, 
+      dayNames: dayNames, 
+      dayNamesMin: dayNamesMin,	
+      dateFormat: "dd/mm/yy"
+});	
+}
+
+/**
+ * Funcion que permite consultar actas desde el modulo de consultas y reportes
+ */
+
+function fnBuscarActaReporte(){
+	
+	//define variables
+	var feInicio="";
+	var feFin="";
+	
+	
+			
+			
+	if($("#feInicio").val()=="" && $("#feFin").val()==""){
+		cAlert("Debe ingresar el intervalo de fechas","feInicio","0");
+        return;
+	}
+	
+
+	if($("#feInicio").val()!=""){
+		if($("#feFin").val()==""){
+			cAlert("Debe ingresar la Fecha de Fin","feFin","0");
+	        return;
+		}
+		/*
+		else{
+			var fecInicioSf = $("#feInicio").val().split('/');				
+			fecInicio = fecInicioSf[2] + fecInicioSf[1] + fecInicioSf[0];
+			
+			var fecFinsf = $("#feFin").val().split('/');
+			fecFin = fecFinsf[2] + fecFinsf[1] + fecFinsf[0];
+		}	*/		
+	}
+	
+	if($("#feFin").val()!=""){
+		if($("#feInicio").val()==""){
+			cAlert("Debe ingresar la Fecha de Inicio","feInicio","0");
+	        return;	
+		}
+/*		else{
+			var fecInicioSf = $("#feInicio").val().split('/');				
+			fecInicio = fecInicioSf[2] + fecInicioSf[1] + fecInicioSf[0];
+			
+			var fecFinsf = $("#feFin").val().split('/');
+			fecFin = fecFinsf[2] + fecFinsf[1] + fecFinsf[0];
+		}*/			
+	}
+	
+			
+	
+	
+		
+	//consulta datos del reporte
+	var parametros = {
+			connect:{
+        		url: "verRepActas.htm",
+                type: "POST" 
+    		},
+			data:{
+		 
+		    	feInicio:feInicio,
+		    	feFin:feFin
+			}
+	};	
+    cRequestAjax(parametros, function(response){
+    	
+    	//verifica respuesta
+    	if(response==""){
+    		
+    		//muestra mensaje que no se encontraron datos
+    		cAlert("No se encontraron registros", null,"0");
+            return;
+            
+        }else{
+        	
+  
+        	//Carga listaActa.jsp en divlistaActas (consultaReporte.jsp)
+        	$("#divlistaActas").html(response);
+        	$("#divlistaActas").show("slow");
+        	
+        	//recibe cantidad de registros
+        	//var cantReg = $("#cantidadRepActas").val();
+        	var cantReg = $("#cantidadListaActas").val(2);
+        	
+        	$('#divPagListaActas').smartpaginator({
+                totalrecords: cantReg,
+                recordsperpage: 8,
+                datacontainer: 'listaActas',
+                dataelement: 'tbody tr',
+                initval: 0,
+                //next: 'Sgte',
+                go:'Ir',
+                //prev: 'Prev',
+                //first: '<<',
+                //last: '>>',
+                theme: 'custom'
+             });
+        	
+        }       
+    });
+}
+
+/**
+ * Funcion que permite consultar actas desde el modulo de Acta de Celebracion - Edicion Acta
+ */
+function fnBuscarActa(){
+	
+	//define variables
+	var primerApellido="";
+	var segundoApellido="";
+	var preNombres="";
+	var nroActaCeleb="";
+	
+	
+	if(($("#primerApellido").val()=="" && $("#segundoApellido").val()=="" && $("#preNombres").val()=="")&&($("#nroActaCeleb").val()=="")){
+		cAlert("Debe ingresar los datos del contrayente o el Numero de Acta de celebracion","primerApellido","0");
+        return;
+	}
+	
+	if($("#primerApellido").val()!="" ){
+		if($("#segundoApellido").val()==""){
+			cAlert("Debe ingresar el segundo apellido del contrayente","segundoApellido","0");
+	        return;
+		}else if($("#preNombres").val()==""){
+				cAlert("Debe ingresar los nombres del contrayente","preNombres","0");
+				return;
+				}
+	}
+	
+	if($("#segundoApellido").val()!="" ){
+		if($("#primerApellido").val()==""){
+			cAlert("Debe ingresar el primer apellido del contrayente","segundoApellido","0");
+	        return;
+		}else if($("#preNombres").val()==""){
+				cAlert("Debe ingresar los nombres del contrayente","preNombres","0");
+				return;
+				}
+	}
+	
+	if($("#preNombres").val()!="" ){
+		if($("#primerApellido").val()==""){
+			cAlert("Debe ingresar el primer apellido del contrayente","primerApellido","0");
+	        return;
+		}else if($("#segundoApellido").val()==""){
+				cAlert("Debe ingresar el segundo apellido del contrayente","segundoApellido","0");
+				return;
+				}
+	}
+	
+	//consulta datos del reporte
+	var parametros = {
+			connect:{
+        		url: "buscarActa.htm",
+                type: "POST" 
+    		},
+			data:{
+				primerApellido:primerApellido,
+		    	segundoApellido:segundoApellido,
+		    	preNombres:preNombres,
+		    	nroActaCeleb:nroActaCeleb,
+			}
+	};	
+    cRequestAjax(parametros, function(response){
+    	
+    	//verifica respuesta
+    	if(response==""){
+    		
+    		//muestra mensaje que no se encontraron datos
+    		cAlert("No se encontraron registros", null,"0");
+            return;
+            
+        }else{
+        	
+  
+        	//carga html de respuesta en div
+        	$("#divbuscaActa").html(response);
+        	$("#divbuscaActa").show("slow");
+        	
+        	//recibe cantidad de registros
+        	//var cantReg = $("#cantidadRepActas").val();
+        	//var cantReg = $("#cantidadListaActas").val(2);
+        	/*
+        	$('#divPagListaActas').smartpaginator({
+                totalrecords: cantReg,
+                recordsperpage: 10,
+                datacontainer: 'listaActas',
+                dataelement: 'tbody tr',
+                initval: 0,
+                //next: 'Sgte',
+                go:'Ir',
+                //prev: 'Prev',
+                //first: '<<',
+                //last: '>>',
+                theme: 'custom'
+             });*/
+        	
+        }       
+    });
+ 	
+}
+
+
+
+function fnRegistrarTestigo(){
+	
+	var nuActaCelebra = "1000000035";
+	var tiDocumentoPT = $("#cboTipoDocumentoPT").val();
+	var nuDocumentoPT = $("#txtNroDocumentoPT").val();
+	var primerApellidoPT = $("#txtPrimerApellidoPT").val();
+	var segundoApellidoPT = $("#txtSegundoApellidoPT").val();
+	var preNombresPT = $("#txtPreNombresPT").val();
+	var tiDocumentoST = $("#cboTipoDocumentoST").val();
+	var nuDocumentoST = $("#txtNroDocumentoST").val();
+	var primerApellidoST = $("#txtPrimerApellidoST").val();
+	var segundoApellidoST = $("#txtSegundoApellidoST").val();
+	var preNombresST = $("#txtPreNombresST").val();
+	
+	var parametros = {
+    		connect:{
+        		url: "registrarTestigo.htm",
+                type: "POST"
+    		},
+    		data:{
+    			nuActaCelebra:nuActaCelebra,
+    			tiDocumentoPT:tiDocumentoPT,
+    			nuDocumentoPT:nuDocumentoPT,
+    			primerApellidoPT:primerApellidoPT,
+    			segundoApellidoPT:segundoApellidoPT,
+    			preNombresPT:preNombresPT,
+    			tiDocumentoST:tiDocumentoST,
+    			nuDocumentoST:nuDocumentoST,
+    			primerApellidoST:primerApellidoST,
+    			segundoApellidoST:segundoApellidoST,
+    			preNombresST:preNombresST
+    		}
+     };
+	
+	cRequestAjax(parametros, function(response){
+		var data="";
+		if(response == "01"){
+        	data = "Los testigos han sido registrados";
+        	cAlert(data, null,"0");
+        }else{
+        	data = "Los testigos no han sido registrados";
+        	cAlert(data, null,"0");
+        }
+	});
+}
+
+function fnActualizarCelebracion(){
+	
+	var nuActaCelebra = "1000000035";
+	var nroDniAC = $("#txtNroDniAC").val();
+	var desCargoAC = $("#txtDesCargoAC").val();
+	var primerApellidoAC = $("#txtPrimerApellidoAC").val();
+	var segundoApellidoAC = $("#txtSegundoApellidoAC").val();
+	var preNombresAC = $("#txtPreNombresAC").val();
+	var diaCelebracion = $("#cmbDiaCelebracion").val();
+	var mesCelebracion = $("#cmbMesCelebracion").val();
+	var anioCelebracion = $("#txtAnioCelebracion").val();
+	var horaEvento = $("#txtHoraEvento").val();
+	var minutosEvento = $("#txtMinutosEvento").val();
+	var nroExpediente = $("#txtNroExpediente").val();
+	var observacionesActa = $("textarea#txaObservacionesActa").val();
+	
+	var parametros = {
+    		connect:{
+        		url: "registrarCelebracion.htm",
+                type: "POST"
+    		},
+    		data:{
+    			nuActaCelebra:nuActaCelebra,
+    			nroDniAC:nroDniAC,
+    			desCargoAC:desCargoAC,
+    			primerApellidoAC:primerApellidoAC,
+    			segundoApellidoAC:segundoApellidoAC,
+    			preNombresAC:preNombresAC,
+    			diaCelebracion:diaCelebracion,
+    			mesCelebracion:mesCelebracion,
+    			anioCelebracion:anioCelebracion,
+    			horaEvento:horaEvento,
+    			minutosEvento:minutosEvento,
+    			nroExpediente:nroExpediente,
+    			observacionesActa:observacionesActa
+    		}
+     };
+	
+	cRequestAjax(parametros, function(response){
+		var data="";
+		alert("response:"+response);
+		
+		if(response == "1"){
+        	data = "Los datos de celebraci&oacute;n han sido registrados";
+        	cAlert(data, null,"0");
+        }else{
+        	data = "Los datos de celebraci&oacute;n no han sido registrados";
+        	cAlert(data, null,"0");
+        }
+	});
+	
+
+}

@@ -1,0 +1,30 @@
+<%@include file="/jsp/include/taglibs.jsp"%>  
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<form id="formAnularActa" name="formAnularActa" class="formModal">
+	<div class="backContentDialog" style="text-align: center;margin-top:10px">
+		<fieldset >
+			 <table>
+			    <tr>
+				 	<td style="padding-right:45px"><label><small  style=" font-size: 13px; font-weight: bold;">Debe seleccionar un motivo para anulaci&oacute;n del acta</small></label></td>
+				 </tr>	
+				 <tr>
+				 	<td style="padding-left:25px"><Select id="motivAnulacion" style="width:400px"><option id="1" value="01">Seleccione Motivo</option></Select></td>
+				 </tr>
+				 
+				 <tr>
+				 	<td style="padding-right:180px"><label><small  style=" font-size: 13px; font-weight: bold;">Detalle de motivo de Anulación</small></label></td>
+				 </tr>
+				 
+				 <tr>
+				 	<td style="padding-left:25px"><textarea style="width:390px"></textarea></td>
+				 </tr>
+			 </table>
+		 </fieldset>
+	</div>
+	<button style="margin-left:150px;margin-top:20px" onclick="fnRealizarAnularActa();" class="btn btn-small btn-info" type="button">
+									<i class="icon-remove icon-white"></i>
+									&nbsp;Realizar Anulaci&oacute;n
+	</button>
+</form>

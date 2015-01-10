@@ -1,0 +1,34 @@
+package pe.gob.reniec.actacelebracion.bean;
+ 
+public class TipoNacionalidadBean {
+	
+	private String  coNacionalidad,
+					deNacionalidad,
+					esNacionalidad;
+
+	public String getCoNacionalidad() {
+		return coNacionalidad;
+	}
+
+	public void setCoNacionalidad(String coNacionalidad) {
+		this.coNacionalidad = coNacionalidad;
+	}
+
+	public String getDeNacionalidad() {
+		return deNacionalidad;
+	}
+
+	public void setDeNacionalidad(String deNacionalidad) {
+		this.deNacionalidad = deNacionalidad;
+	}
+
+	public String getEsNacionalidad() {
+		return esNacionalidad;
+	}
+
+	public void setEsNacionalidad(String esNacionalidad) {
+		this.esNacionalidad = esNacionalidad;
+	}
+	
+
+}

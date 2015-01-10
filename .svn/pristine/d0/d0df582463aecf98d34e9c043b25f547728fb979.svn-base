@@ -1,0 +1,36 @@
+
+<%@include file="/jsp/include/taglibs.jsp"%>   
+
+<!-- Validacion de codigo de barras -->
+<form id="formvalidCodigoBarr" name="formvalidCodigoBarr" class="formModal">	
+	<div class="backContentDialog" style="text-align: center;margin-top:24px" >
+		<fieldset>
+			<div> 
+				<label><small  style=" font-size: 13px; font-weight: bold;">No se encuentra registros asociados para el C&oacute;digo de Barras del Acta de Celebraci&oacute;n</small></label>
+			</div>
+			
+				<table style="width:406px; height:112px;margin-left:100px;margin-top:15px">
+				<tr>
+					<td width="139" rowspan="3" bgcolor="#EEEEEE">
+					<td height="35"><label><small  style=" font-size: 11px; font-weight: bold;">C&oacute;digo de Barras reconocido</small></label></td>                 
+				</tr>
+				
+				<tr>
+					<td height="33"><input type="text" /></td>
+				</tr>
+				
+				 <tr>
+					<td></td>
+				</tr>
+			</table>
+		
+				<button  id="btnActualizar" class="btn btn-small btn-info"  style="margin-top:25px " >
+					 <i class="icon-refresh icon-white"></i>&nbsp;Actualizar 
+				 </button>	
+				 				  
+				<button id="btnCancelar" class="btn btn-small btn-info" style="margin-left:20px;margin-top:25px" >
+					<i class="icon-remove icon-white"></i>&nbsp;Cancelar
+				</button>
+		</fieldset>	
+	</div>
+</form>	

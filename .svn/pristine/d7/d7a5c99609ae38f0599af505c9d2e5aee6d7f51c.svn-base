@@ -1,0 +1,861 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Registro de Acta</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.css" />
+		
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="${ruta}/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+		<script type="text/javascript" src="${ruta}/js/avisosDep/avisosDep.js"></script>
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/actaCeleb/actaCeleb.js"></script>			
+		<script type="text/javascript" src="${ruta}/js/utilitarios/validacionUtil.js"></script>
+				
+		<!-- estilos propios -->
+		
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/resultadoVerificacion.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+
+		<!-- icon -->
+		<link rel="shortcut icon" href="./images/favicon.ico"></link>
+	
+		</head>
+	
+	<body >
+	
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10" style="height:120px; margin-top:10px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+						
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+	
+		<!-- menu -->
+		<div class="row-fluid">
+			<div class="span1"></div>		
+			<div class="span10" style="margin-top: 10px;">
+				<!-- ini: barra de menu -->
+			    <div class="navbar">
+				    <div class="navbar-inner">
+					    <div class="container">
+					        
+						    <!-- titulo -->
+						    <a class="brand" href="#">Acta de Celebración</a>
+						    <!-- links de navegacion -->
+							<ul class="nav">
+								<li class="dropdown active">								
+									<a href="#" onclick="window.location.href='registrarActa.htm';"  class="dropdown-toggle" data-toggle="dropdown">
+										Registro de Acta
+									</a>
+								</li >
+													
+								<li>
+									<a href="#" onclick="window.location.href='editarActa01.htm';">Edición de Acta</a>
+								</li>
+							</ul>
+	
+						    <!-- links adicionales -->
+							<ul class="nav pull-right" style="margin-right:-12px;">
+								<li>
+									<button type="button" class="btn btn-small btn-info" style="margin-top:7px;" 
+										onclick="window.location.href='inicioSistema.htm';">
+										<i class="icon-home icon-white"></i>&nbsp;&nbsp;
+										Men&uacute; principal
+									</button>
+								</li>
+								<li class="divider-vertical"></li>
+								<li>
+									<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" 
+										onclick="fnCerrarSesion();">
+										<i class="icon-lock icon-white"></i>&nbsp;&nbsp;
+										Cerrar sesi&oacute;n
+									</button>
+								</li>
+							</ul>						     
+						    
+					    </div>
+				    </div>
+			    </div>
+	   			<!-- fin: barra de menu -->
+			</div>
+			<div class="span1"></div>			
+		</div>
+	
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>				
+			<div class="span10">
+				<div class="backContent" style="display:block;width:auto; height:auto; padding:5px;">
+						
+								<!-- ini: formulario de filtro -->
+							    <div class="contenedorForm" style="">
+								    <form id="registraActa" >
+									    
+									    <!-- titulo -->
+										<div style="display: block; height:32px; margin-top: 15px;margin-left:35px">
+											<span class="titulo02">Registro de Acta - Datos del Acta de Celebración</span>
+											
+										</div>
+										
+										<!-- linea -->
+										<div style="display:block; height:20px;  border-top:1px solid #E5E5E5;width: 978px ; margin-left:35px  ">
+										</div>									    
+										
+										<!-- Numero de acta -->
+										<div style="display: block; height:32px; margin-left: 600px;  ">
+												<span class="etiqueta03" style="margin-left:15px">Nro. de Acta de Celebraci&oacute;n</span>
+												<input id="nroActaCelebracion" type="text" style=" text-align:center" maxlength="20" value="1000007895" />
+										</div>
+									
+										<!-- Tabs -->
+										<div id="tabs" style="" class="tabs"  >
+											<ul style=" ">
+												<li><a href="#tabs-1" style="background-color:#F5F5F5;border-bottom:1px solid #F5F5F5">Datos de los Contrayentes</a></li>
+												<li><a href="#tabs-2" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">Datos de los Testigos</a></li>
+												<li><a href="#tabs-3" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">Datos de Celebración</a></li>
+												<li><a href="#tabs-4" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">Vista Previa</a></li>
+											</ul>
+										
+											<div  id="tabs-1" style="background-color:#F5F5F5; border:1px solid #000000;border-top:0px" >
+												<div style="margin-left:-30px ">
+													<table>
+														<tr>
+															<td>
+																<!-- Primer contrayente  -->
+																<div class="contenedorForm02" style="float:left; clear:left; border:1px solid #555555">
+																			    
+																    <div style="float:left; clear:left;">
+																    	<!-- titulo -->
+																		<div style="display: block; height:32px; margin-top: 10px;margin-left:-18px">
+																			<span class="titulo03">Primer Contrayente (Hombre)</span>
+																		</div>
+																		<!-- linea -->
+																		<div style="display:block; height:30px;border-top:1px solid #ccc; margin-left:-18px">
+																		</div>
+																	</div>
+																				
+																    <div>
+																    	<div style="float:left; clear:left;  margin-left:-18px; margin-top:-10px; margin-bottom:15px">
+																	   		 <label><small  style=" font-size: 11px; font-weight: bold;">Tipo de documento</small></label>
+																			<select id="tipoDocumento" style=" width: 150px" >
+																				<option id="1" value="01" >Seleccione tipo</option>
+																				<option id="2" value="02 " selected="selected" >DNI</option>
+																				<option id="3" value="03" >L.E.</option>
+																				<option id="4" value="04">D.I. EXTRANJERO</option>
+																			</select>
+																		</div>
+																		
+																		<div style="float:left; clear:left;  margin-left:140px; margin-top:-79px; margin-bottom:15px">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Nro. Documento</small></label>
+																			<input id="nroDocumento" type="text" style="width: 100px;text-align:center" maxlength="20" value="20457856"/>
+																			<button  onclick="fnBuscarCiudadano();" style="margin-top:-9px;" class="btn btn-small btn-info" type="button" >
+																				<i class="icon-search icon-white"></i>
+																				&nbsp;Buscar
+																			</button>
+																		</div>
+																  	</div>		
+																		  																			
+																	<div style="float:left; clear:left; margin-left:-18px;margin-top:-15px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label>
+																		<input id="primerApellido" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="QUISPE" />
+																	</div>
+																	
+																	<div style="float:left; clear:left; margin-left:-18px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Segundo Apellido</small></label>
+																		<input id="segundoApellido" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="AMBROSIO"  />
+																	</div>
+																		    
+																	<div style="float:left; clear:left; margin-left:-18px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Pre Nombres</small></label>
+																		<input id="preNombres" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="ROSA CAROLINA" />
+																	</div>
+																	
+																	<div>
+																		<div style="float:left; clear:left; margin-left:-18px; ">
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Fecha de Nacimiento</small></label>
+																			<input id="diaNacimiento" type="text" style=" width:20px;margin-top:-5px;" maxlength="20" value="21" />
+																			<input id="mesNacimiento" type="text" style=" width:80px;margin-top:-5px;" maxlength="20" value="Enero" />
+																			<input id="anioNacimiento" type="text" style=" width:40px;margin-top:-5px;" maxlength="20" value="1986"/>
+																		</div>
+																		
+																		<div style="float:left; clear:left; margin-left:190px;margin-top:-57px ">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Edad</small></label>
+																			<input id="edad" type="text" style="width:20px;margin-top:-5px;" maxlength="20" value="28"/>
+																		</div>
+																		
+																		<div style="float:left; clear:left; margin-left:255px;margin-top:-57px ">
+																				<label><small  style=" font-size: 11px; font-weight: bold;">Sexo</small></label>
+																				<input id="sexo" type="text" style=" width:80px;margin-top:-5px;text-align:center" maxlength="20," value="HOMBRE"/>
+																		</div>
+																	</div>
+																		    
+															    	<div>
+																    	<div style="float:left; clear:left; margin-left:-18px;">
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Estado Civil</small></label>
+																			<input id="estadoCivil" type="text" style=" width:80px;margin-top:-5px;" maxlength="20" value="SOLTERO"/>
+																		</div>	
+																	
+																		<div style="float:left; clear:left; margin-left:100px; margin-top:-56px">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Nacionalidad</small></label>
+																			<input id="nacionalidad" type="text" style="width:120px;margin-top:-5px;" maxlength="20" value="PERUANO"/>
+																		</div>
+																	</div>
+																				
+																	<div style="float:left; clear:left;margin-left:-18px; ">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Ubigeo Nacimiento</small></label>
+																		<input id="ubigeoNacimiento" type="text" style="width: 352px;margin-top:-5px;" maxlength="20" value="AMERICA / PERU / LIMA "/>
+																	</div>
+																	
+																	<div style="float:left; clear:left; margin-left:-18px;">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Ubigeo Domicilio</small></label>
+																		<input id="ubigeoDomicilio" type="text" style="margin-left:0px; width: 300px;margin-top:-5px;" maxlength="20" value="AMERICA / PERU / LIMA "/>
+																		<button id="btnUbigeo" style="margin-top:-15px;margin-left:12px; " class="btn btn-small btn-info" type="button">
+																			<i class="icon-search icon-white"></i>
+																		</button>
+																	</div>
+																				
+																	<div style="float:left; clear:left; margin-left:-18px; ">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Dirección</small></label>
+																		<input id="direccion" type="text" style=" width:352px; margin-top:-5px;" maxlength="20" value="PSJ SAN MARTIN SUR 240"/>
+																	</div>
+																</div>
+															</td>
+															
+															<td>
+																<!-- Segundo contrayente  -->
+																<div class="contenedorForm01" style="float:left; clear:left; border:1px solid #555555;margin-left:-10px">
+																			    
+																    <div style="float:left; clear:left;">
+																    	<!-- titulo -->
+																		<div style="display: block; height:32px; margin-top: 10px;margin-left:-18px">
+																			<span class="titulo03">Segundo Contrayente (Mujer)</span>
+																		</div>
+																		<!-- linea -->
+																		<div style="display:block; height:30px;border-top:1px solid #ccc; margin-left:-18px">
+																		</div>
+																	</div>
+																				
+																    <div>
+																    	<div style="float:left; clear:left;  margin-left:-18px; margin-top:-10px; margin-bottom:15px">
+																	   		 <label><small  style=" font-size: 11px; font-weight: bold;">Tipo de documento</small></label>
+																			<select id="tipoDocumento" style=" width: 150px" >
+																				<option id="1" value="01" >Seleccione tipo</option>
+																				<option id="2" value="02 " selected="selected" >DNI</option>
+																				<option id="3" value="03" >L.E.</option>
+																				<option id="4" value="04">D.I. EXTRANJERO</option>
+																			</select>
+																		</div>
+																		
+																		<div style="float:left; clear:left;  margin-left:140px; margin-top:-79px; margin-bottom:15px">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Nro. Documento</small></label>
+																			<input id="nroDocumento" type="text" style="width: 100px;text-align:center" maxlength="20" value="20457856"/>
+																			<button onclick="fnBuscarCiudadano();" style="margin-top:-9px;" class="btn btn-small btn-info" type="button" >
+																				<i class="icon-search icon-white"></i>
+																				&nbsp;Buscar
+																			</button>
+																		</div>
+																  	</div>		
+																		  																			
+																	<div style="float:left; clear:left; margin-left:-18px;margin-top:-15px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label>
+																		<input id="primerApellido" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="QUISPE" />
+																	</div>
+																	
+																	<div style="float:left; clear:left; margin-left:-18px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Segundo Apellido</small></label>
+																		<input id="segundoApellido" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="AMBROSIO"  />
+																	</div>
+																		    
+																	<div style="float:left; clear:left; margin-left:-18px">
+																	    <label><small  style=" font-size: 11px; font-weight: bold;">Pre Nombres</small></label>
+																		<input id="preNombres" type="text" style="margin-top:-5px; width: 352px;" maxlength="20" value="ROSA CAROLINA" />
+																	</div>
+																	
+																	<div>
+																		<div style="float:left; clear:left; margin-left:-18px; ">
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Fecha de Nacimiento</small></label>
+																			<input id="diaNacimiento" type="text" style=" width:20px;margin-top:-5px;" maxlength="20" value="21" />
+																			<input id="mesNacimiento" type="text" style=" width:80px;margin-top:-5px;" maxlength="20" value="Enero" />
+																			<input id="anioNacimiento" type="text" style=" width:40px;margin-top:-5px;" maxlength="20" value="1986"/>
+																		</div>
+																		
+																		<div style="float:left; clear:left; margin-left:190px;margin-top:-57px ">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Edad</small></label>
+																			<input id="edad" type="text" style="width:20px;margin-top:-5px;" maxlength="20" value="28"/>
+																		</div>
+																		
+																		<div style="float:left; clear:left; margin-left:255px;margin-top:-57px ">
+																				<label><small  style=" font-size: 11px; font-weight: bold;">Sexo</small></label>
+																				<input id="sexo" type="text" style=" width:80px;margin-top:-5px;text-align:center" maxlength="20," value="HOMBRE"/>
+																		</div>
+																	</div>
+																		    
+															    	<div>
+																    	<div style="float:left; clear:left; margin-left:-18px;">
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Estado Civil</small></label>
+																			<input id="estadoCivil" type="text" style=" width:80px;margin-top:-5px;" maxlength="20" value="SOLTERO"/>
+																		</div>	
+																	
+																		<div style="float:left; clear:left; margin-left:100px; margin-top:-56px">	
+																			<label><small  style=" font-size: 11px; font-weight: bold;">Nacionalidad</small></label>
+																			<input id="nacionalidad" type="text" style="width:120px;margin-top:-5px;" maxlength="20" value="PERUANO"/>
+																		</div>
+																	</div>
+																				
+																	<div style="float:left; clear:left;margin-left:-18px; ">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Ubigeo Nacimiento</small></label>
+																		<input id="ubigeoNacimiento" type="text" style="width: 352px;margin-top:-5px;" maxlength="20" value="AMERICA / PERU / LIMA "/>
+																	</div>
+																	
+																	<div style="float:left; clear:left; margin-left:-18px;">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Ubigeo Domicilio</small></label>
+																		<input id="ubigeoDomicilio" type="text" style="width: 300px;margin-top:-5px;" maxlength="20" value="AMERICA / PERU / LIMA "/>
+																		<button id="btnUbigeo" style="margin-top:-15px;margin-left:12px; " class="btn btn-small btn-info" type="button">
+																			<i class="icon-search icon-white"></i>
+																		</button>
+																	</div>
+																				
+																	<div style="float:left; clear:left; margin-left:-18px; ">
+																		<label><small  style=" font-size: 11px; font-weight: bold;">Dirección</small></label>
+																		<input id="direccion" type="text" style=" width:352px; margin-top:-5px;" maxlength="20" value="PSJ SAN MARTIN SUR 240"/>
+																	</div>
+																</div>
+															</td>		
+														</tr>
+													</table>	
+												</div>				
+											 	
+											 	<!-- Boton siguiente y Guardar-->
+											 	<div style="border-top:1px solid black;width: 859px;margin-left:-20px;margin-top:15px">
+											 		<button  id="btnSiguiente" class="btn btnNext btn-small btn-primary"  style=" margin-top:10px;margin-left:600px" >
+														<i class="icon-forward icon-white"></i>&nbsp;Siguiente
+													</button>
+													<button id="btnGuardar" class="btn btn-small btn-primary" style="margin-top:10px;margin-left:20px" >
+														<i class="icon-check icon-white"></i>&nbsp;Guardar
+													</button>
+												</div>
+											
+											<!-- termina  contenedor -->
+										</div>
+										
+										
+										<!-- Inicia tabs-2 Datos de los testigos -->
+										<div id="tabs-2" style=" border:1px solid #000000;border-top:0px">
+											
+											<!-- Testigo 01 -->	
+											<div style="height:285px ; margin-left:2px;margin-top:10px ">
+												<div class="contenedorForm03" style="height: 210px; border: 1px solid #555555;margin-left:5px;float:left; clear:left;width:745px">
+													 
+													 <div style="float:left; clear:left;margin-top:20px">		    
+														<!-- titulo -->
+														<div style="display: block; height:32px;">
+															<span class="titulo03">Primer Testigo</span>
+														</div>
+								
+														<!-- linea -->
+														<div style="display:block; height:30px; width: 715px; min-height:20px; border-top:1px solid #ccc;">
+														</div>
+													</div>
+													
+													<!-- Datos de testigo -->																	
+													<div style="">
+														<div style="float:left; clear:left; margin-top:-15px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Tipo de documento</small></label>
+															<select id="tipoDocumento" style=" width: 220px" >
+																<option id="1" value="01" >Seleccione Tipo de Documento</option>
+																<option id="2" value="02 " selected="selected" >DNI</option>
+																<option id="3" value="03" >L.E.</option>
+																<option id="4" value="04">D.I. EXTRANJERO</option>
+															</select>
+														</div>
+														
+														<div style="float:left; clear:left;margin-left:250px; margin-top:-62px  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Nro. de documento</small></label>
+															<input id="nroDocumento" type="text" style="width: 210px;" maxlength="20" value="20457856"/>
+															<button onclick="fnBuscarCiudadano();" style="margin-top:-12px; margin-left:25px;" class="btn btn-small btn-info" type="button">
+																		<i class="icon-search icon-white"></i>
+																		&nbsp;Buscar
+															</button>
+														</div>
+													</div>	
+													
+													<div style="">
+														<div style="float:left; clear:left;">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label>
+															<input id="primerApellido" type="text" style="width: 210px;" maxlength="20" value="Perez"/>
+														</div>
+														
+														<div style="float:left; clear:left;margin-left:250px; margin-top:-62px  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Segundo Apellido</small></label>
+															<input id="segundoApellido" type="text" style=" width: 210px;" maxlength="20" value="Ugarte"/>
+														</div>
+														
+														<div style="float:left; clear:left; margin-left:500px; margin-top:-62px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Pre nombres</small></label>
+															<input id="preNombres" type="text" style="width: 210px; " maxlength="20" value="Manuel"/>
+														</div>
+														
+													</div>	
+												</div>    	
+											</div>
+												
+											<!-- Testigo 2  -->
+											<div style="height:300px ; margin-left:2px; margin-top:-20px  ">
+												<div class="contenedorForm03" style="height: 210px; border: 1px solid #555555;margin-left:5px;float:left; clear:left;width:745px">
+													 
+													 <div style="float:left; clear:left;margin-top:20px">		    
+														<!-- titulo -->
+														<div style="display: block; height:32px;">
+															<span class="titulo03">Segundo Testigo</span>
+														</div>
+								
+														<!-- linea -->
+														<div style="display:block; height:30px; width: 715px; min-height:20px; border-top:1px solid #ccc;">
+														</div>
+													</div>
+													
+													<!-- Datos de testigo -->																	
+													<div style="">
+														<div style="float:left; clear:left; margin-top:-15px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Tipo de documento</small></label>
+															<select id="tipoDocumento" style="width: 220px" >
+																<option id="1" value="01" >Seleccione Tipo de Documento</option>
+																<option id="2" value="02 " selected="selected" >DNI</option>
+																<option id="3" value="03" >L.E.</option>
+																<option id="4" value="04">D.I. EXTRANJERO</option>
+															</select>
+														</div>
+														
+														<div style="float:left; clear:left;margin-left:250px; margin-top:-62px  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Nro. de documento</small></label>
+															<input id="nroDocumento" type="text" style="width: 210px;" maxlength="20" value="20457856"/>
+															<button onclick="fnBuscarCiudadano();" style="margin-top:-12px; margin-left:25px;" class="btn btn-small btn-info" type="button">
+																		<i class="icon-search icon-white"></i>
+																		&nbsp;Buscar
+															</button>
+														</div>
+													</div>	
+													
+													<div style="">
+														<div style="float:left; clear:left;">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label>
+															<input id="primerApellido" type="text" style=" width: 210px;" maxlength="20" value="Perez"/>
+														</div>
+														
+														<div style="float:left; clear:left;margin-left:250px; margin-top:-62px  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Segundo Apellido</small></label>
+															<input id="segundoApellido" type="text" style=" width: 210px;" maxlength="20" value="Ugarte"/>
+														</div>
+														
+														<div style="float:left; clear:left; margin-left:500px; margin-top:-62px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Pre nombres</small></label>
+															<input id="preNombres" type="text" style="width: 210px; " maxlength="20" value="Manuel"/>
+														</div>
+														
+													</div>	
+												</div>    	
+											</div>	
+											
+											<div style="border-top:1px solid black;width: 859px;margin-left:-20px;margin-top:-35px">
+											 		
+											 		<button id="btnAtras" class="btn backTab btn-small btn-primary" style="margin-top:10px;margin-left:600px">
+														<i class="icon-backward icon-white"></i>&nbsp;Anterior
+													</button>
+											 		<button id="btnSiguiente" class="btn nextTab btn-small btn-primary" style="margin-top:10px;margin-left:20px">
+														<i class="icon-forward icon-white"></i>&nbsp;Siguiente
+													</button>																										
+													
+											</div>
+										</div>
+									
+										<!-- Inicia tabs-3 Datos de Celebracion -->
+										<div id="tabs-3" style=" background-color: white; border:1px solid #000000;border-top:0px">
+											<div style="margin-top:12px;margin-left:-18px">
+											
+													<!-- Autoridad Celebrante-->
+												<div class="contenedorForm03" style="height: 187px; border: 1px solid #555555;width:745px">
+												   
+												   <!-- titulo -->
+													<div style="display: block; height:32px; margin-left:-15px">
+														<span class="titulo03">Autoridad Celebrante</span>
+													</div>
+				
+													<!-- linea -->
+													<div style="display:block; height:30px; width: 755px; min-height:20px; border-top:1px solid #ccc;margin-left:-15px">
+													</div>
+												
+													<div style="margin-left:-15px;">
+														<div style="float:left; clear:left;  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Nro. DNI</small></label>
+															<input id="nroDni" type="text" style="width: 109px;" maxlength="20" value="20457856"/>
+															<button onclick="fnBuscarCiudadano();" style="margin-top:-12px;" class="btn btn-small btn-info" type="button">
+																		<i class="icon-search icon-white"></i>
+																		&nbsp;Buscar
+															</button>
+														</div>
+														
+														<div style="float:left; clear:left; margin-left:240px;margin-top:-65px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Cargo Autoridad Celebrante</small></label>
+															<select id="CargoAutoridadCelebrante"  onchange="fnCargoAutoridad();" style="width: 200px" >
+																<option id="1" value="01" selected="selected">Seleccione Tipo Cargo</option>
+																<option id="2" value="02" >Otros</option>
+																
+															</select>
+															
+															<div id="busox1">
+												
+															</div>
+															
+															<div id="busox2" style=" margin-left:225px; margin-top:-65px;display:none; ">
+																<label><small  style=" font-size: 11px; font-weight: bold;">Descripci&oacute;n del Cargo</small></label>
+																
+																<input id="autoridadCelebrante" type="text" style="width: 280px;" maxlength="20" value="Alcalde de la Municipalidad de los Olivos"/>
+																
+															</div>
+														</div>
+														
+														
+													</div>	
+												
+													<div style="margin-left:-15px;">
+														<div style="float:left; clear:left;">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label>
+															<input id="primerApellido" type="text" style=" width: 210px;" maxlength="20" value="Perez"/>
+														</div>
+														
+														<div style="float:left; clear:left;margin-left:267px; margin-top:-62px  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Segundo Apellido</small></label>
+															<input id="segundoApellido" type="text" style=" width: 210px;" maxlength="20" value="Ugarte"/>
+														</div>
+														
+														<div style="float:left; clear:left; margin-left:533px; margin-top:-62px ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Pre nombres</small></label>
+															<input id="preNombres" type="text" style="width: 210px; " maxlength="20" value="Manuel"/>
+														</div>
+													</div>	
+													
+												</div>
+													
+												<!-- Datos del evento-->
+												<div class="contenedorForm03" style="height: 230px;margin-top:25px;border: 1px solid #555555; width:745px;">
+												    
+												    <!-- titulo -->
+													<div style="display: block; height:32px; margin-left:-15px;">
+														<span class="titulo03">Datos del Evento</span>
+													</div>
+				
+													<!-- linea -->
+													<div style="display:block; height:30px; width: 750px; min-height:20px; border-top:1px solid #ccc;margin-left:-15px;"></div>
+														
+													<div style="width: 720px;margin-left:-15px;">
+														<div style="float:left; clear:left;  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Fecha Evento</small></label>
+															<input id="mesCelebracion" type="text" style=" width:80px;" maxlength="20" value="Enero" />
+															<select id="mesCelebracion" style="width:110px;" >
+																<option id="1" value="01" >Seleccione </option>
+															</select> 
+															<input id="aniocelebracion" type="text" style=" width:40px;" maxlength="20" value="2014" />
+													    </div>
+													    
+													    <div style="float:left; clear:left; margin-left:340px;margin-top:-62px ">
+													    	<label><small  style=" font-size: 11px; font-weight: bold;">Hora Evento</small></label>
+													    	<input id="horaEvento" type="text" style=" width:20px; " maxlength="20" value="15" />
+													    	<input id="minutosEvento" type="text" style=" width:20px;" maxlength="20" value="45"/>
+													    	<span style="font-size: 11px; font-weight: bold;">Hrs.</span>
+													    </div >
+													    
+													    <div style="float:left; clear:left; margin-left:500px; margin-top:-62px ">
+													    	<label><small  style=" font-size: 11px; font-weight: bold;">Nro. Expediente</small></label>
+													    	<input id="nroExpediente" type="text" style="margin-right:10px;  width: 181px;" maxlength="20" value="46760282"/>
+													    </div>
+													    
+													</div>
+														
+													<div style="float:left; clear:left;">
+														<div style="margin-left:-15px;  ">
+															<label><small  style=" font-size: 11px; font-weight: bold;">Observaci&oacute;n</small></label>
+															<textarea id="observaciones" rows="" cols="" style="width: 745px; height: 60px">Observaciones del Acta de Matrimonio</textarea>
+														</div>
+													</div>
+												</div>			
+											</div>
+											  
+											 <!-- Boton anterior, Boton Guardar y Vista previa-->
+											 <div style="border-top:1px solid black;width: 859px;margin-left:-20px;margin-top:22px; ;">
+											 		
+											 		<button id="btnAnterior" class="btn backTab btn-small btn-primary" style="margin-top:10px;margin-left:450px">
+														<i class="icon-backward icon-white"></i>&nbsp;Anterior
+													</button>
+											 		<button id="btnGuardar" class="btn btn-small btn-primary" style="margin-top:10px;margin-left:20px">
+														<i class="icon-check icon-white"></i>&nbsp;Guardar
+													</button>	
+													<button id="btnGuardar" class="btn btn-small btn-primary" style="margin-top:10px;margin-left:20px">
+														<i class="icon-search icon-white"></i>&nbsp;Ir a vista Previa
+													</button>
+																																							
+											</div>
+										</div>
+										
+										
+										<!-- Inicia tabs-4 Vista previa -->
+										<div id="tabs-4" style=" background-color: white;  border:1px solid #000000;border-top:0px">
+										
+											<div class="contenedorForm04" style="height: 20px; margin-left:-18px;">
+											    
+														<!-- titulo -->
+														<div style="display: block; height:32px;margin-left:210px; width: 387px">
+															<span class="titulo03">Acta de Celebración de Matrimonio</span>
+														</div>
+			
+														<!-- linea -->
+														<div style="display:block; height: 20px; width: 796px; min-height:20px;border-top:1px solid #ccc;margin-left:-10px; "></div>
+													
+											</div>
+									 		<div class="contenedorForm04"  style=" width: 800px; height: 280px; margin-top: 20px; margin-left:-19px;  ">
+												<!-- Tabla Datos Contrayentye -->
+												<table class="cellh" style="margin-left:-10px" >
+													<tr  style="font-weight: bold; ">
+														<td bgcolor="#EFEFEF" class="etiqueta01" style="width: 200px; background-color: #efefef;border-right:2px solid white;"><strong>DATOS</strong></td>
+													  <td style="width: 300px; background-color: #efefef; border-right:2px solid white;"><strong>EL CONTRAYENTE</strong></td>
+														<td style="width: 300px; background-color: #efefef;"><strong>LA CONTRAYENTE</strong></td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Documento de Identidad</td>
+														<td>DNI 46760282</td>
+														<td>DNI 43494313</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Primer Apellido</td>
+														<td>RUPAY</td>
+														<td>QUISPE</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Segundo Apellido</td>
+														<td>RAMIREZ</td>
+														<td>AMBROSIO</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Pre Nombre(s)</td>
+														<td>CRISTIAN WILDER</td>
+														<td>ROSA CAROLINA</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Estado Civil </td>
+														<td>SOLTERO</td>
+														<td>SOLTERO</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Edad</td>
+														<td>23 Años</td>
+														<td>28 Años</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Nacionalidad</td>
+														<td>PERUANO</td>
+														<td>PERUANO</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Lugar de Nacimiento</td>
+														<td>LIMA / LIMA / SAN JUAN DE LURIGANCHO</td>
+														<td>LIMA / LIMA / SAN JUAN DE LURIGANCHO</td>
+													</tr>		
+													
+													<tr>
+														<td class="etiqueta01">Dirección</td>
+														<td>LAS AZUCENAS MZ C LT 19 ASENT H SANTA ROSA DEL SAUCE</td>
+														<td>PSJ SAN MARTIN SUR 2</td>
+													</tr>										
+												</table>
+					    					</div>
+													
+											<!-- Párrafo -->
+											<div style="display: block; margin-left:20px; width: 549px;margin-top: 5px;">
+											<span class="etiqueta01">Comparecieron ante la Autoridad Municipal, acompañados de sus testigos: </span>
+											</div>
+											
+											<div class="contenedorForm04"  style="width: 800px; height: 130px; margin-left:-20px;">
+												<!-- Tabla Datos testigos -->
+												<table class="cellh" style="margin-right: 20px;" >
+													<tr  style="font-weight: bold; ">
+														<td bgcolor="#EFEFEF" style="width: 200px; background-color: #efefef; border-right:2px solid white;">DATOS</td>
+													  <td style="width: 300px; background-color: #efefef; border-right:2px solid white;">PRIMER TESTIGO</td>
+														<td style="width: 300px; background-color: #efefef;">SEGUNDO TESTIGO</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Documento de Identidad</td>
+														<td>DNI 46760282</td>
+														<td>DNI 43494313</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Primer Apellido</td>
+														<td>PEREZ</td>
+														<td>TORRES</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Segundo Apellido</td>
+														<td>UGARTE</td>
+														<td>MEZA</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Pre Nombre(s)</td>
+														<td>MANUEL</td>
+														<td>MÓNICA</td>
+													</tr>
+												</table>
+											</div>
+											<div class="contenedorForm04" style="width: 800px; height: 130px;margin-left:-20px; ">
+												<!-- tabla Acta de Celebración-->
+												<table class="cellts" style="margin-right: 20px;" > 
+													<tr>
+														<td width="248" class="etiqueta04">Lugar de Celebración</td>
+														<td width="505">MUNICIPALIDAD DISTRITAL DE LOS OLIVOS</td>
+														
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Fecha</td>
+														<td>15/01/2014</td>
+													
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Hora</td>
+														<td>15:45 hrs.</td>
+													
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Nombre y DNI de Autoridad Celebrante</td>
+														<td>SANTOS TORRES CÉSAR ENRIQUE (DNI 41914836)</td>
+													</tr>
+													
+													<tr>
+														<td class="etiqueta01">Cargo de Autoridad Celebrante </td>
+														<td>ALCALDE DE LA MUNICIPALIDAD DE LOS OLIVOS</td>
+													
+													</tr>
+															
+												</table>
+											</div >
+								
+											<div style="margin-top:20px;margin-left:20px;">
+											
+												<span style="font-size:12px">Con el objeto de llevar a efecto el matrimonio que pretenden contraer y habiendo
+												sido declarados expeditos por no tener impedimentos segun expediente N° ......................... el cual queda archivado en esta oficina.<br>
+												Despu&eacute;s de dar lectura a los art&iacute;culos del C&oacute;digo Civil se pregunt&oacute; separadamente
+												a los contrayentes si persisten en su voluntad de contraer matrimonio y habiendo respondido ambos
+												afirmativamente en nombre de la ley se declaran unidos en matrimonio.<br>
+												Extendi&eacute;ndose la presente acta, en la que se deja constancia de que han cumplido con todos los requisitos
+												que señala la ley, firmando los intervinientes conforme a lo dispuesto por el art&iacute;culo 259 del C&oacute;digo 
+												Civil.<br><br>
+												
+												<span  style="font-size:12px;font-weight:bold" >OBSERVACIONES:</span> .................................................................................................................................................................................................................................
+												
+												
+												</span>
+													
+													
+											</div>
+											
+											<div style="margin-top:80px;margin-left:100px">
+												<table>
+													<tr>
+														<td>_______________________________<br><span style="font-size:11px;font-weight:bold">Firma e impresi&oacute;n dactilar del Contrayente</span>
+														</td>
+														<td style="padding-left:120px">_______________________________<br><span style="font-size:11px;font-weight:bold">Firma e impresi&oacute;n dactilar de la Contrayente</span>
+														</td>
+													</tr>		
+												</table>
+											</div>
+											<!-- Boton Vista previa, anterior y Imprimar Acta-->	
+											<div style="border-top:1px solid black;margin-top:20px;margin-left:-21px;width:859px ">
+
+												<button id="btnVistaPrevia" style="margin-left:40px;margin-top:10px;" class="btn backTab btn-small btn-primary" type="button">
+												<i class="icon-print icon-white"></i>&nbsp;Vista Previa
+												</button>        
+      											<button  id="btnAnterior" class="btn backTab btn-small btn-primary" style="margin-left:425px;margin-top:10px;" type="button">
+												 	<i class="icon-backward icon-white"></i>&nbsp;Anterior
+												</button>
+												<button id="btnImprimirActa" class="btn btn-small btn-primary" style="margin-left:20px;margin-top:10px;" type="button" >
+													<i class="icon-print icon-white"></i>&nbsp;Imprimir Acta
+												</button>
+											</div>	
+										</div>
+									</div>
+									<!-- modal verificar ciudadano -->
+									<div id="dialogVerificarCiudadano" style="display:none;">
+										<jsp:include page="verificarCiudadano.jsp"/>
+									</div>
+									
+								</form>  
+							</div>
+			
+			 </div>
+		 </div>
+	 </div>
+	 
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top: 40px; margin-bottom: 30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+				
+			</div>
+			<div class="span3"></div>
+		</div>
+					
+	</body>
+	
+</html>

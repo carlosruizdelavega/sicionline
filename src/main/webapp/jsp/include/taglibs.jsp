@@ -1,0 +1,16 @@
+<jsp:directive.page contentType="text/html;charset=UTF-8"/>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<c:set var="ruta" value="${pageContext.request.contextPath}" scope="request"></c:set>
+
+<c:set var="modo" value="desarrollo" scope="request"></c:set>
+
+<c:if test="${modo == 'produccion'}">
+   <c:set var="min" value=".min" scope="request"></c:set>
+</c:if>
+<c:if test="${modo == 'desarrollo'}">
+   <c:set var="min" value="" scope="request"></c:set>
+</c:if>

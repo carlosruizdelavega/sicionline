@@ -1,0 +1,15 @@
+
+
+#POOL DE CONEXIONES
+#jdbc.jndiname=jdbc/procDOCREG
+
+
+jdbc.driverClassName=oracle.jdbc.OracleDriver
+jdbc.url=jdbc:oracle:thin:@151.101.120.191:1522:desarc
+jdbc.username=idorrcc 
+jdbc.password=Reniec112012
+
+#jdbc.driverClassName=oracle.jdbc.OracleDriver
+#jdbc.url=jdbc:oracle:thin:@localhost:1521:xe
+#jdbc.username=system
+#jdbc.password=dba

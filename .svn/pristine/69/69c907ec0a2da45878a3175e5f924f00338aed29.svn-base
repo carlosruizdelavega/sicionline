@@ -1,0 +1,35 @@
+package pe.gob.reniec.actacelebracion.dao;
+
+import java.util.List;
+
+import pe.gob.reniec.actacelebracion.bean.AniBean;
+import pe.gob.reniec.actacelebracion.bean.GeneroBean;
+import pe.gob.reniec.actacelebracion.bean.TipoNacionalidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoDocIdentidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoEstadoCivilBean;
+import pe.gob.reniec.actacelebracion.bean.UbigeoBean;
+
+
+public interface UtilDao {
+
+	public List<TipoDocIdentidadBean> listarTipoDocumentoIdentidad();
+	
+	public AniBean buscarPorDniIndex(String dni);   
+	
+	public AniBean buscarPorDniAni(String dni);
+	
+	public String calcularEdadDni(String fechaNac);
+
+	public  TipoNacionalidadBean obtenerNacionalidadDni(String coNacionalidad);
+	
+	public List<TipoNacionalidadBean>  listarTipoNacionalidad();
+	
+	public GeneroBean obtenerGeneroDni(String coGenero);
+	
+	public UbigeoBean obtenerDescripcionUbigeo( String pCont, String pPais, 
+			String pDpto,String pProv,
+			String pDist,String pLoca);
+	
+	public TipoEstadoCivilBean obtenerDescripcionEstadoCivil(String coEstadoCivil);
+	
+}

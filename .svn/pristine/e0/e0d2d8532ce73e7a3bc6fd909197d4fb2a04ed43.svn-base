@@ -1,0 +1,287 @@
+<%@page import="pe.gob.reniec.actacelebracion.util.Utiles"%>
+<%@include file="/jsp/include/taglibs.jsp"%>
+<link rel="stylesheet" type="text/css" href="${ruta}/css/actaCeleb/registrarActaPreview.css" />
+
+<div style="width:820px; height:auto;">
+
+	<!-- logo -->
+	<div style="margin:auto; width:90px; height:89px; margin-top: 10px;">
+		<img alt="" src="${ruta}/images/escudoMunLima.png" width="90" height="89" border="0" />
+	</div>
+
+	<!-- titulo -->
+	<div style="margin:auto; width:600px; height:30px; text-align: center; margin-top:5px;">
+		<span class="registrarActa_titulo01">ACTA DE CELEBRACI&Oacute;N DE MATRIMONIO</span>
+	</div>
+
+</div>
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+
+	<!-- tabla datos contrayentes -->
+	<table class="registrarActa_tabla01" style="width:700px; margin-left:60px; border-collapse:collapse;">
+	
+		<tr style="background-color: #efefef;">			
+			<th style="width: 200px;">DATOS</th>			
+			<th>EL CONTRAYENTE</th>			
+			<th>LA CONTRAYENTE</th>			
+		</tr>
+
+		<tr>
+			<td>Documento de Identidad</td>
+			<td><c:out value="${primerContrayente.deTipoDocIdentidad}: ${primerContrayente.nuDocIdentidad}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deTipoDocIdentidad}: ${segundoContrayente.nuDocIdentidad}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Primer Apellido</td>
+			<td><c:out value="${primerContrayente.dePrimerApellido}"></c:out></td>
+			<td><c:out value="${segundoContrayente.dePrimerApellido}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Segundo Apellido</td>
+			<td><c:out value="${primerContrayente.deSegundoApellido}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deSegundoApellido}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Pre Nombre(s)</td>
+			<td><c:out value="${primerContrayente.dePrenombres}"></c:out></td>
+			<td><c:out value="${segundoContrayente.dePrenombres}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Estado Civil</td>
+			<td><c:out value="${primerContrayente.deEstadoCivil}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deEstadoCivil}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Edad</td>
+			<td><c:out value="${primerContrayente.nuEdad}"></c:out> A&ntilde;os</td>
+			<td><c:out value="${segundoContrayente.nuEdad}"></c:out> A&ntilde;os</td>
+		</tr>
+
+		<tr>
+			<td>Nacionalidad</td>
+			<td><c:out value="${primerContrayente.deNacionalidad}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deNacionalidad}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Lugar de Nacimiento</td>
+			<td><c:out value="${primerContrayente.deNaturalUbigeo}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deNaturalUbigeo}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Direcci&oacute;n</td>
+			<td><c:out value="${primerContrayente.deDomUbigeo} / ${primerContrayente.deDireccion}"></c:out></td>
+			<td><c:out value="${segundoContrayente.deDomUbigeo} / ${segundoContrayente.deDireccion}"></c:out></td>
+		</tr>
+		
+	</table>
+
+</div>
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+	<table style="width:700px; margin-left:60px;">
+		<tr>			
+			<td>
+				<span class="registrarActa_texto02">
+					COMPARECIERON ANTE LA AUTORIDAD MUNICIPAL, ACOMPA&Ntilde;ADOS DE SUS TESTIGOS,
+				</span>				
+			</td>			
+		</tr>
+	</table>
+</div>
+
+<div style="width:820px; height:auto; margin-top: 2px;">
+
+	<!-- tabla datos contrayentes -->
+	<table class="registrarActa_tabla01" style="width:700px; margin-left:60px; border-collapse:collapse;">
+	
+		<tr style="background-color: #efefef;">			
+			<th style="width: 200px;">DATOS</th>			
+			<th>PRIMER TESTIGO</th>			
+			<th>SEGUNDO TESTIGO</th>			
+		</tr>
+
+		<tr>
+			<td>Documento de Identidad</td>
+			<td><c:out value="${primerTestigo.deTipoDocIdentidad}: ${primerTestigo.nuDocIdentidad}"></c:out></td>
+			<td><c:out value="${segundoTestigo.deTipoDocIdentidad}: ${segundoTestigo.nuDocIdentidad}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Primer Apellido</td>
+			<td><c:out value="${primerTestigo.dePrimerApellido}"></c:out></td>
+			<td><c:out value="${segundoTestigo.dePrimerApellido}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Segundo Apellido</td>
+			<td><c:out value="${primerTestigo.dePrimerApellido}"></c:out></td>
+			<td><c:out value="${segundoTestigo.deSegundoApellido}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Pre Nombre(s)</td>
+			<td><c:out value="${primerTestigo.dePreNombres}"></c:out></td>
+			<td><c:out value="${segundoTestigo.dePreNombres}"></c:out></td>
+		</tr>
+		
+	</table>
+	
+</div>
+
+<div style="width:820px; height:auto; margin-top: 15px;">
+
+	<!-- tabla datos de celebracion-->
+	<table class="registrarActa_tabla02" style="width:700px; margin-left:60px;">
+	
+		<tr>
+			<td width="215">Lugar de Celebraci&oacute;n</td>
+			<td>:&nbsp;&nbsp;&nbsp;<c:out value="${celebracionBean.deCelebradoLugar}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Fecha</td>
+			<td>:&nbsp;&nbsp;&nbsp;<c:out value="${celebracionBean.feEvento}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Hora</td>
+			<td>:&nbsp;&nbsp;&nbsp;<c:out value="${celebracionBean.hoEvento}"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Nombre y DNI de Autoridad Celebrante</td>
+			<td>:&nbsp;&nbsp;&nbsp;<c:out value="${celebracionBean.noCelebrante} (${celebracionBean.deTipoDocIdentidad}: ${celebracionBean.nuDocCelebrante})"></c:out></td>
+		</tr>
+
+		<tr>
+			<td>Cargo de Autoridad Celebrante</td>
+			<td>:&nbsp;&nbsp;&nbsp;<c:out value="${celebracionBean.deCargoCelebrante}"></c:out></td>
+		</tr>
+
+	</table>
+	
+</div>
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+
+	<div class="registrarActa_texto01" style="width:700px; margin-left:60px;">
+		Con el objeto de llevar a efecto el matrimonio que pretenden contraer y habiendo sido declarados expeditos 
+		por no tener impedimentos segun expediente <c:out value="${celebracionBean.deExpediente}"></c:out> 
+		el cual queda archivado en esta oficina. Despu&eacute;s de dar lectura a los art&iacute;culos del 
+		C&oacute;digo Civil se pregunt&oacute; separadamente a los contrayentes si persisten en su voluntad 
+		de contraer matrimonio y habiendo respondido ambos afirmativamente en nombre de la ley se declaran 
+		unidos en matrimonio. Extendi&eacute;ndose la presente acta, en la que se deja constancia de que han 
+		cumplido con todos los requisitos que señala la ley, firmando los intervinientes conforme a lo 
+		dispuesto por el art&iacute;culo 259 del C&oacute;digo Civil.
+	</div>
+
+</div>
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+
+	<!-- tabla datos de celebracion-->
+	<table class="registrarActa_tabla02" style="width:700px; margin-left:60px;">
+	
+		<tr>
+			<td width="110" style="font-weight: bold;">OBSERVACIONES:</td>
+			<td style="border-bottom:1px solid #333;"><c:out value="${celebracionBean.deObservacion}"></c:out></td>
+		</tr>
+
+	</table>
+	
+</div>
+
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+
+	<!-- tabla datos de celebracion-->
+	<table class="registrarActa_tabla02" style="width:700px; margin-left:60px;">
+	
+		<tr>
+			<td width="300" height="90" colspan="3"></td>
+		</tr>
+		
+		<tr>
+			<td width="300">
+				<div style="font-weight: bold; border-top: 1px solid #333; text-align: center;">
+					Firma e impresi&oacute;n dactilar del Contrayente
+				</div>				
+			</td>
+			<td width="220"></td>
+			<td width="300">
+				<div style="font-weight: bold; border-top: 1px solid #333; text-align: center;">
+					Firma e impresi&oacute;n dactilar de la Contrayente
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td width="300" height="90" colspan="3"></td>
+		</tr>
+
+		<tr>
+			<td width="300">
+				<div style="font-weight: bold; border-top: 1px solid #333; text-align: center;">
+					Firma e impresi&oacute;n dactilar del 1er testigo
+				</div>
+			</td>
+			<td width="220"></td>
+			<td width="300">
+				<div style="font-weight: bold; border-top: 1px solid #333; text-align: center;">
+					Firma e impresi&oacute;n dactilar del 2do testigo
+				</div>
+			</td>
+		</tr>
+		
+	</table>
+	
+</div>
+
+<div style="width:820px; height:auto; margin-top: 10px;">
+
+	<!-- tabla datos de celebracion-->
+	<table class="registrarActa_tabla02" style="width:700px; margin-left:60px;">
+	
+		<tr>
+			<td width="300" height="80" colspan="3"></td>
+		</tr>
+		
+		<tr>
+			<td width="260"></td>
+			<td width="300">
+				<div style="font-weight: bold; border-top: 1px solid #333; text-align: center;">
+					Firma, sello e impresión dactilar de la Autoridad Celebrante
+				</div>
+			</td>
+			<td width="260"></td>
+		</tr>
+		
+	</table>
+	<br />
+	
+</div>
+
+<!-- boton vistaPrevia, anterior e imprimirActa -->
+<div style="border-top: 1px solid #000; margin-top:40px; width:858px; height:40px; margin-left:-20px;">
+	
+	<button id="btnAnterior" class="btn backTab btn-small btn-primary" style="margin-left: 600px; margin-top:14px;" type="button">
+		<i class="icon-backward icon-white"></i>&nbsp;Anterior
+	</button>
+	
+	<button id="btnImprimirActa" 
+		class="btn btn-small btn-primary" 
+		style="margin-left: 20px; margin-top:14px;" 
+		type="button" 
+		onclick="generarActaImpresa('1000000001');">
+		<i class="icon-print icon-white"></i>&nbsp;Imprimir Acta
+	</button>
+	
+</div>

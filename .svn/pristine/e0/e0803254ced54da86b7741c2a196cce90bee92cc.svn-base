@@ -1,0 +1,222 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Consultas y Reportes</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.css" />
+		
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="${ruta}/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/actaCeleb/actaCeleb.js"></script>
+				
+		<!-- estilos propios -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/resultadoVerificacion.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+		
+			<!-- smart paginator -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/smartpaginator.js"></script>
+
+		<!-- icon -->
+		<link rel="shortcut icon" href="./images/favicon.ico"></link>
+				
+	</head>
+		
+	<body>
+
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10" style="height:120px; margin-top:10px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+		
+		<!-- menu -->
+		<div class="row-fluid">
+			<div class="span1"></div>		
+			<div class="span10" style="margin-top: 10px;">
+				<!-- ini: barra de menu -->
+			    <div class="navbar">
+				    <div class="navbar-inner">
+					    <div class="container">
+					     <!-- titulo -->
+						    <a class="brand" href="#">Consultas y Reportes</a>
+						    <!-- links adicionales -->
+							<ul class="nav pull-right" style="margin-right:-12px;">
+								<li>
+									<button type="button" class="btn btn-small btn-info" style="margin-top:7px;" 
+										onclick="window.location.href='inicioSistema.htm';">
+										<i class="icon-home icon-white"></i>&nbsp;&nbsp;
+										Men&uacute; principal
+									</button>
+								</li>
+								<li class="divider-vertical"></li>
+								<li>
+									<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" 
+										onclick="fnCerrarSesion();">
+										<i class="icon-lock icon-white"></i>&nbsp;&nbsp;
+										Cerrar sesi&oacute;n
+									</button>
+								</li>
+							</ul>						     
+						    
+					    </div>
+				    </div>
+			    </div>
+	   			<!-- fin: barra de menu -->
+			</div>
+			<div class="span1"></div>			
+		</div>
+				
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>				
+			<div class="span10">
+				<div class="backContent" style="width:auto; height:auto; padding:5px;">
+				
+					<table style="border:0px; margin:0px; padding:0px; width:100%;">
+						<tr>
+							
+							<td style="vertical-align:top; padding:5px;">
+				   
+								<!-- ini: formulario de filtro -->
+							    <div class="contenedorForm" style="min-height: 280px;">
+								    <form id="consultaReporte" action="#" >
+									    
+									    <!-- titulo -->
+										<div style="display: block; height:32px; margin-top: 25px; width: 630px; margin-left: 30px; ">
+											<span class="titulo02">Consultas y Reportes</span>
+										</div>
+										
+										<!-- linea -->
+										<div style="display:block; height:20px; min-height:20px; border-top:1px solid #E5E5E5; width: 995px; margin-left: 30px;"></div>									    
+									    
+										<table style="border:0px; margin:0px; padding:0px; width:100%; margin-top:10px;">
+										
+											<tr>
+											
+												<td colspan="2">
+													<div class="contenedorForm03" style="height:50px; margin-bottom:25px;text-align:center; width: 940px">
+													<table style="width: 900px;margin-left:5px; ">
+														<tr >
+															<td>
+																<div style="margin-top:-5px"><h6 >Fecha desde &nbsp;&nbsp;<input id="feInicio"" type="text" style="width: 77px;margin-top:5px " onclick="fnFecha()" >&nbsp;&nbsp;<img  alt="Imagen"  style="padding-bottom:10px;margin-top:5px" src="images/calendar.png" /></h6></div>
+															</td>
+															
+															<td>
+																<div style="margin-top:-5px" ><h6>hasta &nbsp;&nbsp;<input id="feFin" type="text"  style="width: 77px;margin-top:5px " onclick="fnFecha()" >&nbsp;&nbsp;<img  alt="Imagen" style="padding-bottom:10px;margin-top:5px " src="images/calendar.png" /></h6></div>
+															</td>
+															
+															<td>
+																<div style="margin-top:-5px"><h6>Estado &nbsp;&nbsp;
+																		<select id="tiEstado" style="margin-top:5px; width: 150px; height: 25px" >
+																				<option id="1" value="01"  >Seleccione tipo</option>
+																				<option id="2" value="02 " selected="selected" >Impreso</option>
+																				<option id="3" value="03" ></option>
+																				<option id="4" value="04"></option>
+																		</select>
+																		</h6>
+																</div>
+															</td>
+															
+															<td>
+																<div >
+																	<button id="btnBuscarActaReporte" onclick="fnBuscarActaReporte();" style="margin-top:-15px;margin-right:15px; width: 98px" class="btn btn-small btn-info" type="button">
+																	<i class="icon-search icon-white"></i>&nbsp;Consultar	
+																	</button> 
+																</div>
+															</td>
+														</tr>
+													</table>
+													
+													</div>
+												</td>
+											</tr>
+										
+											<tr>
+												<!-- Reportes -->
+												<td style="width:50%;">
+													<!-- grilla de datos -->
+													<div class="contenedorForm03" style=" height:390px;">
+														<div id="divlistaActas" class="span12"  style="float:left; clear:left; margin-top:50px;display:none; ">
+														</div>							
+													</div>
+												</td>
+												
+											</tr>
+
+											<tr>
+												<td colspan="2">
+													<div id="divPagListaActas" class="contenedorForm03" style=" height:70px; margin-top:25px; padding-top:20px;padding-left:55px">
+														
+													</div>
+												</td>
+											
+											</tr>
+																						
+										</table>
+
+								    </form>
+								    
+								</div>
+								<!-- fin: formulario de filtro -->
+					
+							</td>
+							
+						</tr>
+					</table>
+					
+				</div>
+			</div>
+			<div class="span1"></div>			
+		</div>
+		
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top: 40px; margin-bottom: 30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+				
+			</div>
+			<div class="span3"></div>
+		</div>
+
+	</body>
+	
+</html>

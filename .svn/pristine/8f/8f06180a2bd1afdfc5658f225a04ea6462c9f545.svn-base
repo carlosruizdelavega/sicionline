@@ -1,0 +1,12 @@
+<!-- jquery -->
+<script type="text/javascript" src="${ruta}/js/general/jquery/jquery-1.10.2${min}.js"></script>
+
+<!-- jquery ui -->
+<script type="text/javascript" src="${ruta}/js/general/jqueryui/jquery-ui-1.10.3.custom${min}.js"></script>		
+
+<!-- componentes -->
+<script type="text/javascript" src="${ruta}/js/general/componentes/jcomponentes-1.0${min}.js"></script>
+<script type="text/javascript" src="${ruta}/js/general/componentes/jvalidaciones-1.0${min}.js"></script>
+
+<!-- contenedor -->
+<script type="text/javascript" src="${ruta}/js/particular/contenedor/contenedor${min}.js"></script>

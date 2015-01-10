@@ -1,0 +1,56 @@
+package pe.gob.reniec.actacelebracion.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Utiles {
+
+	/**
+	 * Metodo que permite separar en lineas un parrafo
+	 * 
+	 * @param texto
+	 * @return
+	 */
+	public static List<String> separarLineasParrafo(String texto, int anchoLinea) {
+
+		List<String> lines = new ArrayList<String>();
+		if (texto.length() > anchoLinea) {
+
+			while (texto.length() > 0) {
+
+				if (texto.length() > anchoLinea) {
+
+					if (texto.substring(0, anchoLinea).charAt(anchoLinea - 1) == ' ') {
+
+						lines.add(texto.substring(0, anchoLinea));
+						texto = texto.substring(anchoLinea);
+
+					} else {
+
+						int last = texto.substring(0, anchoLinea).lastIndexOf(
+								' ');
+						lines.add(texto.substring(0, last));
+						texto = texto.substring(last + 1);
+
+					}
+
+				} else {
+
+					lines.add(texto);
+					texto = "";
+
+				}
+
+			}
+
+		} else {
+
+			lines.add(texto);
+
+		}
+
+		return lines;
+
+	}
+
+}

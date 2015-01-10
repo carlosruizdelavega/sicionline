@@ -1,0 +1,46 @@
+<%@include file="/jsp/include/taglibs.jsp"%>    
+
+<!-- <form id="formVerificarCiudadano" name="formVerificarCiudadano" class="formModal">-->
+	 <div class="backContentDialog" style="margin-top:30px;" >
+		<fieldset >
+	 		<table>
+				<tr>
+				<td colspan=3><p>Se requiere ingresar el primer apellido para realizar la busqueda del DNI seleccionado </td>
+				</tr>
+				<tr>
+					<td><label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label></td>
+					<td ><input id="txtPrimerApellido" type="text" style="margin-top:8px; text-transform: uppercase;" maxlength="20" value=""/></td>
+					<td >
+						<!-- <button onclick="fnVerificarCiudadano();" style="" class="btn btn-small btn-info" type="button" >
+									<i class="icon-check icon-white"></i>
+									&nbsp;Verificar
+						</button>-->
+					</td>
+				</tr>
+				
+				
+			</table>
+			
+			<div id="divApDistinto" style="display:none">
+			<table>
+			
+				<tr>
+                   <td  colspan="2"  >El primer apellido no coincide:</td>
+                  </tr>
+				<tr>
+                   <td > Apellido en ANI :</td>
+                   <td><div id="divApAni" ></div></td>	
+                   
+                  </tr>
+                 <tr>
+                   <td> Apellido Ingresado :</td>
+                   <td><div id="divApIng" ></div><br></td>	
+                   
+                  </tr> 
+                  
+                
+			</table>
+			</div> 
+		</fieldset>
+	 </div>
+<!--  </form>-->

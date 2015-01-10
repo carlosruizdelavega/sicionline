@@ -1,0 +1,275 @@
+<!-- importar librerias -->
+<%@include file="/jsp/include/taglibs.jsp" %>
+<script type="text/javascript" src="${ruta}/js/particular/actaCelebracion/actaCelebracion${min}.js"></script>
+
+<!-- menu -->
+<div class="navbar">
+
+	<div class="navbar-inner">
+ 
+		<div class="container">
+      
+			<!-- titulo -->
+			<a class="brand" href="#.">Acta de Celebraci&oacute;n</a>
+   
+			<!-- links de navegacion -->
+			<ul class="nav">
+
+				<li class="dropdown active">								
+					<a href="#" onclick='fnCargarContenido("cargarRegistroActa.htm", null, "#contenido");'  
+						class="dropdown-toggle" data-toggle="dropdown">
+						Registro de Acta
+					</a>
+				</li>
+						
+				<li>
+					<a href="#" onclick='fnCargarContenido("cargarRegistroActa.htm", null, "#contenido");'>
+						Edici&oacute;n de Acta
+					</a>
+				</li>
+	
+			</ul>
+
+			<!-- links adicionales -->
+			<ul class="nav pull-right" style="margin-right:-12px;">
+
+				<li>
+					<button type="button" class="btn btn-small btn-info" style="margin-top:7px;" 
+						onclick='fnCargarContenido("menuPrincipal.htm", null, "#contenido");'>
+						<i class="icon-home icon-white"></i>&nbsp;&nbsp;
+						Men&uacute; principal
+					</button>
+				</li>
+	
+				<li class="divider-vertical"></li>
+				
+				<li>
+					<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" 
+						onclick="fnCerrarSesion();">
+						<i class="icon-lock icon-white"></i>&nbsp;&nbsp;
+						Cerrar sesi&oacute;n
+					</button>
+				</li>
+				
+			</ul>						     
+   
+		</div>
+ 
+	</div>
+ 
+</div>
+
+<!-- contenido -->
+<div class="backContent" style="display:block; width:auto; height:auto; padding:5px;">
+	
+	<!-- ini: formulario principal -->
+    <div class="contenedorForm">
+
+	    <!-- contenedor del titulo -->
+	    <div style="display:block; height:32px; margin-top:15px; margin-left:10px;">
+	    
+	    	<!-- titulo -->
+			<div style="float:left;">
+				<span class="titulo02">Registro de Acta - Datos del Acta de Celebraci&oacute;n</span>
+			</div>
+			
+			<!-- Numero de acta -->
+			<div style="float:right; margin-top:-5px; height:30px; min-height:30px;">
+			
+				<span class="etiqueta03" style="float:left; margin-top:5px;">
+					Nro. de Acta de Celebraci&oacute;n
+				</span>
+				
+				<input id="txtNroActaCelebracion" type="text" maxlength="20" readonly="readonly" 
+					style="float:left; margin-top:2px; margin-left:15px; width:130px;" />
+					
+			</div>
+			
+		</div>
+			
+		<!-- linea -->
+		<div style="display:block; height:20px;  border-top:1px solid #E5E5E5; width:auto; margin-left:10px;"></div>									    
+
+		<!-- Tabs -->
+		<div id="tabs" style="margin-bottom: 10px;" class="tabs">
+		
+			<ul>
+				
+				<li>
+					<a href="#tabs-1" style="background-color:#F5F5F5;border-bottom:1px solid #F5F5F5">
+						Datos de los Contrayentes
+					</a>
+				</li>
+				
+				<li>
+					<a href="#tabs-2" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">
+						Datos de los Testigos
+					</a>
+				</li>
+				
+				<li>
+					<a href="#tabs-3" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">
+						Datos de Celebraci&oacute;n
+					</a>
+				</li>
+				
+				<li>
+					<a href="#tabs-4" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">
+						Vista Previa
+					</a>
+				</li>
+				
+			</ul>
+			
+			<!-- Inicia tabs-1 -->
+			<div id="tabs-1" style="background-color:#F5F5F5; border:1px solid #000000;border-top:0px">
+						 	
+				<!-- contenido del tab -->
+				<div id="divContentTab1"></div>
+	
+				<!-- boton siguiente -->
+			 	<div style="margin-left:-15px; padding-right:30px; border-top:1px solid black; width:100%; 
+			 		height:42px;">
+			 	
+			 		<button id="btnSiguiente" 
+			 			class="btn btnNext btn-small btn-primary" 
+						style="float:right; margin-top:16px; margin-left:738px;" 
+						onclick="fnRegistrarContrayente();">
+						<i class="icon-forward icon-white"></i>&nbsp;Siguiente
+					</button>
+
+				</div>
+						
+			</div>
+				
+			<!-- Inicia tabs-2 -->
+			<div id="tabs-2" style="border:1px solid #000000; border-top:0px;">
+				
+				<!-- contenido del tab -->
+				<div id="divContentTab2"></div>
+				
+				<!-- boton anterior y siguiente -->
+				<div style="margin-left:-15px; padding-right:30px; border-top:1px solid black; width: 100%; 
+					height:42px;">
+
+			 		<button id="btnSiguienteTestigos" class="btn nextTab btn-small btn-primary" 
+			 			style="float:right; margin-top:16px; margin-left:10px" onclick="fnRegistrarTestigo();">
+						<i class="icon-forward icon-white"></i>&nbsp;Siguiente
+					</button>
+				 		
+			 		<button id="btnAtrasTestigos" class="btn backTab btn-small btn-primary" 
+			 			style="float:right; margin-top:16px;" onclick="fnCargarTab(1);">
+						<i class="icon-backward icon-white"></i>&nbsp;Anterior
+					</button>
+
+				</div>
+				
+			</div>
+		
+			<!-- Inicia tabs-3 -->
+			<div id="tabs-3" style=" background-color: white; border:1px solid #000000;border-top:0px;">
+				
+				<!-- contenido del tab -->
+				<div id="divContentTab3"></div>
+				
+				<!-- boton anterior y siguiente -->
+				<div style="margin-left:-15px; padding-right:30px; border-top:1px solid black; width:100%; 
+					height:42px;">
+
+				 	<button id="btnSiguienteAC" class="btn nextTab btn-small btn-primary" 
+				 		style="float:right; margin-top:16px; margin-left:10px" onclick="fnActualizarCelebracion();">
+						<i class="icon-forward icon-white"></i>&nbsp;Siguiente
+					</button>
+					
+				 	<button id="btnAnteriorAC" class="btn backTab btn-small btn-primary" 
+				 		style="float:right; margin-top:16px;" onclick="fnCargarTab(2);">
+						<i class="icon-backward icon-white"></i>&nbsp;Anterior
+					</button>
+
+				</div>
+				
+			</div>
+			
+			<!-- Inicia tabs-4 -->
+			<div id="tabs-4" style=" background-color:white;  border:1px solid #000000;border-top:0px;">
+			
+				<!-- contenido del tab -->
+				<div id="divContentTab4"></div>
+				
+				<!-- boton anterior y siguiente -->
+				<div style="margin-left:-15px; padding-right:30px; border-top:1px solid black; width:100%; 
+					height:42px;">
+
+					<button id="btnImprimirActa" class="btn btn-small btn-primary" 
+						style="float:right; margin-top:16px; margin-left:10px;" onclick="generarActaImpresa();">
+						<i class="icon-print icon-white"></i>&nbsp;Imprimir Acta
+					</button>
+										
+					<button id="btnAnterior" class="btn backTab btn-small btn-primary" 
+						style="float:right; margin-top:16px;" onclick="fnCargarTab(3);">
+						<i class="icon-backward icon-white"></i>&nbsp;Anterior
+					</button>
+					
+				</div>
+
+			</div>
+			
+		</div>
+				
+		<!-- modal verificar ciudadano -->
+		<div id="dialogVerificarCiudadano" style="display:none;">
+			<div class="backContentDialog" style="margin-top:10px;">
+			
+				<div style="float: left; clear:left; width:100%; height:50px; vertical-align: top;">
+					Se requiere ingresar el primer apellido para realizar la busqueda del DNI seleccionado
+				</div>
+				
+				<div style="float:left; clear:left; width:100%; height:45px; vertical-align:top;">
+				
+					<div style="float:left; font-size:12px; font-weight:bold; margin-top:4px; margin-left:120px;">
+						Primer Apellido
+					</div>
+					
+					<input id="txtPrimerApellido" type="text" style="float:left; margin-left:15px; width:200px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20" />
+						
+				</div>	
+			
+				<div id="divApDistinto" style="float:left; clear:left; width:100%; height:auto; display:none;">
+				
+					<table>
+						<tr>
+							<td colspan="3" style="height:40px;">El primer apellido no coincide:</td>
+						</tr>
+					</table>
+					
+					<div style="border-radius:8px; background-color:#efefef; border:1px solid #ccc; padding:8px;">
+						<table>
+						
+							<tr style="font-weight:bold; font-size: 12px;">
+								<td style=" text-align: right;">Apellido Ingresado</td>
+								<td style="width: 20px; text-align: center;">:</td>
+								<td>
+									<div id="divApIng" style="font-weight: normal; text-transform: uppercase; color: red;"></div>
+								</td>
+							</tr>
+			
+							<tr style="font-weight:bold; font-size: 12px;">
+								<td style="width: 180px; text-align: right;">Apellido en el ANI</td>
+								<td style="width: 20px; text-align: center;">:</td>
+							    <td>
+							    	<div id="divApAni" style="font-weight: normal; text-transform: uppercase; color: blue;"></div>
+							    </td>
+							</tr>
+											
+						</table>
+					</div>
+					
+				</div>
+					
+			</div>
+		</div>
+			
+	</div>
+
+</div>

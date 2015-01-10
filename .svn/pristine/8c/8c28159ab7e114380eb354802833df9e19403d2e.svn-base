@@ -1,0 +1,35 @@
+package pe.gob.reniec.actacelebracion.bean;
+ 
+public class TipoEstadoCivilBean {
+	
+	
+	private String  coEstadoCivil,
+				   deEstadoCivil,
+				   esEstadoCivil;
+
+	public String getCoEstadoCivil() {
+		return coEstadoCivil;
+	}
+
+	public void setCoEstadoCivil(String coEstadoCivil) {
+		this.coEstadoCivil = coEstadoCivil;
+	}
+
+	public String getDeEstadoCivil() {
+		return deEstadoCivil;
+	}
+
+	public void setDeEstadoCivil(String deEstadoCivil) {
+		this.deEstadoCivil = deEstadoCivil;
+	}
+
+	public String getEsEstadoCivil() {
+		return esEstadoCivil;
+	}
+
+	public void setEsEstadoCivil(String esEstadoCivil) {
+		this.esEstadoCivil = esEstadoCivil;
+	}
+				 
+
+}

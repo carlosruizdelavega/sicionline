@@ -1,0 +1,265 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<!-- testigo 01 -->	
+<div style="height:215px; margin:10px;">
+
+	<div class="contenedorForm03" style="float:left; clear:left; height:210px;">
+		 
+		 <div style="margin:20px;">
+
+			<div style="float:left; clear:left;">
+			 
+				<!-- titulo -->
+				<div style="display: block; height:32px;">
+					<span class="titulo03">Primer Testigo</span>
+				</div>
+	
+				<!-- linea -->
+				<div style="display:block; height:20px; width:100%; min-height:20px; 
+					border-top:1px solid #ccc;">
+				</div>
+			
+			</div>
+													
+			<div style="float:left; clear:left;">
+			
+				<!-- tipo de documento -->
+				<div style="float:left;">
+				
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Tipo de documento
+						</small>
+					</label>
+					
+					<select id="cboTipoDocumentoPT" style="margin-top:-6px; padding-top:4px; width:260px; 
+						height:26px; font-size:12px;">
+	
+						<c:forEach var="listaDoc" items="${listaTipoDocIdentidad}">
+	
+							<c:choose>
+								<c:when test="${listaDoc.coTipoDocIdentidad=='01'}">
+									<option id="${listaDoc.coTipoDocIdentidad}"
+										value="${listaDoc.coTipoDocIdentidad}"
+										selected="selected"><c:out
+											value="${listaDoc.deDocIdentidad}" /></option>
+								</c:when>
+								<c:otherwise>
+									<option id="${listaDoc.coTipoDocIdentidad}"
+										value="${listaDoc.coTipoDocIdentidad}"><c:out
+											value="${listaDoc.deDocIdentidad}" /></option>
+								</c:otherwise>
+							</c:choose>
+	
+						</c:forEach>
+	
+					</select>
+					
+				</div>
+				
+				<!-- nro de documento -->
+				<div style="float:left; margin-left:20px;">
+				
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Nro. de documento
+						</small>
+					</label>
+					
+					<input id="txtNroDocumentoPT" type="text" 
+						style="margin-top:-6px; width:100px; text-transform:uppercase; font-size:12px;" maxlength="20" />
+						
+					<button onclick="fnBuscarCiudadano('PT','02');" style="margin-left:2px; margin-top:-16px;" 
+						class="btn btn-small btn-info" type="button">
+						<i class="icon-search icon-white"></i>&nbsp;Buscar
+					</button>
+					
+				</div>
+				
+			</div>	
+			
+			<div style="float:left; clear:left; margin-top:7px;">
+			
+				<!-- primer apellido -->
+				<div style="float:left;">
+				
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Primer Apellido
+						</small>
+					</label>
+					
+					<input id="txtApPrimerPT" type="text" style="margin-top:-6px; width:250px; font-size:12px; 
+						text-transform:uppercase;" maxlength="20"/>
+					
+				</div>
+				
+				<!-- segundo apellido -->
+				<div style="float:left; margin-left:20px;">
+					
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Segundo Apellido
+						</small>
+					</label>
+					
+					<input id="txtApSegundoPT" type="text" style="margin-top:-6px; width:250px; font-size:12px; 
+						text-transform:uppercase;" maxlength="20" />
+					
+				</div>
+				
+				<!-- pre nombres -->
+				<div style="float:left; margin-left:20px;">
+					
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Pre nombres
+						</small>
+					</label>
+					
+					<input id="txtPreNomInscritoPT" type="text" style="margin-top:-6px; width:250px; font-size:12px; 
+						text-transform:uppercase;" maxlength="20" />
+					
+				</div>
+				
+			</div>
+			 
+		</div>
+	
+	</div>    	
+
+</div>
+	
+<!-- testigo 02 -->
+<div style="height:235px; margin:10px;">
+
+	<div class="contenedorForm03" style="float:left; clear:left; height:210px; margin-top:10px;">
+		 
+		<div style="margin:20px;">
+
+			<div style="float:left; clear:left;">
+			 		    
+				<!-- titulo -->
+				<div style="display: block; height:32px;">
+					<span class="titulo03">Segundo Testigo</span>
+				</div>
+	
+				<!-- linea -->
+				<div style="display:block; height:20px; width:100%; min-height:20px; 
+					border-top:1px solid #ccc;"></div>
+				
+			</div>
+			
+			<div style="float:left; clear:left;">
+			
+				<!-- tipo de documento -->
+				<div style="float:left;">
+				
+					<label>
+						<small style="font-size:11px; font-weight:bold;">
+							Tipo de documento
+						</small>
+					</label>
+					
+					<select id="cboTipoDocumentoST" style="margin-top:-6px; padding-top:4px; height:26px; 
+						font-size:12px; width: 260px;">
+						
+						<c:forEach var="listaDoc" items="${listaTipoDocIdentidad}">
+	
+							<c:choose>
+								
+								<c:when test="${listaDoc.coTipoDocIdentidad=='01'}">
+									<option id="${listaDoc.coTipoDocIdentidad}"
+										value="${listaDoc.coTipoDocIdentidad}"
+										selected="selected">
+										<c:out value="${listaDoc.deDocIdentidad}" />
+									</option>
+								</c:when>
+								
+								<c:otherwise>
+									<option id="${listaDoc.coTipoDocIdentidad}"
+										value="${listaDoc.coTipoDocIdentidad}">
+										<c:out value="${listaDoc.deDocIdentidad}" />
+									</option>
+								</c:otherwise>
+								
+							</c:choose>
+	
+						</c:forEach>
+	
+					</select>
+					
+				</div>
+				
+				<!-- nro de documento -->
+				<div style="float:left; margin-left:20px;">
+				
+					<label>
+						<small style="font-size: 11px; font-weight: bold;">
+							Nro. de documento
+						</small>
+					</label>
+					
+					<input id="txtNroDocumentoST" type="text" style="margin-top:-6px; width:100px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20" />
+					
+					<button onclick="fnBuscarCiudadano('ST','02');" style="margin-top:-16px; margin-left:3px;" 
+						class="btn btn-small btn-info" type="button">
+						<i class="icon-search icon-white"></i>&nbsp;Buscar
+					</button>
+					
+				</div>
+				
+			</div>	
+			
+			<div style="float:left; clear:left; margin-top:7px;">
+			
+				<!-- primer apellido -->
+				<div style="float:left;">
+					
+					<label>
+						<small style="font-size: 11px; font-weight:bold;">
+							Primer Apellido
+						</small>
+					</label>
+					
+					<input id="txtApPrimerST" type="text" style="margin-top:-6px; width:250px; 
+						text-transform:uppercase; font-size: 12px;" maxlength="20" />
+					
+				</div>
+				
+				<!-- segundo apellido -->
+				<div style="float:left; margin-left:20px;">
+				
+					<label>
+						<small style="font-size: 11px; font-weight: bold;">
+							Segundo Apellido
+						</small>
+					</label>
+					
+					<input id="txtApSegundoST" type="text" style="margin-top:-6px; width:250px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20" />
+					
+				</div>
+				
+				<!-- pre nombres -->
+				<div style="float:left; margin-left:20px;">
+				
+					<label>
+						<small style=" font-size: 11px; font-weight: bold;">
+							Pre nombres
+						</small>
+					</label>
+					
+					<input id="txtPreNomInscritoST" type="text" style="margin-top:-6px; width:250px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20" />
+					
+				</div>
+				
+			</div>
+		
+		</div>
+		
+	</div>    	
+
+</div>

@@ -1,0 +1,33 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+public class GeneroBean {
+	 
+	private String  coSExo,
+					deSexo,
+					esSexo;
+
+	public String getCoSExo() {
+		return coSExo;
+	}
+
+	public void setCoSExo(String coSExo) {
+		this.coSExo = coSExo;
+	}
+
+	public String getDeSexo() {
+		return deSexo;
+	}
+
+	public void setDeSexo(String deSexo) {
+		this.deSexo = deSexo;
+	}
+
+	public String getEsSexo() {
+		return esSexo;
+	}
+
+	public void setEsSexo(String esSexo) {
+		this.esSexo = esSexo;
+	}
+
+}

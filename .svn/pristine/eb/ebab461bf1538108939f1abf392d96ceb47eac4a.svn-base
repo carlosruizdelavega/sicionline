@@ -1,0 +1,14 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<form id="formCambiaPass">
+	<fieldset>
+			<label><small>Usuario</small></label>
+		    <input id="cambiaPassUser" type="text" style="margin-top:-5px;" placeholder="Ingrese usuario" onkeydown="fnValidarNumero(this)" onkeyup="fnValidarNumero(this)" maxlength="8"/>
+											    
+			<label><small>Contrase&ntilde;a actual</small></label>
+			<input id="cambiarPassPri" type="password" style="margin-top:-5px;" placeholder="Ingrese contraseña actual" maxlength="15"/>
+		
+			<label><small>Contrase&ntilde;a nueva</small></label>
+			<input id="cambiarPassSeg" type="password" style="margin-top:-5px;" placeholder="Ingrese contraseña nueva" maxlength="15"/>
+	</fieldset>
+</form>

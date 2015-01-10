@@ -1,0 +1,142 @@
+package pe.gob.reniec.actacelebracion.util;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+  
+public class Utiles  {
+
+	/**
+	 * Metodo que permite separar en lineas un parrafo
+	 * 
+	 * @param texto
+	 * @return
+	 */
+	public static List<String> separarLineasParrafo(String texto, int anchoLinea) {
+
+		List<String> lines = new ArrayList<String>();
+		if (texto.length() > anchoLinea) {
+
+			while (texto.length() > 0) {
+
+				if (texto.length() > anchoLinea) {
+
+					if (texto.substring(0, anchoLinea).charAt(anchoLinea - 1) == ' ') {
+
+						lines.add(texto.substring(0, anchoLinea));
+						texto = texto.substring(anchoLinea);
+
+					} else {
+
+						int last = texto.substring(0, anchoLinea).lastIndexOf(
+								' ');
+						lines.add(texto.substring(0, last));
+						texto = texto.substring(last + 1);
+
+					}
+
+				} else {
+
+					lines.add(texto);
+					texto = "";
+
+				}
+
+			}
+
+		} else {
+
+			lines.add(texto);
+
+		}
+
+		return lines;
+
+	}
+	
+	/**
+	 * Metodo que permite formatear una fecha de YYYYMMDD a formato largo
+	 * @param fecha
+	 * @return
+	 */
+	public static String getFechaLarga(String fecha){
+		
+		String fechaConvertida = null;
+		
+		try{
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+			Date date = formatter.parse(fecha);
+			Calendar cal= Calendar.getInstance();
+		    cal.setTime(date);
+			int diaSemana = cal.get(Calendar.DAY_OF_WEEK);
+			
+			String[] meses = {"enero", 
+							  "febrero", 
+							  "marzo", 
+							  "abril", 
+							  "mayo", 
+							  "junio", 
+							  "julio", 
+							  "agosto", 
+							  "setiembre", 
+							  "octubre", 
+							  "noviembre", 
+							  "diciembre"};
+
+			String[] dias = {"domingo", 
+							 "lunes", 
+							 "martes", 
+							 "miercoles", 
+							 "jueves", 
+							 "viernes", 
+							 "sabado"};
+			
+			String anio = fecha.substring(0, 4);
+			String mes = fecha.substring(4, 6);
+			String dia = fecha.substring(6, 8);
+			fechaConvertida = dias[diaSemana] + " " + dia + " de " + meses[Integer.parseInt(mes)-1] + " del " + anio;
+			fechaConvertida = fechaConvertida.toUpperCase();
+			
+		}catch(Exception ex){
+			
+			fechaConvertida = null;
+			
+		}
+
+		return fechaConvertida;
+		
+	}
+	
+	/**
+	 * Metodo que permite formatear una hora de HH24MMSS a formato de hora largo con AM y PM
+	 * @param hora
+	 * @return
+	 */
+	public static String getHoraLarga(String hora){
+		
+		String horaConvertida = null;
+		
+		try{
+
+			//recibir hora
+			SimpleDateFormat formatter = new SimpleDateFormat("HHmmss");
+			Date date = formatter.parse(hora);
+			
+			//dar formato a hora
+			formatter = new SimpleDateFormat("hh:mm a");
+			horaConvertida = formatter.format(date);
+
+		}catch(Exception ex){
+			
+			horaConvertida = null;
+			
+		}
+
+		return horaConvertida;
+		
+	}
+
+}

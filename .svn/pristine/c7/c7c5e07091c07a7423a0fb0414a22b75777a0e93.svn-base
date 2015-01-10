@@ -1,0 +1,274 @@
+package pe.gob.reniec.actacelebracion.dao.impl;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ImpresionDao;
+import pe.gob.reniec.actacelebracion.util.Utiles;
+
+@Repository
+public class ImpresionDaoImpl implements ImpresionDao {
+
+	// define log
+	private static final Logger log = Logger.getLogger(ImpresionDaoImpl.class);
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	/**
+	 * Metodo que permite consultar datos de la celebracion
+	 */
+	public CelebracionBean consultarDatosCelebracion(String acta){
+		
+		//definir bean a retornar
+		CelebracionBean celebracionBean = null;
+		
+		try{
+			
+			//definir query
+			String sql = "SELECT T1.NU_ACTA_CELEBRACION, \r\n" + 
+						"       T1.DE_CELEBRADO_LUGAR, \r\n" + 
+						"       T1.FE_EVENTO, \r\n" + 
+						"       T1.HO_EVENTO, \r\n" + 
+						"       T1.NO_CELEBRANTE, \r\n" + 
+						"       (SELECT DE_DOC_IDENTIDAD \r\n" + 
+						"        FROM RCTR_TIPO_DOC_IDENTIDAD \r\n" + 
+						"        WHERE CO_TIPO_DOC_IDENTIDAD = T1.CO_TIPO_DOC_IDENTIDAD AND \r\n" + 
+						"              ES_DOC_IDENTIDAD = '1') DE_TIPO_DOC_IDENTIDAD, \r\n" + 
+						"       T1.NU_DOC_CELEBRANTE, \r\n" + 
+						"       T1.DE_CARGO_CELEBRANTE, \r\n" + 
+						"       T1.DE_EXPEDIENTE, \r\n" + 
+						"       T1.DE_OBSERVACION \r\n" + 
+						"FROM IDOACE.ACTM_ACE T1 \r\n" + 
+						"WHERE T1.NU_ACTA_CELEBRACION = ?";
+			
+			//ejecutar query
+			celebracionBean = jdbcTemplate.queryForObject(sql, new Object[]{acta}, new RowMapper<CelebracionBean>() {
+
+				@Override
+				public CelebracionBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+					
+					CelebracionBean bean = new CelebracionBean();
+					bean.setNuActaCelebracion(rs.getString("NU_ACTA_CELEBRACION"));
+					bean.setDeCelebradoLugar(rs.getString("DE_CELEBRADO_LUGAR"));
+					bean.setFeEvento(Utiles.getFechaLarga(rs.getString("FE_EVENTO")));
+					bean.setHoEvento(Utiles.getHoraLarga(rs.getString("HO_EVENTO")));
+					bean.setNoCelebrante(rs.getString("NO_CELEBRANTE"));
+					bean.setDeTipoDocIdentidad(rs.getString("DE_TIPO_DOC_IDENTIDAD"));
+					bean.setNuDocCelebrante(rs.getString("NU_DOC_CELEBRANTE"));
+					bean.setDeCargoCelebrante(rs.getString("DE_CARGO_CELEBRANTE"));
+					bean.setDeExpediente(rs.getString("DE_EXPEDIENTE"));
+					bean.setDeObservacion(rs.getString("DE_OBSERVACION"));
+					return bean;
+					
+				}
+				
+			});
+			
+		}catch(Exception e){
+			
+			celebracionBean = null;
+			log.error("consultarDatosCelebracion: " + e);
+			
+		}
+		
+		//retornar bean
+		return celebracionBean;
+		
+	}
+
+	/**
+	 * Metodo que permite consultar a los contrayentes
+	 */
+	public List<ContrayenteBean> consultarContrayentes(String acta) {
+
+		//definir lista a retornar
+		List<ContrayenteBean> listaContrayentes = null;
+		
+		try{
+			
+			//definir query
+			String sql = "SELECT T1.NU_ACTA_CELEBRACION, \r\n" + 
+						"       T1.CO_CONTRAYENTE,\r\n" + 
+						"       T1.DE_PRIMER_APELLIDO,\r\n" + 
+						"       T1.DE_SEGUNDO_APELLIDO,\r\n" + 
+						"       T1.DE_PRE_NOMBRES,\r\n" + 
+						"       T1.NU_EDAD,\r\n" + 
+						"       (SELECT DE_ESTADO_CIVIL \r\n" + 
+						"        FROM IDORRCC.RCTR_TIPO_ESTADO_CIVIL \r\n" + 
+						"        WHERE ES_ESTADO_CIVIL = '1' AND \r\n" + 
+						"              CO_ESTADO_CIVIL = T1.CO_ESTADO_CIVIL) DE_ESTADO_CIVIL,\r\n" + 
+						"       (SELECT DE_DOC_IDENTIDAD \r\n" + 
+						"        FROM RCTR_TIPO_DOC_IDENTIDAD \r\n" + 
+						"        WHERE CO_TIPO_DOC_IDENTIDAD = T1.CO_TIPO_DOC_IDENTIDAD AND \r\n" + 
+						"              ES_DOC_IDENTIDAD = '1') DE_TIPO_DOC_IDENTIDAD, \r\n" + 
+						"       T1.NU_DOC_IDENTIDAD,\r\n" + 
+						"       T1.DE_DIRECCION,\r\n" + 
+						"       T1.CO_SEXO,\r\n" + 
+						"       (SELECT DE_UBIGEO_DETALLE \r\n" + 
+						"        FROM IDORRCC.GEVW_UBIGEOS \r\n" + 
+						"        WHERE CO_CONTINENTE = T1.CO_NATURAL_CONT AND \r\n" + 
+						"              CO_PAIS = T1.CO_NATURAL_PAIS AND \r\n" + 
+						"              CO_DEPARTAMENTO = T1.CO_NATURAL_DPTO AND \r\n" + 
+						"              CO_PROVINCIA = T1.CO_NATURAL_PROV AND \r\n" + 
+						"              CO_DISTRITO = T1.CO_NATURAL_DIST AND \r\n" + 
+						"              CO_CENTRO_POBLADO_O = T1.CO_NATURAL_LOCA) DE_NATURAL_UBIGEO, \r\n" + 
+						"       (SELECT DE_UBIGEO_DETALLE \r\n" + 
+						"        FROM IDORRCC.GEVW_UBIGEOS \r\n" + 
+						"        WHERE CO_CONTINENTE = T1.CO_DOM_CONT AND \r\n" + 
+						"              CO_PAIS = T1.CO_DOM_PAIS AND \r\n" + 
+						"              CO_DEPARTAMENTO = T1.CO_DOM_DPTO AND \r\n" + 
+						"              CO_PROVINCIA = T1.CO_DOM_PROV AND \r\n" + 
+						"              CO_DISTRITO = T1.CO_DOM_DIST AND \r\n" + 
+						"              CO_CENTRO_POBLADO_O = T1.CO_DOM_LOCA) DE_DOM_UBIGEO, \r\n" + 
+						"       (SELECT DE_NACIONALIDAD \r\n" + 
+						"        FROM RCTR_TIPO_NACIONALIDAD \r\n" + 
+						"        WHERE CO_NACIONALIDAD = T1.CO_NACIONALIDAD AND \r\n" + 
+						"              ES_NACIONALIDAD = '1') DE_NACIONALIDAD \r\n" + 
+						"FROM IDOACE.ACTM_ACE_CONTRAYENTE T1 \r\n" + 
+						"WHERE T1.NU_ACTA_CELEBRACION = ?";
+			
+			//ejecutar query
+			listaContrayentes = jdbcTemplate.query(sql, new Object[]{acta}, new RowMapper<ContrayenteBean>() {
+
+				@Override
+				public ContrayenteBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+					
+					ContrayenteBean bean = new ContrayenteBean();
+					bean.setNuActaCelebracion(rs.getString("NU_ACTA_CELEBRACION"));
+					bean.setCoContrayente(rs.getString("CO_CONTRAYENTE"));
+					bean.setDePrimerApellido(rs.getString("DE_PRIMER_APELLIDO"));
+					bean.setDeSegundoApellido(rs.getString("DE_SEGUNDO_APELLIDO"));
+					bean.setDePrenombres(rs.getString("DE_PRE_NOMBRES"));
+					bean.setNuEdad(rs.getString("NU_EDAD"));
+					bean.setDeEstadoCivil(rs.getString("DE_ESTADO_CIVIL"));
+					bean.setDeTipoDocIdentidad(rs.getString("DE_TIPO_DOC_IDENTIDAD"));
+					bean.setNuDocIdentidad(rs.getString("NU_DOC_IDENTIDAD"));					
+					bean.setDeDireccion(rs.getString("DE_DIRECCION"));					
+					bean.setCoSexo(rs.getString("CO_SEXO"));
+					bean.setDeNaturalUbigeo(rs.getString("DE_NATURAL_UBIGEO"));					
+					bean.setDeDomUbigeo(rs.getString("DE_DOM_UBIGEO"));					
+					bean.setDeNacionalidad(rs.getString("DE_NACIONALIDAD"));					
+					return bean;
+					
+				}
+				
+			});
+			
+		}catch(Exception e){
+			
+			listaContrayentes = null;
+			log.error("consultarContrayentes: " + e);
+			
+		}
+		
+		//retornar lista
+		return listaContrayentes;
+		
+	}
+
+	
+	/**
+	 * Metodo que permite consultar a los testigos
+	 */
+	public List<TestigoBean> consultarTestigos(String acta) {
+
+		//definir lista a retornar
+		List<TestigoBean> listaTestigos = null;
+		
+		try{
+			
+			//definir query
+			String sql = "SELECT T1.NU_ACTA_CELEBRACION, \r\n" + 
+						"       T1.CO_TESTIGO,\r\n" + 
+						"       (SELECT DE_DOC_IDENTIDAD \r\n" + 
+						"        FROM RCTR_TIPO_DOC_IDENTIDAD \r\n" + 
+						"        WHERE CO_TIPO_DOC_IDENTIDAD = T1.CO_TIPO_DOC_IDENTIDAD AND \r\n" + 
+						"              ES_DOC_IDENTIDAD = '1') DE_TIPO_DOC_IDENTIDAD, \r\n" + 
+						"       T1.NU_DOC_IDENTIDAD,\r\n" + 
+						"       T1.DE_PRIMER_APELLIDO,\r\n" + 
+						"       T1.DE_SEGUNDO_APELLIDO,\r\n" + 
+						"       T1.DE_PRE_NOMBRES \r\n" + 
+						"FROM IDOACE.ACTM_ACE_TESTIGO T1 \r\n" + 
+						"WHERE T1.NU_ACTA_CELEBRACION = ?";
+			
+			//ejecutar query
+			listaTestigos = jdbcTemplate.query(sql, new Object[]{acta}, new RowMapper<TestigoBean>() {
+
+				@Override
+				public TestigoBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+					
+					TestigoBean bean = new TestigoBean();
+					bean.setNuActaCelebracion(rs.getString("NU_ACTA_CELEBRACION"));
+					bean.setCoTestigo(rs.getString("CO_TESTIGO"));
+					bean.setDeTipoDocIdentidad(rs.getString("DE_TIPO_DOC_IDENTIDAD"));
+					bean.setNuDocIdentidad(rs.getString("NU_DOC_IDENTIDAD"));
+					bean.setDePrimerApellido(rs.getString("DE_PRIMER_APELLIDO"));
+					bean.setDeSegundoApellido(rs.getString("DE_SEGUNDO_APELLIDO"));
+					bean.setDePreNombres(rs.getString("DE_PRE_NOMBRES"));
+					return bean;
+					
+				}
+				
+			});
+			
+		}catch(Exception e){
+			
+			listaTestigos = null;
+			log.error("consultarTestigos: " + e);
+			
+		}
+		
+		//retornar lista
+		return listaTestigos;
+		
+	}
+
+	/**
+	 * Metodo que permite actualizar el Acta de Celebracion a estado 02:impreso
+	 */
+	public Boolean actualizarEstadoImpresoActa(String acta, String codUsuario) {
+
+		//definir indicador a retornar
+		Boolean ind = false;
+		
+		try{
+			
+			//definir query
+			String sql = "UPDATE IDOACE.ACTM_ACE \r\n" + 
+						 "SET CO_ESTADO = '02', \r\n" + 
+						 "    ID_ACTUALIZA = ?, \r\n" + 
+						 "    FE_ACTUALIZA = SYSDATE \r\n" + 
+						 "WHERE NU_ACTA_CELEBRACION = ?";
+			
+			//ejecutar query
+			int val = jdbcTemplate.update(sql, codUsuario, acta);
+			
+			//verificar respuesta
+			if(val > 0){
+				ind = true;
+			}
+			
+		}catch(Exception e){
+			
+			ind = false;
+			log.error("actualizarEstadoImpresoActa: " + e);
+			
+		}
+		
+		//retornar indicador
+		return ind;
+		
+	}
+	
+}

@@ -1,0 +1,304 @@
+package pe.gob.reniec.actacelebracion.dao.impl;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ActaCelebraDao;
+
+
+@Repository
+public class ActaCelebraDaoImpl implements ActaCelebraDao {
+
+	private static Logger logger = Logger.getLogger(ActaCelebraDaoImpl.class);
+	
+	@Autowired
+    private JdbcTemplate jdbcTemplate;
+	
+
+public int  registrarCelebracion(CelebracionBean celebracionBean) {
+		logger.info("Inicia metodo registrarCelebracion");
+		
+		int respInsert = 0;
+		
+		String query = "INSERT INTO IDOACE.ACTM_ACE\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n" + 
+			/*	" NU_DOC_CELEBRANTE,\r\n" + 
+				" DE_CARGO_CELEBRANTE,\r\n" + 
+				" NO_CELEBRANTE,\r\n" + 
+				" FE_EVENTO,\r\n" + 
+				" HO_EVENTO,\r\n" + 
+				" DE_EXPEDIENTE,\r\n" + 
+				" DE_OBSERVACION,\r\n" +*/ 
+				" CO_ESTADO,\r\n" +
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				/*"?,\r\n" + //NU_DOC_CELEBRANTE
+				"?,\r\n" + //DE_CARGO_CELEBRANTE
+				"?,\r\n" + //NO_CELEBRANTE
+				"?,\r\n" + //FE_EVENTO
+				"?,\r\n" + //HO_EVENTO
+				"?,\r\n" + //DE_EXPEDIENTE
+				"?,\r\n" + //DE_OBSERVACION*/
+				"?,\r\n" + //CO_ESTADO
+				"?,\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		jdbcTemplate.update(query, new Object[]{
+				celebracionBean.getNuActaCelebracion(),
+				celebracionBean.getCoEstado(),
+				celebracionBean.getIdCrea()
+			
+				
+	        });
+		
+		return respInsert;
+	}
+
+	
+	public int registrarTestigo(TestigoBean testigoBean) {
+		logger.info("Inicia metodo registrarTestigo");
+
+		int respInsert = 0;
+		
+		String query = "INSERT INTO IDOACE.ACTM_ACE_TESTIGO\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n"+
+				" CO_TESTIGO,\r\n" + 
+				" CO_TIPO_DOC_IDENTIDAD,\r\n" + 
+				" NU_DOC_IDENTIDAD,\r\n" + 
+				" DE_PRIMER_APELLIDO,\r\n" + 
+				" DE_SEGUNDO_APELLIDO,\r\n" + 
+				" DE_PRE_NOMBRES,\r\n" + 
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				"?,\r\n" + //CO_TESTIGO
+				"?,\r\n" + //CO_TIPO_DOC_IDENTIDAD
+				"?,\r\n" + //NU_DOC_IDENTIDAD
+				"?,\r\n" + //DE_PRIMER_APELLIDO
+				"?,\r\n" + //DE_SEGUNDO_APELLIDO
+				"?,\r\n" + //DE_PRE_NOMBRES
+				"?,\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		respInsert = jdbcTemplate.update(
+				query,
+				new Object[] { testigoBean.getNuActaCelebracion(),
+						testigoBean.getCoTestigo(),
+						testigoBean.getCoTipoDocIdentidad(),
+						testigoBean.getNuDocIdentidad(),
+						testigoBean.getDePrimerApellido(),
+						testigoBean.getDeSegundoApellido(),
+						testigoBean.getDePreNombres(),
+						testigoBean.getIdCrea()});
+		
+		return respInsert;
+		
+	}
+
+	
+	public int actualizarCelebracion(CelebracionBean celebracionBean) {
+		logger.info("Inicia metodo actualizarCelebracion");
+		
+		int respInsert = 0;
+		
+		String query = "UPDATE IDOACE.ACTM_ACE\r\n" + 
+				"   SET NU_DOC_CELEBRANTE   = ?,\r\n" + 
+				"       DE_CARGO_CELEBRANTE = ?,\r\n" + 
+				"       NO_CELEBRANTE       = ?,\r\n" + 
+				"       FE_EVENTO           = ?,\r\n" + 
+				"       HO_EVENTO           = ?,\r\n" + 
+				"       DE_EXPEDIENTE       = ?,\r\n" + 
+				"       DE_OBSERVACION      = ?,\r\n" +
+				"		CO_TIPO_DOC_IDENTIDAD = '01',\r\n" +
+				"		CO_CELEBRADO_CONT = '92',\r\n" +
+				"		CO_CELEBRADO_PAIS = '33',\r\n" +
+				"		CO_CELEBRADO_DPTO = '01',\r\n" +
+				"		CO_CELEBRADO_PROV = '01',\r\n" +
+				"		CO_CELEBRADO_DIST = '01',\r\n" +
+				"		CO_CELEBRADO_LOCA = '000',\r\n" +
+				"		DE_CELEBRADO_LUGAR = 'MUNICIPALIDAD DE LIMA',\r\n" +
+				"       ID_ACTUALIZA        = ?,\r\n" + 
+				"       FE_ACTUALIZA        = SYSDATE\r\n" + 
+				" WHERE NU_ACTA_CELEBRACION = ?";
+		
+		respInsert = jdbcTemplate.update(query, new Object[]{
+				celebracionBean.getNuDocCelebrante(),
+				celebracionBean.getDeCargoCelebrante(),
+				celebracionBean.getNoCelebrante(),
+				celebracionBean.getFeEvento(),
+				celebracionBean.getHoEvento(),
+				celebracionBean.getDeExpediente(),
+				celebracionBean.getDeObservacion(),
+				celebracionBean.getIdActualiza(),
+				celebracionBean.getNuActaCelebracion()
+	        });
+		logger.info("actualizarCelebracion:"+respInsert);
+		
+		return respInsert;
+	}
+
+	
+	public int registrarCelebracionMov(CelebracionBean celebracionBean) {
+		logger.info("Inicia metodo registrarCelebracionMov");
+		
+		int respInsert = 0;
+		
+		String query = "INSERT INTO IDOACE.ACTV_ACE\r\n" + 
+				"(NU_ACTA_CELEBRACION,\r\n" + 
+				" SE_ACE,\r\n" + 
+				" CO_ACCION,\r\n" +
+				" CO_ESTADO,\r\n" +
+				" ID_CREA,\r\n" + 
+				" FE_CREA\r\n" + 
+				")\r\n" + 
+				"VALUES(\r\n" + 
+				"?,\r\n" + //NU_ACTA_CELEBRACION
+				"(SELECT NVL(MAX(V.SE_ACE),'0') + 1\r\n" + 
+				"FROM IDOACE.ACTV_ACE V\r\n" + 
+				"WHERE V.NU_ACTA_CELEBRACION = ?),\r\n" + //NU_ACTA_CELEBRACION
+				"?,\r\n" + //CO_ACCION
+				"?,\r\n" + //CO_ESTADO
+				"?,\r\n" + //ID_CREA
+				"SYSDATE\r\n" + //FE_CREA
+				")";
+		
+		respInsert = jdbcTemplate.update(query, new Object[]{
+				celebracionBean.getNuActaCelebracion(),
+				celebracionBean.getNuActaCelebracion(),
+				celebracionBean.getCoAccion(),
+				celebracionBean.getCoEstado(),
+				celebracionBean.getIdCrea()
+				
+	        });
+		
+		logger.info("registrarCelebracionMov:"+respInsert);
+		
+		return respInsert;
+	}
+	
+	
+public int registrarContrayente(ContrayenteBean contrayenteBean) {
+		logger.info("Inicia metodo registrarContrayente");
+
+		int respInsert = 0;
+		
+		String query =  "INSERT INTO IDOACE.ACTM_ACE_CONTRAYENTE\r\n" + 
+				"  (NU_ACTA_CELEBRACION,\r\n" + 
+				"   CO_CONTRAYENTE,\r\n" + 
+				"   DE_PRIMER_APELLIDO,\r\n" + 
+				"   DE_SEGUNDO_APELLIDO,\r\n" + 
+				"   DE_PRE_NOMBRES,\r\n" + 
+				"   NU_EDAD,\r\n" + 
+				"   NU_DOC_IDENTIDAD,\r\n" + 
+				"   DE_DIRECCION,\r\n" + 
+				"   CO_SEXO,\r\n" + 
+				"   CO_NATURAL_CONT,\r\n" + 
+				"   CO_NATURAL_PAIS,\r\n" + 
+				"   CO_NATURAL_DPTO,\r\n" + 
+				"   CO_NATURAL_PROV,\r\n" + 
+				"   CO_NATURAL_DIST,\r\n" + 
+				"   CO_NATURAL_LOCA,\r\n" + 
+				"   CO_DOM_CONT,\r\n" + 
+				"   CO_DOM_PAIS,\r\n" + 
+				"   CO_DOM_DPTO,\r\n" + 
+				"   CO_DOM_PROV,\r\n" + 
+				"   CO_DOM_DIST,\r\n" + 
+				"   CO_DOM_LOCA,\r\n" + 
+				"   CO_NACIONALIDAD,\r\n" + 
+				"   CO_TIPO_DOC_IDENTIDAD," +
+				"   CO_ESTADO_CIVIL," +
+				"   ID_CREA," +
+				"   FE_CREA )\r\n" +
+				"VALUES\r\n" + 
+				"  (?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" + 
+				"   ?,\r\n" +
+				"   ?,\r\n" +
+				"   ?,\r\n" +
+				 " SYSDATE)"; 
+				
+		respInsert = jdbcTemplate.update(
+				query,
+				new Object[] { contrayenteBean.getNuActaCelebracion(),
+						contrayenteBean.getCoContrayente(),
+						contrayenteBean.getDePrimerApellido(),
+						contrayenteBean.getDeSegundoApellido(),
+						contrayenteBean.getDePrenombres(),
+						contrayenteBean.getNuEdad(),
+						contrayenteBean.getNuDocIdentidad(),
+						contrayenteBean.getDeDireccion(),
+						contrayenteBean.getCoSexo(),
+						contrayenteBean.getCoNaturalCont(),
+						contrayenteBean.getCoNaturalPais(),
+						contrayenteBean.getCoNaturalDpto(),
+						contrayenteBean.getCoNaturalProv(),
+						contrayenteBean.getCoNaturalDist(),
+						contrayenteBean.getCoNaturalLoca(),
+						contrayenteBean.getCoDomCont(),
+						contrayenteBean.getCoDomPais(),
+						contrayenteBean.getCoDomDpto(),
+						contrayenteBean.getCoDomProv(),
+						contrayenteBean.getCoDomDist(),
+						contrayenteBean.getCoDomLoca(),
+						contrayenteBean.getCoNacionalidad(),
+						contrayenteBean.getCoTipoDocIdentidad(),
+						contrayenteBean.getCoEstadoCivil(),
+						contrayenteBean.getIdCrea()
+						
+						 });
+		
+		return respInsert;
+		
+	}
+
+
+	@Override
+	public int generarSecuenciaCelebracion() {
+		 
+		String sql = "SELECT IDOACE.ACSE_ACE.NEXTVAL FROM DUAL";
+
+		int respInsert = jdbcTemplate.queryForObject(sql, Integer.class);
+
+		return respInsert;
+
+	}
+
+	
+
+
+	
+
+
+}

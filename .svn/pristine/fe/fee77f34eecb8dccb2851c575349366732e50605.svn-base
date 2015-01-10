@@ -1,0 +1,45 @@
+<!-- contenido -->
+<div class="backContent" style="display:block; width: 800px; height:300px; margin:auto; margin-top:20px;">
+	
+	<!-- titulo -->
+	<div style="display: block; text-align:center; height:32px;">
+		<span class="titulo01">Men&uacute; principal</span>
+	</div>
+	
+	<!-- linea -->
+	<div style="display:block; height:8px; min-height:8px; border-top:1px solid #E5E5E5;"></div>	
+					
+	<div style="display:block; width:800px; height:auto; margin:auto;">
+	
+		<div style="display:block; width:760px; height:170px; margin:auto; margin-top:20px;">		
+			
+			<div style="float:left; clear:left; margin-left:45px; width:674px; height:82px;">
+			
+				<div class="btnIcon03" style="border:0px;" onclick="fnRegistrarActa();"></div>
+				
+				<div class="btnIcon04" style="border:0px;" onclick="fnCargarActa();"></div>
+				
+				<div class="btnIcon05" style="border:0px;" onclick="fnEnviarActa();"></div>
+				
+			</div>
+		
+			<div style="float:left; clear:left; margin-left:155px; clear:left; width:450px; height:85px;">
+			
+				<div class="btnIcon06" style="border:0px;" onclick="fnReporteActa();"></div>
+				
+				<div class="btnIcon07" style="border:0px;" onclick="fnActasObservadas();"></div>
+				
+			</div>
+
+			<div style="float:left; clear:left; width:400px; height:auto; margin-top:30px;  margin-left:310px;">
+				<button type="button" class="btn btn-primary" onclick="fnCerrarSesion();">
+					<i class="icon-lock icon-white"></i>
+					&nbsp;Cerrar sesi&oacute;n
+				</button>
+			</div>
+			
+		</div>
+			
+	</div>	
+
+</div>

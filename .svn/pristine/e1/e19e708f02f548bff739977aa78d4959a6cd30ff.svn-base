@@ -1,0 +1,67 @@
+<!-- importar librerias -->
+<%@include file="/jsp/include/taglibs.jsp" %>
+<script type="text/javascript" src="${ruta}/js/particular/login/login${min}.js"></script>
+
+<!-- contenido -->
+<div class="backContent" style="display:block; width: 568px; height: 198px; margin:auto; 
+	margin-top:40px; margin-bottom: 40px; background: url('images/backForm.png') #F4F4F4 no-repeat right top;">
+		
+	<div style="display:block; width:568px; height:198px;">						 
+
+		<div class="form-horizontal" style=" margin-left: -80px; margin-top: 40px;">
+		    	
+		    <div class="control-group" style="">
+			    <label class="control-label" for="usuario">Usuario</label>
+			    <div class="controls">
+			    	<input type="text" style="padding: 4px 6px;" id="txtUser" name="txtUser" 
+			    		placeholder="Ingrese usuario" onkeydown="fnValidarNumero(this)" 
+			    		onkeyup="fnValidarNumero(this)" maxlength="8" />
+			    </div>
+			</div>
+			
+		    <div class="control-group">
+		    	<label class="control-label" for="password">Contrase&ntilde;a</label>
+		    	<div class="controls">
+		    		<input type="password" style="padding: 4px 6px;" id="codigo" name="codigo" 
+		    			placeholder="Ingrese contrase&ntilde;a" maxlength="15" />
+		    	</div>
+		    </div>
+		    
+		    <div class="control-group">
+		    	<div class="controls">
+		    		<button id="btnLoginIngresar" onClick="fnAccesoSistema();" class="btn btn-primary">
+		    			Ingresar
+		    		</button>
+		    		<button id="btnLoginContrasenia" onClick="fnAbrirCambiaPass();" 
+		    			class="btn btn-info">
+		    			Cambiar contrase&ntilde;a
+		    		</button>
+		    	</div>
+		    </div>
+
+		</div>
+	
+	</div>
+	
+</div>
+
+<!-- modal -->
+<div id="dialogCambiaPass" title="Cambiar Contraseña" style="display:none;">
+	<form id="formCambiaPass">
+		<fieldset>
+		
+			<label><small>Usuario</small></label>
+		    <input id="cambiaPassUser" type="text" style="margin-top:-5px;" placeholder="Ingrese usuario" 
+		    	onkeydown="fnValidarNumero(this)" onkeyup="fnValidarNumero(this)" maxlength="8" />
+											    
+			<label><small>Contrase&ntilde;a actual</small></label>
+			<input id="cambiarPassPri" type="password" style="margin-top:-5px;" 
+				placeholder="Ingrese contraseña actual" maxlength="15" />
+		
+			<label><small>Contrase&ntilde;a nueva</small></label>
+			<input id="cambiarPassSeg" type="password" style="margin-top:-5px;" 
+				placeholder="Ingrese contraseña nueva" maxlength="15" />
+					
+		</fieldset>
+	</form>	
+</div>

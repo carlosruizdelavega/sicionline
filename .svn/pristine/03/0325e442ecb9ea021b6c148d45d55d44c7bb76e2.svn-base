@@ -1,0 +1,79 @@
+ <%@include file="/jsp/include/taglibs.jsp"%> 
+ 
+ <table id="buscarActa" border="1" style="margin-left:40px" class="cellv">
+ 
+<!-- ini: enviado -->
+<%-- 	<c:if test="${idEstadoRep == '1'}" > --%>
+<%-- 	<c:if test="1" > --%>
+		
+	<thead>		
+		<tr ALIGN="center" style="background:#efefef;font-weight: bold; height:18px;">
+			<td style="width: 120px; ">Nro. Acta Celebración</td>
+			<td style="width: 200px;" >Primer Contrayente</td>
+			<td style="width: 200px;">Segundo Contrayente</td>
+			<td   style="width: 50px; ">Estado</td>
+			<td  style="width: 200px; ">Acciones</td>	
+		</tr>
+	</thead>
+	<tbody>	
+		<tr ALIGN="center" style="background:white;" >
+		
+			<td>1000258001</td>
+			<td>&nbsp;</td>
+			<td >&nbsp;</td>
+			<td>Enviado</td>
+			<td>
+				<button onclick="fnEditarActa();"class="btn btn-small btn-info" type="button" style=" cursor:pointer;" >
+					<i class="icon-pencil icon-white"></i>&nbsp;Editar
+				</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button onclick="fnAnularActa();" class="btn btn-small btn-info" type="button" style=" cursor:pointer;">
+					<i class="icon-remove icon-white"></i>&nbsp;Anular
+				</button>	
+			</td>
+		</tr>
+	</tbody>	
+	
+<c:if test="1" >
+		
+	
+<!-- 		<tbody> -->
+<%-- <%-- 	        <c:choose>  --%> 
+<%-- <%-- 	            <c:when test=""> --%> 
+<!-- <!-- 	                <tr> --> 
+<!-- <!-- 	                    <td colspan="11" style="text-align: center; vertical-align: middle;"> --> 
+<!-- <!-- 	                    	<strong>No se encontraron registros</strong> --> 
+<!-- <!-- 	                    </td> --> 
+<!-- <!-- 	                </tr> --> 
+<%-- <%-- 	            </c:when> --%> 
+<!-- 	            	
+<!-- 	            <c:otherwise> -->
+<!-- 	                <c:forEach items="${listaRepAvisosPag}" var="listaAvisos"> --> 
+<!-- 	                    <tr> -->
+<!-- 	                       td>
+<!-- 	                        	<a href="#" onclick="fnMostrarDialogHis('${listaAvisos.nuNotificaHis}');"> -->
+<!--                         		${listaAvisos.nuNotificaHis} -->
+<!--                         		</a> -->
+<!-- 	                        </td> -->
+<!-- 	                        <td>${listaAvisos.esNotificaHis}</td> -->
+<!-- 	                        <td>${listaAvisos.feModificacionHis} ${listaAvisos.hoModificacionHis}</td> -->
+<!-- 	                        <td>${listaAvisos.nuActaEventoHis}</td> -->
+<!-- 	                        <td>${listaAvisos.feEventoHis}</td> -->
+<!-- 	                        <td>${listaAvisos.feNaceTitularHis}</td> -->
+<!-- 	                        <td>${listaAvisos.apPaternoTitularHis}</td> -->
+<!-- 	                        <td>${listaAvisos.apMaternoTitularHis}</td> -->
+<!-- 	                        <td>${listaAvisos.prNombreTitularHis}</td> -->
+<!-- 	                        <td>${listaAvisos.deOrecHis}</td --> 
+	                                               
+	                        
+	                        
+<!-- 	                    </tr> -->
+<!-- 	                </c:forEach>
+<!-- 	            </c:otherwise>  --> 
+<%-- <%-- 	        </c:choose> --%> 
+<!-- 		</tbody> -->
+	
+	</c:if>	
+</table>
+
+<!--  id="divPagListaActas" class="backPaging"></div>--> 
+<!--  <input type="hidden" id="cantidadListaActas" name="cantidadListaActas" value ="${cantidadListaActasPag}"/>-->

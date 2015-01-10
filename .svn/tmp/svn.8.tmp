@@ -1,0 +1,58 @@
+/**
+ * Funcion que permite consultar datos del acta de celebracion. 
+ */
+function fnConsultarDatosActaCeleb(){
+
+		//limpiar contenido de la vista previa
+		$("#contentPreview").html("");
+	
+		//consulta datos del reporte
+		var parametros = {
+			connect:{
+        		url: "consultarDatosActaCeleb.htm",
+                type: "POST" 
+    		},
+			data:{
+		    	acta:"1000000001" 
+			}
+		};	
+	    cRequestAjax(parametros, function(response){
+	    	$("#contentPreview").html(response);
+	    });
+	
+};
+
+/**
+ * Funcion que permite generar PDF del acta de celebracion. 
+ * Además de actualizar su estado a 02:impreso 
+ */
+function generarActaImpresa(nroActa){
+
+	//consulta datos del reporte
+	var parametros = {
+		connect:{
+    		url: "generarActaImpresa.htm",
+            type: "POST" 
+		},
+		data:{
+	    	acta: nroActa 
+		}
+	};	
+    cRequestAjax(parametros, function(response){
+    	if(response == true){
+    		cAlert("El Acta de Celebración Nro: " + nroActa + ", ha sido generada satisfactoriamente.", null, "0", "fnMostrarPdf(" + nroActa + ")");
+            return;
+    	}else{
+    		cAlert("Error: No se pudo generar el Acta de Celebración. Inténtelo luego.", null,"0",null);
+            return;
+    	}    	
+    });
+	
+}
+
+/**
+ * Funcion que permite mostrar en blank el PDF del acta de celebracion
+ */
+function fnMostrarPdf(nroActa){
+	window.open("actaCelebracionPreview.pdf?acta=" + nroActa);
+}

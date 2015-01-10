@@ -1,0 +1,49 @@
+package pe.gob.reniec.actacelebracion.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ImpresionDao;
+import pe.gob.reniec.actacelebracion.service.ImpresionService;
+
+@Service
+public class ImpresionServiceImpl implements ImpresionService {
+	
+	@Autowired
+	private ImpresionDao impresionDao;
+	
+	/**
+	 * Metodo que permite consultar datos de celebracion
+	 * @param acta
+	 * @return
+	 */
+	public CelebracionBean consultarDatosCelebracion(String acta){
+		
+		return impresionDao.consultarDatosCelebracion(acta);
+		
+	}
+
+	/**
+	 * Metodo que permite consultar contrayentes
+	 */
+	public List<ContrayenteBean> consultarContrayentes(String acta) {
+		
+		return impresionDao.consultarContrayentes(acta);
+		
+	}
+
+	/**
+	 * Metodo que permite consultar testigos
+	 */
+	public List<TestigoBean> consultarTestigos(String acta) {
+		
+		return impresionDao.consultarTestigos(acta);
+
+	}
+
+}

@@ -1,0 +1,470 @@
+body{
+	background-image: url("../../../images/backgroundImage.jpg");
+	background-repeat: repeat-x;
+}
+
+/*Iconos menu principal*/
+.btnIcon01{
+	float:left;
+	display:block; 
+	width:146px; 
+	height:146px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon01.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon01:hover{
+	float:left;
+	display:block; 
+	width:146px; 
+	height:146px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon01.png");
+	background-position: -146px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon02{
+	float:left;
+	display:block; 
+	width:146px; 
+	height:146px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon02.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon02:hover{
+	float:left;
+	display:block; 
+	width:146px; 
+	height:146px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon02.png");
+	background-position: -146px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon03{
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon03.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon03:hover{
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon03.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon04{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon04.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon04:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon04.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+
+.btnIcon05{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon05.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon05:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon05.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon06{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon06.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon06:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon06.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon07{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon07.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon07:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon07.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon08{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon08.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon08:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon08.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+
+.btnIcon09{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon09.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon09:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon09.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+.btnIcon10{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon07.png");
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+.btnIcon10:hover{
+	float:left;
+	display:block; 
+	width:224px; 
+	height:82px; 
+	cursor: pointer;
+	background-image: url("../../../images/icon07.png");
+	background-position: -224px 0;
+	background-repeat: no-repeat;
+}
+
+/*contenedor del login*/
+.contenedorForm{
+    background-color: #ffffff;
+    border-radius: 6px;
+    color: inherit;
+    /*margin-bottom: 30px;*/
+/*     padding-top: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 10px; */
+}
+
+.contenedorForm01{
+    background-color: #E3F2F9;
+    border-radius: 10px;
+    color: inherit;
+    width:100%;
+    margin-left:8px;
+    margin-right:8px;
+    padding-top: 8px;
+    padding-left: 8px;    
+    /*margin-bottom: 30px;*/
+/*     padding-top: 10px;
+    padding-left: 38px;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    margin-left:10px;
+    margin-top:5px;
+    margin-right:10px;
+    margin-bottom:5px; */
+}
+
+.contenedorForm02{
+    background-color: #F5F5DC;/*#E3F2F9;*/
+    border-radius: 10px;
+    color: inherit;
+    width:100%;
+    margin-left:8px;
+    margin-right:8px;
+    padding-top: 8px;
+    padding-left: 8px;
+    /*margin-bottom: 30px;*/
+/*     padding-top: 10px;
+    padding-left: 38px;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    margin-left:10px;
+    margin-top:5px;
+    margin-right:10px;
+    margin-bottom:5px; */
+}
+
+.contenedorForm03{
+    background-color: #efefef;
+    border:1px solid #555;
+    border-radius: 10px;
+    color: inherit;
+    width:100%;
+}
+
+.contenedorForm04{
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: inherit;
+    /*margin-bottom: 30px;*/
+    padding-top: 10px;
+    padding-left: 38px;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    margin-left:25px;
+    margin-right:25px;
+}
+
+
+/*contenedor de contenido*/
+.backContent{
+    background-color: #F4F4F4;
+    border: 6px solid #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    min-height: 20px;
+    padding: 20px;
+}
+.backContentWhite{
+    background-color: #FFFFFF;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    min-height: 20px;
+    padding: 10px;
+}
+
+/*contenedor paginado*/
+.backPaging{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #444444;
+	width:auto;
+	height: 50px;
+    margin-bottom:10px;
+    margin-top:10px;
+    background-color: #efefef;
+    border-radius: 6px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    padding:0px;
+}
+
+/*paginas*/
+.backPaging ul {
+	float: left;
+	margin-top: 10px;
+	width: auto;
+}
+.backPaging ul li {
+    display: inline;
+	float: left;
+	width: 32px;
+	height: 26px;
+    margin: 0px;
+    padding: 0px;
+}
+.backPaging ul li a {
+  display: inline-block;
+  width: 30px;
+  height: 24px;
+  border: 1px solid #ddd;
+  padding: 0px;
+  padding-top: 5px;
+  background-color: #fff;  
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-align: center;
+  vertical-align: middle;
+}
+.backPaging ul li a:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+
+/*busqueda*/
+.backPaging .short{
+	float: left;
+	margin-top: 14px;
+	margin-left: 40px;
+	width:auto;
+}
+.backPaging .short input[type="text"]{
+	float: left;
+	width: 30px;
+	padding: 2px;	
+}
+.backPaging .short .btn{
+	float: left;
+	margin-left: 2px;
+	width: 35px;
+	height: 25px;
+}
+
+/*info*/
+.backPaging span{
+	float: left;
+	margin-top:18px;
+    margin-left: 4px;
+}
+
+/*ajusta estilo de tabla (grilla de datos)*/
+.table th{
+	text-align: center;
+	vertical-align: middle;
+}
+.table thead{
+    background-color: #fafafa;
+    background-image: linear-gradient(to bottom, #fafafa, #EAEAEA);
+	color: #000000;
+}
+
+
+
+.cellt td{
+border: 2px solid #ffffff;
+background-color: #efefef;
+font-size:10px;
+padding-left: 5px;
+
+}
+.cellts td{
+
+font-size:10px;
+padding: 5px;
+
+}
+
+.celltp{
+
+font-size:10px;
+padding: 0px;	
+	
+}
+
+
+
+/*estilo de formulario en Modal*/
+.formModal{
+	font-size:12px;
+}
+.formModal input[type="text"]{
+	font-size:13px;
+	padding: 2px;
+	width: 160px;
+	margin-top:-1px;
+}
+.formModal fieldset legend{
+	font-size:15px;
+	font-weight: bold;
+	margin-top: -10px;
+	margin-bottom: 10px;
+	line-height: 30px;
+	padding:0px;
+ 	color: #369;
+}
+.formModal .subtitle{
+	font-size:17px;
+	font-weight: normal;
+}
+.formModal span{
+	font-weight: bold;
+}
+.formModal .row-fluid{
+ 	margin-left:8px;
+}
+
+/*estilo de titulos*/
+.titulo01{
+	font-size: 26px;
+	color: #0178D2;
+	font-weight: bold;
+}
+.titulo02{
+	font-size: 22px;
+	color: #0178D2;
+	font-weight: bold;
+}
+.titulo03{
+	font-size: 18px;
+	color: #666;
+	font-weight: bold;
+}
+.titulo04{
+	font-size: 16px;
+	color: #666;
+	font-weight: bold;
+}

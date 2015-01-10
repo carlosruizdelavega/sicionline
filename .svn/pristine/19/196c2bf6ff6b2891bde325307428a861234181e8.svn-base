@@ -1,0 +1,209 @@
+/**
+ * Funcion que no permite ingresar a un campo de texto caracteres no numericos.
+ * @param objeto: referencia al objeto input[type=text], sobre el cual ha sido llamada la funcion
+ * @returns {Boolean}
+ */
+function fnValidarNumero(objeto){
+    var patron = /^\d*$/;
+    if (!patron.test(objeto.value)) {
+        //objeto.value="";
+        objeto.focus();
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Funcion que permite validar texto ingresado
+ * @param objeto
+ * @returns {Boolean}
+ */
+function fnValidarTexto(objeto){
+    var patron = /^[a-zA-ZÒ—·ÈÌÛ˙‰ÎÔˆ¸¡…Õ”⁄ƒÀœ÷‹'\s]+$/;
+    if (!patron .test(objeto.value)) {
+        objeto.value="";
+        objeto.focus();
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Funcion que permite convertir texto en mayusculas
+ * @param objeto
+ */
+function fnEnMayusculas(objeto) {
+	objeto.value = objeto.value.toUpperCase();
+}
+
+/**
+ * Funcion que permite definir los caracteres permitidos en un campo de texto
+ * @param elEvento
+ * @param permitidos
+ * @param laFuncion
+ * @returns {Boolean}
+ */
+function fnPermite(elEvento, permitidos, laFuncion) {
+
+	  //definir caracteres permitidos
+	  var num = "0123456789";
+	  var car = " abcdefghijklmnÒopqrstuvwxyzABCDEFGHIJKLMN—OPQRSTUVWXYZ·ÈÌÛ˙‰ÎÔˆ¸¡…Õ”⁄ƒÀœ÷‹";
+	  var car_tot = " abcdefghijklmnÒopqrstuvwxyzABCDEFGHIJKLMN—OPQRSTUVWXYZ·ÈÌÛ˙‰ÎÔˆ¸¡…Õ”⁄ƒÀœ÷‹-_,;.:ø?°!#$%&()='/\*+~<>{}[]";
+	  var car_sti = " abcdefghijklmnÒopqrstuvwxyzABCDEFGHIJKLMN—OPQRSTUVWXYZ";
+	  var num_car = num + car;
+	  var num_car_tot = num + car_tot;
+	  var num_car_sti = num + car_sti;
+	  
+	  //definir teclas especiales
+	  /*
+	   *   8 = backspace
+	   *   9 = tab
+	   *  13 = intro
+	   *  35 = end
+	   *  36 = home
+	   *  37 = arrow left
+	   *  39 = arrow right
+	   *  46 = delete
+	   *  86 = V
+	   * 118 = v
+	   * 
+	   * */
+	  var teclas_especiales = [8, 9, 13, 35, 36, 37, 39, 46, 86, 118];
+	 
+	  // verificar los caracteres permitidos
+	  switch(permitidos) { 
+	  
+	    case "num":
+	      permitidos = num;
+	      break;
+	      
+	    case "car":
+	      permitidos = car;
+	      break;
+	      
+	    case "car_tot":
+	      permitidos = car_tot;
+	      break;
+	      
+	    case "car_sti":
+	      permitidos = car_sti;
+		  break;
+		  
+	    case "num_car":
+	      permitidos = num_car;
+	      break;
+	      
+	    case "num_car_tot":
+	      permitidos = num_car_tot;
+	      break;
+	      
+	    case "num_car_sti":
+		  permitidos = num_car_sti;
+	      break;
+	      
+	  }
+
+	  // obtener tecla pulsada 
+	  var evento = elEvento || window.event;
+	  var codigoCaracter = evento.charCode || evento.keyCode;
+	  var caracter = String.fromCharCode(codigoCaracter);
+	  
+	  alert("codigoCaracter: " + codigoCaracter);
+	  alert("caracter: " + caracter);
+	 
+	  // verificar teclas especiales
+	  var tecla_especial = false;
+	  for(var i in teclas_especiales) {
+	    if(codigoCaracter == teclas_especiales[i]) {  	
+	    	
+	    	/*
+	    	//para que no permita solo la tecla 35(end) y no tome la tecla correspondiente a 35 (# Numeral)
+	    	if(codigoCaracter == 35 && evento.keyCode == 0){
+	    		tecla_especial = false; 
+	    		
+	    	//para que permita solo la tecla 36(home) y no tome la tecla correspondiente a 36 ($ Dolar)
+	    	}else if(codigoCaracter == 36 && evento.keyCode == 0){
+	    		tecla_especial = false; 
+	    		
+	    	//para que permita solo la tecla 37(arrow left) y no tome la tecla correspondiente a 37 (% Porcentaje)
+	    	}else if(codigoCaracter == 37 && evento.keyCode == 0){
+	    		tecla_especial = false;
+	    		
+		    //para que permita solo la tecla 39(arrow right) y no tome la tecla correspondiente a 39 (' Apostrofe)
+	    	}else if(codigoCaracter == 39 && evento.keyCode == 0){
+	    		tecla_especial = false;
+
+		    //para que permita solo la tecla 46(delete) y no tome la tecla correspondiente a 46 (. Punto)
+	    	}else if(codigoCaracter == 46 && evento.keyCode == 0){
+	    		tecla_especial = false;
+	    		
+			//que no permita ctrl + V (crtl + 86)
+	    	}else if(codigoCaracter == 86 && evento.ctrlKey){
+	    		return false;
+	    		
+			//que no permita ctrl + v (crtl + 118)
+	    	}else if(codigoCaracter == 118 && evento.ctrlKey){
+	    		return false;
+	    		
+	    	}else{
+	    	*/
+	    		tecla_especial = true;
+	    		break;
+	    	/*	
+	    	}
+	    	*/
+	      
+	    }
+	  }
+
+	  // verificar si la tecla pulsada se encuentra en los caracteres permitidos
+	  if(permitidos.indexOf(caracter) != -1 || tecla_especial){
+		  
+		  if(codigoCaracter == 13){
+
+			  //ejecutar funcion
+			  if(laFuncion != "" && laFuncion != null){
+				  eval(laFuncion);
+			  }
+			  
+		  }
+		  
+	  }else{
+		  
+		  return false;
+		  
+	  }
+
+	}
+
+/**
+ * funcion que limpia controles de un div especifico
+ * @param idContenedor
+ */
+function fnLimpiarControles(idContenedor){
+	
+	// leer todas las etiquetas input del formulario   
+	$('#'+idContenedor+'').find('input').each(function() { 
+		switch(this.type) {         
+			case 'password': 
+			case 'text': 
+			case 'hidden': 
+				$(this).val('');
+				break;
+			case 'checkbox':
+			case 'radio':
+				this.checked = false;
+			}
+		});
+	
+	// leer todas las etiquetas select del formulario  
+	$('#'+idContenedor+'').find('select').each(function() {       
+		$("#" + this.id + " option[value=00]").prop("selected", true);
+	});
+	
+	// leer todas las etiquetas textarea del formulario   
+	$('#'+idContenedor+'').find('textarea').each(function(){    
+		$(this).val('');   
+	});
+	
+}

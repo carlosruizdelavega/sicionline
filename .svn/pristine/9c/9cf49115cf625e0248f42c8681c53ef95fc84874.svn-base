@@ -1,0 +1,98 @@
+package pe.gob.reniec.actacelebracion.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.gob.reniec.actacelebracion.bean.AniBean;
+import pe.gob.reniec.actacelebracion.bean.GeneroBean;
+import pe.gob.reniec.actacelebracion.bean.TipoNacionalidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoDocIdentidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoEstadoCivilBean;
+import pe.gob.reniec.actacelebracion.bean.UbigeoBean;
+import pe.gob.reniec.actacelebracion.dao.UtilDao;
+import pe.gob.reniec.actacelebracion.service.UtilService;
+
+
+@Service
+public class UtilServiceImpl implements UtilService{
+	
+	
+	@Autowired
+	private UtilDao utilDao;
+
+	@Override
+	public List<TipoDocIdentidadBean> listarTipoDocumentoIdentidad() {
+		
+		List<TipoDocIdentidadBean> listTipoDocIdentidad = utilDao.listarTipoDocumentoIdentidad();
+		return listTipoDocIdentidad;
+		
+	}
+
+	@Override
+	public AniBean buscarPorDniIndex(String dni) {
+		
+		AniBean aniBean = utilDao.buscarPorDniIndex(dni);
+		return aniBean;
+		
+	}
+
+	@Override
+	public AniBean buscarPorDniAni(String dni) {
+		AniBean aniBean = utilDao.buscarPorDniAni(dni);
+		return aniBean;
+	}
+
+	@Override
+	public String calcularEdadDni(String fechaNac) {
+		String edad="";
+		edad= utilDao.calcularEdadDni(fechaNac);
+		return edad;
+	}
+
+	@Override
+	public TipoNacionalidadBean obtenerNacionalidadDni(String coNacionalidad) {
+		TipoNacionalidadBean nacionalidadBean = utilDao.obtenerNacionalidadDni(coNacionalidad);
+		return nacionalidadBean;
+	}
+
+	@Override
+	public GeneroBean obtenerGeneroDni(String coGenero) {
+		GeneroBean generoBean = utilDao.obtenerGeneroDni(coGenero);
+		return generoBean;
+	}
+
+	@Override
+	public UbigeoBean obtenerDescripcionUbigeo(String pCont, String pPais,
+			String pDpto, String pProv, String pDist, String pLoca) {
+		
+		UbigeoBean ubigeoBean = utilDao.obtenerDescripcionUbigeo(pCont, pPais, pDpto, pProv, pDist, pLoca);
+		
+		return ubigeoBean;
+	}
+
+	@Override
+	public TipoEstadoCivilBean obtenerDescripcionEstadoCivil(
+			String coEstadoCivil) {
+		TipoEstadoCivilBean tipoEstadoCivilBean = utilDao.obtenerDescripcionEstadoCivil(coEstadoCivil);
+		return tipoEstadoCivilBean;
+	}
+
+	@Override
+	public List<TipoNacionalidadBean> listarTipoNacionalidad() {
+		
+		List <TipoNacionalidadBean> listTipoNacionalidad = utilDao.listarTipoNacionalidad();
+		return listTipoNacionalidad;
+	}
+
+	@Override
+	public int verificarExisteDni(String dni) {
+		
+		int existeDni = utilDao.verificarExisteDni(dni);
+		return existeDni;
+	}
+
+	
+	
+}

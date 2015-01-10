@@ -1,0 +1,557 @@
+package pe.gob.reniec.actacelebracion.view;
+
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.web.servlet.view.document.AbstractPdfView;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.util.PdfDocumentEventAlt;
+import pe.gob.reniec.actacelebracion.util.PdfUtil;
+import pe.gob.reniec.actacelebracion.util.Utiles;
+
+import com.barcode.rbarcode.Bc;
+import com.lowagie.text.Document;
+import com.lowagie.text.Image;
+import com.lowagie.text.pdf.PdfCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
+public class ImpresionView extends AbstractPdfView {
+ 
+	// definir log
+	private static final Logger log = Logger.getLogger(ImpresionView.class);
+	
+	// definir invocaciones globales
+	PdfUtil pdfUtil = new PdfUtil();
+	PdfDocumentEventAlt pdfDocEvent = new PdfDocumentEventAlt();
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void buildPdfDocument(Map<String, Object> model,
+									Document document, 
+									PdfWriter writer, 
+									HttpServletRequest request,
+									HttpServletResponse response) throws Exception { 
+
+		//configurar codificacion de caracteres
+		response.setContentType("text/html;charset=ISO-8859-1");
+		
+		// recibir datos
+		CelebracionBean celebracionBean = (CelebracionBean) model.get("celebracionBean");
+		List<ContrayenteBean> listaContrayentes = (List<ContrayenteBean>) model.get("listaContrayentes");
+		List<TestigoBean> listaTestigos = (List<TestigoBean>) model.get("listaTestigos");
+		
+		// capturar eventos de generacion del documento
+		writer.setPageEvent(pdfDocEvent);
+		
+		// definir propiedades del papel
+		//document.setPageSize(PageSize.A4.rotate());
+		
+		// crear nueva hoja
+		document.newPage();
+		
+		// crear contenido de la cabecera del documento
+		setPdfHeader(document, celebracionBean);
+
+		// crear contenido del cuerpo del documento
+		setPdfBody(document, celebracionBean, listaContrayentes, listaTestigos);
+		
+		// crear contenido del pie del documento
+		setPdfFooter(document);
+		
+	}
+
+	/**
+	 * Metodo que permite crear el contenido de la cabecera del documento
+	 * 
+	 * @param document
+	 */
+	public void setPdfHeader(Document document, CelebracionBean celebracionBean) {
+
+		try {
+
+			// definir logo reniec
+			URL urlLogoReniec = getClass().getResource("/images/escudoMunLima.png");
+			Image logoReniec = Image.getInstance(urlLogoReniec);
+			
+			// definir codigo de barras
+			String codigo = celebracionBean.getNuActaCelebracion();
+			Image codeBarras = Image.getInstance((new Bc(codigo)).getImage());
+			
+			//URL urlCodeBarras = getClass().getResource("/images/barCode.jpg");
+			//Image codeBarras = Image.getInstance(urlCodeBarras);
+
+			// crear tabla
+			PdfPTable tab = PdfUtil.creaTabla(9, PdfCell.NO_BORDER, 100, new float[]{20f, 20f, 20f, 21f, 18f, 21f, 20f, 20f, 20f}, PdfCell.ALIGN_CENTER);
+			
+			//definir tablas internas
+			//------------------------------------------------------------------------------------
+			// tabla 01
+			PdfPTable tab1 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab1, "", PdfUtil.FONT1_B_14, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+
+			// tabla 02
+			PdfPTable tab2 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab2, logoReniec, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 03
+			PdfPTable tab3 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab3, "ACTA DE CELEBRACIÓN DE MATRIMONIO", PdfUtil.FONT1_B_11, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 04
+			PdfPTable tab4 = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{13f, 70f, 37f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab4, "", PdfUtil.FONT1_B_11, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_8, PdfUtil.BLANCO, 3, 1);
+			PdfUtil.creaCell(tab4, "", PdfUtil.FONT1_B_11, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab4, codeBarras, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab4, "", PdfUtil.FONT1_B_11, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			
+			//cargar tablas internas
+			//------------------------------------------------------------------------------------
+			// definir 1ra fila
+			PdfUtil.creaCell(tab, tab4, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 4, 1);
+			PdfUtil.creaCell(tab, tab2, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_55, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab, tab1, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 4, 1);
+			
+			// definir 2da fila
+			PdfUtil.creaCell(tab, tab3, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 9, 1);
+			
+			// agregar tabla al documento
+			document.add(tab);
+
+		} catch (Exception e) {
+
+			// mostrar mensaje de error
+			log.error("setPdfHeader: " + e);
+
+		}
+
+	}
+
+	/**
+	 * Metodo que permite crear el contenido del cuerpo del documento
+	 * 
+	 * @param document
+	 * @param muestras
+	 */
+	public void setPdfBody(Document document, 
+						   CelebracionBean celebracionBean, 
+						   List<ContrayenteBean> listaContrayentes, 
+						   List<TestigoBean> listaTestigos) {
+
+		//identificar contrayentes
+		ContrayenteBean primerContrayente = null;
+		ContrayenteBean segundoContrayente = null;
+		for (int i = 0; i < listaContrayentes.size(); i++) {
+			if(listaContrayentes.get(i).getCoContrayente().equals("01") && listaContrayentes.get(i).getCoSexo().equals("01")){
+				primerContrayente = listaContrayentes.get(i);
+			}else if(listaContrayentes.get(i).getCoContrayente().equals("02") && listaContrayentes.get(i).getCoSexo().equals("02")){
+				segundoContrayente = listaContrayentes.get(i);
+			}
+		}
+		
+		//identificar testigos
+		TestigoBean primerTestigo = null;
+		TestigoBean segundoTestigo = null;
+		for (int i = 0; i < listaTestigos.size(); i++) {
+			if(listaTestigos.get(i).getCoTestigo().equals("03")){
+				primerTestigo = listaTestigos.get(i);
+			}else if(listaTestigos.get(i).getCoTestigo().equals("04")){
+				segundoTestigo = listaTestigos.get(i);
+			}
+		}
+		
+		try {
+			
+			// tabla de espacio
+			//------------------------------------------------------------------------------------
+			PdfPTable tab0 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{240f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab0, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+			document.add(tab0);
+			
+			// tabla 01
+			//------------------------------------------------------------------------------------
+			PdfPTable tab = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{40f, 40f, 40f}, PdfCell.ALIGN_CENTER);
+		
+	        // cabecera
+	        String[][] datosRow00 = {
+	        						{"DATOS", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        						{"EL CONTRAYENTE", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        						{"LA CONTRAYENTE", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        					};
+			PdfUtil.creaRow(tab, datosRow00, PdfUtil.BORDER_F, PdfUtil.FONT1_B_7, PdfUtil.HEIGHT_14);
+			
+        	// documento de identidad
+	        String[][] datosRow01 = {
+		        						{"Documento de Identidad", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeTipoDocIdentidad() + ": " + primerContrayente.getNuDocIdentidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeTipoDocIdentidad() + ": " + segundoContrayente.getNuDocIdentidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow01, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// primer apellido
+	        String[][] datosRow02 = {
+		        						{"Primer Apellido", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDePrimerApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDePrimerApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow02, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+
+        	// segundo apellido
+	        String[][] datosRow03 = {
+		        						{"Segundo Apellido", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeSegundoApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeSegundoApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow03, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// pre nombres
+	        String[][] datosRow04 = {
+		        						{"Pre nombre(s)", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDePrenombres(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDePrenombres(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow04, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// estado civil
+	        String[][] datosRow05 = {
+		        						{"Estado Civil", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeEstadoCivil(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeEstadoCivil(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow05, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// edad
+	        String[][] datosRow06 = {
+		        						{"Edad", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getNuEdad() + " años", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getNuEdad() + " años", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow06, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// nacionalidad
+	        String[][] datosRow07 = {
+		        						{"Nacionalidad", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeNacionalidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeNacionalidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow07, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// lugar de nacimiento
+	        String[][] datosRow08 = {
+		        						{"Lugar de Nacimiento", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeNaturalUbigeo(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeNaturalUbigeo(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow08, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// direccion
+	        String[][] datosRow09 = {
+		        						{"Dirección", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerContrayente.getDeDomUbigeo() + " / " + primerContrayente.getDeDireccion(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoContrayente.getDeDomUbigeo() + " / " + segundoContrayente.getDeDireccion(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosRow09, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+	        // carga tabla a documento
+	        PdfPTable tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        document.add(tabTotal);
+			//------------------------------------------------------------------------------------
+			
+			// tabla de espacio
+			//------------------------------------------------------------------------------------
+			document.add(tab0);
+	        
+			// tabla 02
+			//------------------------------------------------------------------------------------
+			tab = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{40f, 40f, 40f}, PdfCell.ALIGN_CENTER);
+
+			// titulo
+			String title = "COMPARECIERON ANTE LA AUTORIDAD MUNICIPAL, ACOMPAÑADOS DE SUS TESTIGOS,";
+			PdfUtil.creaCell(tab, title, PdfUtil.FONT1_B_8, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_16, PdfUtil.BLANCO, 3, 1);
+			
+	        // cabecera
+	        String[][] datosReg00 = {
+	        						{"DATOS", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        						{"PRIMER TESTIGO", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        						{"SEGUNDO TESTIGO", "1", "1", PdfUtil.GRAY3, PdfCell.ALIGN_CENTER + ""}, 
+	        					};
+			PdfUtil.creaRow(tab, datosReg00, PdfUtil.BORDER_F, PdfUtil.FONT1_B_7, PdfUtil.HEIGHT_14);
+	        
+        	// documento de identidad
+	        String[][] datosReg01 = {
+		        						{"Documento de Identidad", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerTestigo.getDeTipoDocIdentidad() + ": " + primerTestigo.getNuDocIdentidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoTestigo.getDeTipoDocIdentidad() + ": " + segundoTestigo.getNuDocIdentidad(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosReg01, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// primer apellido
+	        String[][] datosReg02 = {
+		        						{"Primer Apellido", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerTestigo.getDePrimerApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoTestigo.getDePrimerApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosReg02, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+
+        	// segundo apellido
+	        String[][] datosReg03 = {
+		        						{"Segundo Apellido", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerTestigo.getDeSegundoApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoTestigo.getDeSegundoApellido(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosReg03, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+        	// pre nombres
+	        String[][] datosReg04 = {
+		        						{"Pre nombre(s)", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{primerTestigo.getDePreNombres(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{segundoTestigo.getDePreNombres(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}
+		        					};
+	        PdfUtil.creaRow(tab, datosReg04, PdfUtil.BORDER_F, PdfUtil.FONT1_N_7, PdfUtil.HEIGHT_12);
+	        
+	        // carga tabla a documento
+	        tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);	        
+	        document.add(tabTotal);
+			//------------------------------------------------------------------------------------
+	        
+			// tabla de espacio
+			//------------------------------------------------------------------------------------
+			document.add(tab0);
+	        
+			// tabla 03
+			//------------------------------------------------------------------------------------
+			tab = PdfUtil.creaTabla(2, PdfCell.NO_BORDER, 100, new float[]{35f, 65f}, PdfCell.ALIGN_CENTER);
+
+        	// lugar de celebracion
+	        String[][] datosDat01 = {
+		        						{"Lugar de Celebración", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{":   " + celebracionBean.getDeCelebradoLugar(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        					};
+	        PdfUtil.creaRow(tab, datosDat01, PdfUtil.NO_BORDER, PdfUtil.FONT1_N_8, PdfUtil.HEIGHT_12);
+	        
+        	// fecha
+	        String[][] datosDat02 = {
+		        						{"Fecha", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{":   " + celebracionBean.getFeEvento(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        					};
+	        PdfUtil.creaRow(tab, datosDat02, PdfUtil.NO_BORDER, PdfUtil.FONT1_N_8, PdfUtil.HEIGHT_12);
+
+        	// hora
+	        String[][] datosDat03 = {
+		        						{"Hora", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{":   " + celebracionBean.getHoEvento(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        					};
+	        PdfUtil.creaRow(tab, datosDat03, PdfUtil.NO_BORDER, PdfUtil.FONT1_N_8, PdfUtil.HEIGHT_12);
+	        
+        	// nombre y dni de autoridad celebrante
+	        String[][] datosDat04 = {
+		        						{"Nombre y DNI de Autoridad Celebrante", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{":   " + celebracionBean.getNoCelebrante() + " (" + celebracionBean.getDeTipoDocIdentidad() + ": " + celebracionBean.getNuDocCelebrante() + ")", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        					};
+	        PdfUtil.creaRow(tab, datosDat04, PdfUtil.NO_BORDER, PdfUtil.FONT1_N_8, PdfUtil.HEIGHT_12);
+	        
+        	// cargo de autoridad celebrante
+	        String[][] datosDat05 = {
+		        						{"Cargo de Autoridad Celebrante", "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        						{":   " + celebracionBean.getDeCargoCelebrante(), "1", "1", PdfUtil.BLANCO, PdfCell.ALIGN_LEFT + ""}, 
+		        					};
+	        PdfUtil.creaRow(tab, datosDat05, PdfUtil.NO_BORDER, PdfUtil.FONT1_N_8, PdfUtil.HEIGHT_12);
+	        
+	        // carga tabla a documento
+	        tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        document.add(tabTotal);
+			//------------------------------------------------------------------------------------
+	        
+			// tabla de espacio
+			//------------------------------------------------------------------------------------
+			PdfPTable tab00 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{240f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab00, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_5, PdfUtil.BLANCO, 1, 1);
+			document.add(tab00);
+			
+			// tabla 04
+			//------------------------------------------------------------------------------------
+			tab = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+
+			// texto
+			String texto = "";
+			texto += "Con el objeto de llevar a efecto el matrimonio que pretenden contraer y habiendo sido declarados expeditos por no tener ";
+			texto += "impedimentos segun expediente " + celebracionBean.getDeExpediente() + " el cual queda archivado en esta oficina. Después de dar lectura a los artículos del ";
+			texto += "Código Civil se preguntó separadamente a los contrayentes si persisten en su voluntad de contraer matrimonio y habiendo respondido ";
+			texto += "ambos afirmativamente en nombre de la ley se declaran unidos en matrimonio. Extendiéndose la presente acta, en la que se deja ";
+			texto += "constancia de que han cumplido con todos los requisitos que señala la ley, firmando los intervinientes conforme a lo dispuesto ";
+			texto += "por el artículo 259 del Código Civil.";
+			
+			// separar en lineas un parrafo
+			List<String> lines = Utiles.separarLineasParrafo(texto, 125);
+			
+			for (int i = 0; i < lines.size(); i++) {
+				PdfUtil.creaCell(tab, lines.get(i), PdfUtil.FONT1_N_8, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_10, PdfUtil.BLANCO, 1, 1);
+			}
+			
+			// carga tabla 
+	        tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+			document.add(tabTotal);
+			//------------------------------------------------------------------------------------
+
+			// tabla de espacio
+			//------------------------------------------------------------------------------------
+			document.add(tab0);
+			
+			// tabla 05
+			//------------------------------------------------------------------------------------
+			tab = PdfUtil.creaTabla(2, PdfCell.NO_BORDER, 100, new float[]{19f,101f}, PdfCell.ALIGN_CENTER);
+
+			// texto
+			PdfUtil.creaCell(tab, "OBSERVACIONES: ", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			//tabla
+			PdfPTable tablaObs = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{120f}, PdfCell.ALIGN_CENTER);
+			texto = celebracionBean.getDeObservacion();
+			PdfUtil.creaCell(tablaObs, texto, PdfUtil.FONT1_N_8, PdfUtil.BORDER_B, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			//carga tabla en celda
+		    PdfUtil.creaCell(tab, tablaObs, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_13, PdfUtil.BLANCO, 1, 1);
+
+			// carga tabla 
+	        tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+			document.add(tabTotal);
+			//------------------------------------------------------------------------------------	
+	
+		} catch (Exception e) {
+			
+			// mostrar mensaje de error
+			log.error("setPdfBodyRn: " + e);
+			
+		}
+
+	}		
+
+	
+	/**
+	 * Metodo que permite crear contenido del pie del documento
+	 * @param document
+	 * @param muestras
+	 */
+	private void setPdfFooter(Document document) {
+
+		try {
+			
+			// tabla espacio
+			PdfPTable tab0 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{240f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab0, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_20, PdfUtil.BLANCO, 1, 1);
+			document.add(tab0);
+
+			// tabla contenido
+			PdfPTable tab = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{48f, 24f, 48f}, PdfCell.ALIGN_CENTER);
+			
+			//definir tablas internas
+			//------------------------------------------------------------------------------------
+			// tabla 01
+			PdfPTable tab1 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab1, "", PdfUtil.FONT1_B_7, PdfUtil.BORDER_B, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_60, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab1, "Firma e impresión dactilar del Contrayente", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 02
+			PdfPTable tab2 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab2, "", PdfUtil.FONT1_B_7, PdfUtil.BORDER_B, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_60, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab2, "Firma e impresión dactilar de la Contrayente", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 03
+			PdfPTable tab3 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab3, "", PdfUtil.FONT1_B_7, PdfUtil.BORDER_B, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_60, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab3, "Firma e impresión dactilar del 1er testigo", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 04
+			PdfPTable tab4 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab4, "", PdfUtil.FONT1_B_7, PdfUtil.BORDER_B, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_60, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab4, "Firma e impresión dactilar del 2do testigo", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			// tabla 05
+			PdfPTable tab5 = PdfUtil.creaTabla(1, PdfCell.NO_BORDER, 100, new float[]{100f}, PdfCell.ALIGN_CENTER);
+			PdfUtil.creaCell(tab5, "", PdfUtil.FONT1_B_7, PdfUtil.BORDER_B, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_60, PdfUtil.BLANCO, 1, 1);
+			PdfUtil.creaCell(tab5, "Firma, sello e impresión dactilar de la Autoridad Celebrante", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			//------------------------------------------------------------------------------------
+			
+			// definir 1ra fila
+			//------------------------------------------------------------------------------------
+			// celda 01
+			PdfUtil.creaCell(tab, tab1, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 02
+			PdfUtil.creaCell(tab, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 03
+			PdfUtil.creaCell(tab, tab2, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			//------------------------------------------------------------------------------------
+			
+			// tabla espacio
+			PdfUtil.creaCell(tab, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_15, PdfUtil.BLANCO, 3, 1);
+			
+			// definir 2da fila
+			//------------------------------------------------------------------------------------
+			// celda 01
+			PdfUtil.creaCell(tab, tab3, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_MIDDLE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 02
+			PdfUtil.creaCell(tab, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 03
+			PdfUtil.creaCell(tab, tab4, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			//------------------------------------------------------------------------------------
+
+			// agregar tabla al documento
+	        PdfPTable tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{5f, 110f, 5f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);			
+			document.add(tabTotal);
+
+			// definir 3ra fila
+			//------------------------------------------------------------------------------------						
+			// tabla contenido
+			PdfPTable tab02 = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{36f, 48f, 36f}, PdfCell.ALIGN_CENTER);
+			// tabla espacio
+			PdfUtil.creaCell(tab02, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_15, PdfUtil.BLANCO, 3, 1);
+			// celda 01
+			PdfUtil.creaCell(tab02, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 02
+			PdfUtil.creaCell(tab02, tab5, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			// celda 03
+			PdfUtil.creaCell(tab02, "", PdfUtil.FONT1_B_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_CENTER, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_12, PdfUtil.BLANCO, 1, 1);
+			
+			// agregar tabla al documento
+	        tabTotal = PdfUtil.creaTabla(3, PdfCell.NO_BORDER, 100, new float[]{6f, 108f, 6f}, PdfCell.ALIGN_CENTER);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, tab02, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);
+	        PdfUtil.creaCell(tabTotal, "", PdfUtil.FONT1_N_7, PdfUtil.NON_BORDER, PdfCell.ALIGN_LEFT, PdfCell.ALIGN_BASELINE, PdfUtil.HEIGHT_14, PdfUtil.BLANCO, 1, 1);			
+			document.add(tabTotal);
+
+		} catch (Exception e) {
+
+			// mostrar mensaje de error
+			log.error("setPdfHeader: " + e);
+
+		}
+		
+	}	
+	
+}

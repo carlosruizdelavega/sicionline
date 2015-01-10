@@ -1,0 +1,163 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.bean.TipoDocIdentidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoNacionalidadBean;
+import pe.gob.reniec.actacelebracion.service.ActaCelebraService;
+import pe.gob.reniec.actacelebracion.service.UtilService;
+ 
+@Controller
+public class TestigoController {
+	
+	private static final Logger log = Logger.getLogger(TestigoController.class);
+	
+	@Autowired
+	private UtilService utilService;
+	
+	@Autowired
+	private ActaCelebraService actaCelebraService;	
+
+	
+	/**
+	 * Metodo que devuelve la pagina correspondiente al tab de testigos
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/cargarTabTestigos.htm")
+    public ModelAndView cargarTabTestigos(HttpServletRequest req, 
+    									  HttpServletResponse res,
+    									  HttpSession session) throws Exception {
+		
+		//consulta listados de sesion
+		List<TipoDocIdentidadBean> listaTipoDocIdentidad = 
+				(List<TipoDocIdentidadBean>) session.getAttribute("listaTipoDocIdentidad");
+		List<TipoNacionalidadBean> listaTipoNacionalidad = 
+				(List<TipoNacionalidadBean>) session.getAttribute("listaTipoNacionalidad");
+		
+		//definir ModelAndView
+		ModelAndView mv = new ModelAndView("actaCelebracion/actaCelebracion_testigos");
+		
+		//setear atributos de la vista
+		mv.addObject("listaTipoDocIdentidad", listaTipoDocIdentidad);
+		mv.addObject("listaTipoNacionalidad", listaTipoNacionalidad);
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}
+	
+	@RequestMapping(value = "/registrarTestigo.htm", method = RequestMethod.POST)
+	public @ResponseBody String registrarTestigo(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		log.info("Ingresa a metodo registrarTestigo");
+		
+		String nuActaCelebra = req.getParameter("nuActaCelebra") == null ? "" : req.getParameter("nuActaCelebra");
+		
+		String tiDocumentoPT = req.getParameter("tiDocumentoPT") == null ? "" : req.getParameter("tiDocumentoPT");
+		String nuDocumentoPT = req.getParameter("nuDocumentoPT") == null ? "" : req.getParameter("nuDocumentoPT");
+		String primerApellidoPT = req.getParameter("primerApellidoPT") == null ? "" : req.getParameter("primerApellidoPT");
+		String segundoApellidoPT = req.getParameter("segundoApellidoPT") == null ? "" : req.getParameter("segundoApellidoPT");
+		String preNombresPT = req.getParameter("preNombresPT") == null ? "" : req.getParameter("preNombresPT");
+		
+		String tiDocumentoST = req.getParameter("tiDocumentoST") == null ? "" : req.getParameter("tiDocumentoST");
+		String nuDocumentoST = req.getParameter("nuDocumentoST") == null ? "" : req.getParameter("nuDocumentoST");
+		String primerApellidoST = req.getParameter("primerApellidoST") == null ? "" : req.getParameter("primerApellidoST");
+		String segundoApellidoST = req.getParameter("segundoApellidoST") == null ? "" : req.getParameter("segundoApellidoST");
+		String preNombresST = req.getParameter("preNombresST") == null ? "" : req.getParameter("preNombresST");
+		
+		String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+		
+		TestigoBean testigoUno = new TestigoBean();
+		testigoUno.setNuActaCelebracion(nuActaCelebra);
+		testigoUno.setCoTestigo("03");
+		testigoUno.setCoTipoDocIdentidad(tiDocumentoPT);
+		testigoUno.setNuDocIdentidad(nuDocumentoPT.toUpperCase());
+		testigoUno.setDePrimerApellido(primerApellidoPT.toUpperCase());
+		testigoUno.setDeSegundoApellido(segundoApellidoPT.toUpperCase());
+		testigoUno.setDePreNombres(preNombresPT.toUpperCase());
+		testigoUno.setIdCrea(usuario);
+		
+		int valTestigoUno = actaCelebraService.registrarTestigo(testigoUno);
+					
+		TestigoBean testigoDos = new TestigoBean();
+		testigoDos.setNuActaCelebracion(nuActaCelebra);
+		testigoDos.setCoTestigo("04");
+		testigoDos.setCoTipoDocIdentidad(tiDocumentoST);
+		testigoDos.setNuDocIdentidad(nuDocumentoST.toUpperCase());
+		testigoDos.setDePrimerApellido(primerApellidoST.toUpperCase());
+		testigoDos.setDeSegundoApellido(segundoApellidoST.toUpperCase());
+		testigoDos.setDePreNombres(preNombresST.toUpperCase());
+		testigoDos.setIdCrea(usuario);
+		
+		
+		int valTestigoDos = actaCelebraService.registrarTestigo(testigoDos);
+		
+		String respuesta = "00";
+				
+		if (valTestigoUno == 1 && valTestigoDos == 1){
+			respuesta = "01"; //01: Los dos testigos registrados	
+			
+		}
+		
+		return respuesta;		
+	}
+
+		
+	@RequestMapping(value = "/registrarCelebracion.htm", method = RequestMethod.POST)
+	public @ResponseBody String registrarCelebracion(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		
+		String nuActaCelebra = req.getParameter("nuActaCelebra") == null ? "" : req.getParameter("nuActaCelebra");
+		
+		String nroDniAC = req.getParameter("nroDniAC") == null ? "" : req.getParameter("nroDniAC");
+		String desCargoAC = req.getParameter("desCargoAC") == null ? "" : req.getParameter("desCargoAC");
+		String primerApellidoAC = req.getParameter("primerApellidoAC") == null ? "" : req.getParameter("primerApellidoAC");
+		String segundoApellidoAC = req.getParameter("segundoApellidoAC") == null ? "" : req.getParameter("segundoApellidoAC");
+		String preNombresAC = req.getParameter("preNombresAC") == null ? "" : req.getParameter("preNombresAC");
+		String diaCelebracion = req.getParameter("diaCelebracion") == null ? "" : req.getParameter("diaCelebracion");
+		String mesCelebracion = req.getParameter("mesCelebracion") == null ? "" : req.getParameter("mesCelebracion");
+		String anioCelebracion = req.getParameter("anioCelebracion") == null ? "" : req.getParameter("anioCelebracion");
+		String horaEvento = req.getParameter("horaEvento") == null ? "" : req.getParameter("horaEvento");
+		String minutosEvento = req.getParameter("minutosEvento") == null ? "" : req.getParameter("minutosEvento");
+		String nroExpediente = req.getParameter("nroExpediente") == null ? "" : req.getParameter("nroExpediente");
+		String observacionesActa = req.getParameter("observacionesActa") == null ? "" : req.getParameter("observacionesActa");
+		String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+		
+		CelebracionBean celebracionBean = new CelebracionBean();
+		celebracionBean.setNuActaCelebracion(nuActaCelebra);
+		celebracionBean.setNuDocCelebrante(nroDniAC);
+		celebracionBean.setDeCargoCelebrante(desCargoAC.toUpperCase());
+		celebracionBean.setNoCelebrante(preNombresAC.toUpperCase() + " " + primerApellidoAC.toUpperCase() + " " + segundoApellidoAC.toUpperCase());
+		celebracionBean.setFeEvento(anioCelebracion+mesCelebracion+diaCelebracion);
+		celebracionBean.setHoEvento(horaEvento+minutosEvento+"00");
+		celebracionBean.setDeExpediente(nroExpediente.toUpperCase());
+		celebracionBean.setDeObservacion(observacionesActa.toUpperCase());
+		celebracionBean.setCoAccion("01");
+		celebracionBean.setCoEstado("01");
+		celebracionBean.setIdActualiza(usuario);
+		celebracionBean.setIdCrea(usuario);
+		
+		int valRegistraCelebra = actaCelebraService.actualizarCelebracion(celebracionBean);
+				
+		return String.valueOf(valRegistraCelebra);
+
+	}
+	
+	
+}

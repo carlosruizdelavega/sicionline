@@ -1,0 +1,80 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+public class IndexAni {
+	
+	
+	private String    nuDni,          
+					  apPrimer,
+					  apSegundo,
+					  apCasada,
+					  prenomInscrito,
+					  coRestri,
+					  deGenero,
+					  feNacimiento;
+
+	public String getNuDni() {
+		return nuDni;
+	}
+
+	public void setNuDni(String nuDni) {
+		this.nuDni = nuDni;
+	}
+
+	public String getApPrimer() {
+		return apPrimer;
+	}
+
+	public void setApPrimer(String apPrimer) {
+		this.apPrimer = apPrimer;
+	}
+
+	public String getApSegundo() {
+		return apSegundo;
+	}
+
+	public void setApSegundo(String apSegundo) {
+		this.apSegundo = apSegundo;
+	}
+
+	public String getApCasada() {
+		return apCasada;
+	}
+
+	public void setApCasada(String apCasada) {
+		this.apCasada = apCasada;
+	}
+
+	public String getPrenomInscrito() {
+		return prenomInscrito;
+	}
+
+	public void setPrenomInscrito(String prenomInscrito) {
+		this.prenomInscrito = prenomInscrito;
+	}
+
+	public String getCoRestri() {
+		return coRestri;
+	}
+
+	public void setCoRestri(String coRestri) {
+		this.coRestri = coRestri;
+	}
+
+	public String getDeGenero() {
+		return deGenero;
+	}
+
+	public void setDeGenero(String deGenero) {
+		this.deGenero = deGenero;
+	}
+
+	public String getFeNacimiento() {
+		return feNacimiento;
+	}
+
+	public void setFeNacimiento(String feNacimiento) {
+		this.feNacimiento = feNacimiento;
+	}
+	
+
+}

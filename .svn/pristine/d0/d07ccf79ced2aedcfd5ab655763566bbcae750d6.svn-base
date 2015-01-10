@@ -1,0 +1,26 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+
+@Controller
+public class ActaCelebraController {
+	
+	
+private static final Logger log = Logger.getLogger(ActaCelebraController.class);
+	
+	@RequestMapping("/inicioSistema.htm")
+    public ModelAndView mostrarInicioSis(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo mostrarInicioSis");
+        ModelAndView mv = new ModelAndView("principal/areaPrincipal");
+        return mv;
+    }
+	
+
+}

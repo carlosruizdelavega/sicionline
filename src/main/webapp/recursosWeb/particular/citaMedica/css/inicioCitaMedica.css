@@ -1,0 +1,77 @@
+.registrarActa_titulo01{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 17px;
+	color: #333;
+	font-weight: bold;
+}
+
+.registrarActa_texto01{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #333;
+	font-weight: normal;
+}
+
+.registrarActa_texto02{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #333;
+	font-weight: bold;
+}
+
+.registrarActa_tabla01 td{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	color: #333;
+	font-weight: normal;
+	border:1px solid #333;
+	padding: 2px;
+	margin: 0px;
+}
+
+.registrarActa_tabla01 th{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	color: #333;
+	font-weight: bold;
+	border:1px solid #333;
+	padding: 3px;
+	margin: 0px;
+}
+
+.registrarActa_tabla02 td{
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #333;
+	font-weight: normal;
+	border: 0px;
+	padding: 2px;
+	margin: 0px;
+}
+
+.actaReporte_content001 {
+	background-color: #fafafa;
+	border: 1px solid #ddd;
+	margin-top:5px;
+	/*height: 60px;*/
+	border-radius: 6px;
+}
+
+.actaReporte_content002 {
+	margin-top: 15px;
+	/*min-height: 500px;*/
+	height: auto;
+	border-radius: 6px;
+}
+
+/*contenedor del login*/
+.contenedorForm{
+    background-color: #ffffff;
+    border-radius: 6px;
+    color: inherit;
+    /*margin-bottom: 30px;*/
+    padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 20px;
+}

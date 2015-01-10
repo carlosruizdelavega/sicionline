@@ -1,0 +1,51 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.service.ImpresionService;
+
+@Controller
+public class ImpresionController {
+
+	@Autowired
+	private ImpresionService impresionService;
+	
+	@RequestMapping("/actaCelebracionPreview.pdf")
+	public ModelAndView MostrarFormuPdfPdf(HttpServletRequest req, 
+										   HttpServletResponse res) throws Exception {
+
+		// recibir parametros
+		String acta = req.getParameter("acta");
+		
+		// consultar datos del acta de celebracion
+		CelebracionBean celebracionBean = impresionService.consultarDatosCelebracion(acta);
+		
+		//consultar contrayentes
+		List<ContrayenteBean> listaContrayentes = impresionService.consultarContrayentes(acta);
+		
+		//consultar testigos
+		List<TestigoBean> listaTestigos = impresionService.consultarTestigos(acta);
+		
+		// retorna objeto ModelAndView
+		ModelAndView mv = new ModelAndView("impresionView");
+		mv.addObject("celebracionBean", celebracionBean);
+		mv.addObject("listaContrayentes", listaContrayentes);
+		mv.addObject("listaTestigos", listaTestigos);
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}	
+	
+}

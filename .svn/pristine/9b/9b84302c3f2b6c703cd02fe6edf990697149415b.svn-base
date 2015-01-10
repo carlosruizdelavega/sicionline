@@ -1,0 +1,40 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<form id="formImgObservada" name="formImgObservada" class="formModal">
+	<div class="backContentDialog" style="text-align: center;margin-top:10px"> 
+		<fieldset>
+		   	<!-- titulo -->
+			<div style="display: block; height:32px; margin-top: 0px;  margin-left: 0px; ">
+				<label><small  style=" font-size: 13px; font-weight: bold;">Im&aacute;genes Observadas</small></label>
+			</div>
+		
+			<!-- linea -->
+			<div style="width: 150px; height:8px; min-height:8px;margin-left: 200px;border-top:1px solid #E5E5E5;">
+			</div>
+			
+			
+			<!-- Descripcion -->
+			<div style="display: block; height:32px;">
+				<label><small  style=" font-size: 11px; font-weight: bold;">Las Im&aacute;genes que se listan a continuaci&oacute;n presentan observaci&oacute;n por favor verificar y seleccionar nuevamente</small></label>
+			</div>
+		
+			<div class="contenedorForm03" style="margin-top:15px;">
+				
+					<table border="1" style="margin-left:-13px; width: 450px" class="cellv">
+						<tr ALIGN="center" style="background:#efefef;font-size: 11px; font-weight: bold; height:18px;">
+							<td >Nombre Imagen</td>
+							<td >Tamaño</td>
+							<td  >Observacion</td>					
+						</tr>
+					</table>
+							
+			</div>
+			<div style="text-align:center" >
+			<button type="button" class="btn btn-small btn-info" style="margin-top:20px;" >
+				<i class="icon-lock icon-white"></i>&nbsp;&nbsp;Cerrar
+			</button>
+			</div>
+		</fieldset>
+	</div>
+</form> 
+

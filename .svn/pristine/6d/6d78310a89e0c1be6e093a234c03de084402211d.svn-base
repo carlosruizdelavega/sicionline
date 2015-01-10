@@ -1,0 +1,22 @@
+package pe.gob.reniec.actacelebracion.dao;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+
+public interface ActaCelebraDao {
+	
+	public int registrarTestigo(TestigoBean testigoBean);
+	
+	public int actualizarCelebracion(CelebracionBean celebracionBean);
+	
+	public int registrarCelebracionMov(CelebracionBean celebracionBean);
+
+	public int generarSecuenciaCelebracion();
+	
+	public int registrarContrayente(ContrayenteBean contrayenteBean);
+	
+	public int  registrarCelebracion(CelebracionBean celebracionBean);
+	
+	
+}

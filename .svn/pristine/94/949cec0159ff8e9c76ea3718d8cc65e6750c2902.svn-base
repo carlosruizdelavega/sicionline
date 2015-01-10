@@ -1,0 +1,176 @@
+/**
+ * Funcion que permite ejecutar las operaciones especificadas, cuando se ha cargado completamente el DOM
+ */
+$(document).ready(function(){
+
+	//enfocar en campo de texto usuario
+	$("#txtUser").focus();
+	
+});
+
+/**
+ * Funcion que permite obtener acceso al sistema
+ */
+function fnAccesoSistema(){
+ 
+	//validaciones
+    var nuDNI = $("#txtUser").val();
+    var passw=$("#codigo").val();
+	 
+    if($.trim(nuDNI) == ""){
+    	cAlert("Debe ingresar el Usuario", "txtUser");
+        return;
+    }
+    
+    if($.trim(passw).length == ""){
+    	cAlert("Debe ingresar la Contrase\u00f1a", "codigo");
+        return;
+    }
+    
+    if($.trim(passw).length < 8){
+    	cAlert("La Contrase\u00f1a no puede tener menos de 8 caracteres", "codigo");
+        return;
+    }
+   
+    //verifica usuario
+    var codRpta = -1;
+    var parametros = {
+    		connect:{
+        		url: "obtenerAccesoSistema.htm",
+                type: "POST" 
+    		},
+    		data:{
+        		coUsuario: nuDNI,
+                paUsuario: passw 
+    		}
+        };
+    cRequestAjax(parametros, function(response){
+        codRpta = parseInt(response.coStatus);
+        if(codRpta != 0){
+        	cAlert(response.deStatus, null);
+        }else{
+        	fnCargarContenido("menuPrincipal.htm", null, "#contenido");
+        }
+    });
+
+}
+
+/**
+ * Funcion que permite cerrar la sesion del sistema
+ */
+function fnCerrarSesion(){
+	var parametros = {
+    		connect:{
+        		url: "cerrarSesion.htm",
+                type: "POST" 
+    		},
+			data:{
+				
+			}
+        };
+    cRequestAjax(parametros, function(response){
+                
+        if(response == "OK"){
+        	fnCargarContenido("login.htm", null, "#contenido");
+        }else{
+        	cAlert(response, null);
+        }
+    });
+	
+}
+
+/**
+ * Funcion que permite abrir nueva pagina
+ */
+function fnAbrirPagina(codigo,pagina){
+	if(codigo == '2'){
+		window.location.href=pagina;
+		fnVerCantidades();
+	}
+}
+
+/**
+ * Funcion que permite abrir dialogo para cambio de password
+ */
+function fnAbrirCambiaPass(){
+	$("#dialogCambiaPass").dialog({
+		autoOpen : false,
+		height : 330,
+		width : 280,
+		modal : true,
+		resizable: false,
+		buttons : {
+			"Guardar" : function() {
+				fnCambiaPass();	
+			},
+			"Cancelar" : function() {
+				fnlimpiarCambiaPass();
+				$(this).dialog("close");
+			}
+		},
+		close : function() {
+			fnlimpiarCambiaPass();
+			$(this).dialog("close");
+		}
+	});
+	$("#dialogCambiaPass").dialog("open");
+}
+
+/**
+ * Funcion que permite cambiar password
+ */
+function fnCambiaPass (){
+	if($("#cambiaPassUser").val()==""){
+		cAlert("Debe ingresar el Usuario","cambiaPassUser");
+        return;	
+	}
+	
+	if($("#cambiarPassPri").val()==""){
+		cAlert("Debe ingresar su Contrase\u00f1a actual","cambiarPassPri");
+        return;	
+	}
+	
+	if($.trim($("#cambiarPassPri").val()).length < 8){
+    	cAlert("La Contrase\u00f1a actual no puede tener menos de 8 caracteres", "cambiarPassPri");
+        return;
+    }
+	
+	if($("#cambiarPassSeg").val()==""){
+		cAlert("Debe ingresar su Contrase\u00f1a nueva","cambiarPassSeg");
+        return;	
+	}
+	
+	if($.trim($("#cambiarPassSeg").val()).length < 8){
+    	cAlert("La Contrase\u00f1a nueva no puede tener menos de 8 caracteres", "cambiarPassSeg");
+        return;
+    }
+	
+	var parametros = {
+    		connect:{
+        		url: "cambiarContrasenia.htm",
+                type: "POST" 
+    		},
+    		data:{
+        		nuDni: $("#cambiaPassUser").val(),
+                passAnt: $("#cambiarPassPri").val(),
+                passNue: $("#cambiarPassSeg").val()
+    		}
+    };
+	
+	cRequestAjax(parametros, function(response){
+       cAlert(response.deStatus, null);
+       fnlimpiarCambiaPass();
+       $('#dialogCambiaPass').dialog("close");
+    });
+	
+}
+
+/**
+ * Funcion que permite limpiar campos de texto del formulario de cambio de password
+ */
+function fnlimpiarCambiaPass (){
+	$("#cambiaPassUser").val('');
+	$("#cambiarPassPri").val('');
+	$("#cambiarPassSeg").val('');
+}
+

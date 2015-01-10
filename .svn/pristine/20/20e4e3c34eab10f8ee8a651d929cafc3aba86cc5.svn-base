@@ -1,0 +1,241 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<div style="margin:10px;">
+
+	<!-- Autoridad Celebrante-->
+	<div class="contenedorForm03" style="height:200px;">
+		
+		<div style="padding:20px;">
+
+		   	<!-- titulo -->
+			<div style="float:left; clear:left; height:25px;">
+				<span class="titulo03">Autoridad Celebrante</span>
+			</div>
+	
+			<!-- linea -->
+			<div style="float:left; clear:left; height:20px; width:100%; min-height:20px; 
+				border-top:1px solid #ccc;"></div>
+				
+			<div style="float:left; clear: left;">
+			
+				<div style="float:left;">
+				
+					<label>
+						<small style="font-size: 11px; font-weight: bold;">
+							Nro. DNI
+						</small>
+					</label>
+					
+					<input id="txtNroDocumentoAC" type="text" 
+						style="width:100px; margin-top: -6px; font-size: 12px; 
+						text-transform: uppercase;" maxlength="20" />
+					
+					<button onclick="fnBuscarCiudadano('AC','03');" 
+						style="margin-left:3px; margin-top:-15px;" class="btn btn-small btn-info" type="button">
+						<i class="icon-search icon-white"></i>&nbsp;Buscar
+					</button>
+					
+				</div>
+				
+				<div style="float:left; margin-left: 20px;">
+					
+					<label>
+						<small style=" font-size: 11px; font-weight: bold;">
+							Descripci&oacute;n del Cargo
+						</small>
+					</label>
+						
+					<input id="txtDesCargoAC" type="text" style="width:300px; margin-top: -6px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20" />
+	
+				</div>
+				
+			</div>
+			
+			<div style="float:left; clear: left; margin-top: 10px;">
+			
+				<div style="float:left;">
+					
+					<label>
+						<small style="font-size: 11px; font-weight:bold;">
+							Primer Apellido
+						</small>
+					</label>
+					
+					<input id="txtApPrimerAC" type="text" 
+						style="margin-top:-6px; width:250px; text-transform:uppercase; font-size: 12px;" 
+						maxlength="20" />
+						
+				</div>
+				
+				<div style="float:left; margin-left: 20px;">
+				
+					<label>
+						<small style=" font-size: 11px; font-weight: bold;">
+							Segundo Apellido
+						</small>
+					</label>
+					
+					<input id="txtApSegundoAC" type="text" 
+						style="width:250px; margin-top:-6px; text-transform:uppercase; 
+						font-size: 12px;" maxlength="20" />
+
+				</div>
+				
+				<div style="float:left; margin-left: 20px;">
+					
+					<label>
+						<small style="font-size: 11px; font-weight: bold;">
+							Pre nombres
+						</small>
+					</label>
+					
+					<input id="txtPreNomInscritoAC" type="text" style="margin-top:-6px; width:250px; 
+						text-transform: uppercase; font-size: 12px;" maxlength="20"/>
+						
+				</div>
+				
+			</div>
+		
+		</div>
+		
+	</div>
+		
+	<!-- Datos del evento-->
+	<div class="contenedorForm03" style="height: 230px; margin-top:20px; margin-bottom:20px;">
+	    
+	    <div style="padding:20px;">
+
+		    <!-- titulo -->
+			<div style="float:left; clear:left; height:25px;">
+				<span class="titulo03">Datos del Evento</span>
+			</div>
+	
+			<!-- linea -->
+			<div style="float:left; clear:left; height:20px; width:100%; 
+				min-height:20px; border-top:1px solid #ccc;"></div>
+
+			<div style="float: left; clear: left;">
+			
+				<div style="float:left; clear:left;">
+				
+					<label>
+						<small style="font-size:11px; font-weight: bold;">
+							Fecha Evento
+						</small>
+					</label>
+					
+					<select id="cmbDiaCelebracion" style="width:70px; margin-top:-6px; font-size: 12px; 
+						padding-top:4px;">
+						<option id="00" value="00">D&iacute;a</option>
+						<option id="01" value="01">01</option>
+						<option id="02" value="02">02</option>
+						<option id="03" value="03">03</option>
+						<option id="04" value="04">04</option>
+						<option id="05" value="05">05</option>
+						<option id="06" value="06">06</option>
+						<option id="07" value="07">07</option>
+						<option id="08" value="08">08</option>
+						<option id="09" value="09">09</option>
+						<option id="10" value="10">10</option>
+						<option id="11" value="11">11</option>
+						<option id="12" value="12">12</option>
+						<option id="13" value="13">13</option>
+						<option id="14" value="14">14</option>
+						<option id="15" value="12">15</option>
+						<option id="16" value="16">16</option>
+						<option id="17" value="17">17</option>
+						<option id="18" value="18">18</option>
+						<option id="19" value="19">19</option>
+						<option id="20" value="20">20</option>
+						<option id="21" value="21">21</option>
+						<option id="22" value="22">22</option>
+						<option id="23" value="23">23</option>
+						<option id="24" value="24">24</option>
+						<option id="25" value="25">25</option>
+						<option id="26" value="26">26</option>
+						<option id="27" value="27">27</option>
+						<option id="28" value="28">28</option>
+						<option id="29" value="29">29</option>
+						<option id="30" value="30">30</option>
+						<option id="31" value="31">31</option>
+					</select> 
+					
+					<select id="cmbMesCelebracion" style="width:100px; margin-top:-6px; font-size:12px; 
+						padding-top:4px; text-transform: uppercase;">
+						<option id="00" value="00" >Mes</option>
+						<option id="01" value="01" >Enero </option>
+						<option id="02" value="02" >Febrero </option>
+						<option id="03" value="03" >Marzo </option>
+						<option id="04" value="04" >Abril </option>
+						<option id="05" value="05" >Mayo </option>
+						<option id="06" value="06" >Junio </option>
+						<option id="07" value="07" >Julio </option>
+						<option id="08" value="08" >Agosto </option>
+						<option id="09" value="09" >Setiembre </option>
+						<option id="10" value="10" >Octubre </option>
+						<option id="11" value="11" >Noviembre </option>
+						<option id="12" value="12" >Diciembre </option>
+					</select> 
+					
+					<input id="txtAnioCelebracion" type="text" style="width:40px; margin-top:-6px; 
+						font-size: 12px;" maxlength="20" />
+					
+			    </div>
+			    
+			    <div style="float:left; margin-left:40px;">
+			    	
+			    	<label>
+				    	<small  style=" font-size: 11px; font-weight: bold;">
+				    		Hora Evento
+				    	</small>
+			    	</label>
+			    	
+			    	<input id="txtHoraEvento" type="text" style="width:20px; font-size: 12px; margin-top: -6px;" maxlength="20" />
+			    	
+			    	<input id="txtMinutosEvento" type="text" style="width:20px; font-size: 12px; margin-top: -6px;" maxlength="20" />
+			    	
+			    	<span style="font-size: 11px; font-weight: bold; margin-top: -6px;">Hrs.</span>
+			    	
+			    </div>
+			    
+			    <div style="float:left; margin-left:40px;">
+			    	
+			    	<label>
+				    	<small  style="font-size:11px; font-weight:bold;">
+				    		Nro. Expediente
+				    	</small>
+			    	</label>
+			    	
+			    	<input id="txtNroExpediente" type="text" style="margin-right:10px; 
+			    		width:180px; text-transform:uppercase; margin-top:-6px; font-size:12px;" 
+			    		maxlength="20" />
+			    		
+			    </div>
+			    
+			</div>
+				
+			<div style="float:left; clear:left; margin-top:8px;">
+			
+				<div style="float:left;">
+				
+					<label>
+						<small style=" font-size: 11px; font-weight: bold;">
+							Observaci&oacute;n
+						</small>
+					</label>
+					
+					<textarea id="txaObservacionesActa" 
+						style="width: 745px; height: 50px; text-transform: uppercase; 
+						font-size: 12px; margin-top:-6px;"></textarea>
+					
+				</div>
+				
+			</div>
+
+	    
+	    </div>
+
+	</div>			
+
+</div>

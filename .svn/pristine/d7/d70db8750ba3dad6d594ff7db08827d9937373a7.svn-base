@@ -1,0 +1,8 @@
+package pe.gob.reniec.actacelebracion.util;
+
+public class Constantes {
+ 
+	public final static int MILISEGUNDOS_POR_DIA = 24 * 60 * 60 * 1000;	
+	
+	public final static String CODIGO_APLICATIVO = "074"; /*061*/
+}

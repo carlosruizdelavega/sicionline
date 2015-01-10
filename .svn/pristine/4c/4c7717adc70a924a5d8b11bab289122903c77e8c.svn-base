@@ -1,0 +1,267 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Actas Observadas</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.css" />
+		
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="${ruta}/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/actaCeleb/actaCeleb.js"></script>
+		
+				
+		<!-- estilos propios -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/resultadoVerificacion.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="${ruta}/css/resultadoVerificacion.css" /> -->
+
+		<!-- icon -->
+		<link rel="shortcut icon" href="./images/favicon.ico"></link>
+		
+		<script>
+		
+		
+	
+		
+		
+		//  $(".modificar").die("click");
+ // $(".modificar").live("click",function(){modificarAsistecia($(this).attr("id"));})
+		
+		</script>
+				
+	</head>
+		
+	<body>
+
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10" style="height:120px; margin-top:10px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+		
+		<!-- menu -->
+		<div class="row-fluid">
+			<div class="span1"></div>		
+			<div class="span10" style="margin-top: 10px;">
+				<!-- ini: barra de menu -->
+			    <div class="navbar">
+				    <div class="navbar-inner">
+					    <div class="container">
+					     
+						    <!-- titulo -->
+						    <a class="brand" href="#">Actas Observadas</a>
+						    <!-- links adicionales -->
+							<ul class="nav pull-right" style="margin-right:-12px;">
+								<li>
+									<button type="button" class="btn btn-small btn-info" style="margin-top:7px;" 
+										onclick="window.location.href='inicioSistema.htm';">
+										<i class="icon-home icon-white"></i>&nbsp;&nbsp;
+										Men&uacute; principal
+									</button>
+								</li>
+								<li class="divider-vertical"></li>
+								<li>
+									<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" 
+										onclick="fnCerrarSesion();">
+										<i class="icon-lock icon-white"></i>&nbsp;&nbsp;
+										Cerrar sesi&oacute;n
+									</button>
+								</li>
+							</ul>						     
+						    
+					    </div>
+				    </div>
+			    </div>
+	   			<!-- fin: barra de menu -->
+			</div>
+			<div class="span1"></div>			
+		</div>
+				
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>				
+			<div class="span10">
+				<div class="backContent" style="width:auto; height:auto; padding:5px;">
+				
+								<!-- ini: formulario de filtro -->
+							    <div class="contenedorForm" style="min-height: 280px;">
+								    <form id="actasObservadas" action="#" >
+									    
+									    <!-- titulo -->
+										<div style="display: block; height:32px; margin-top: 25px;  margin-left: 25px; ">
+											<span class="titulo02">Bandeja de Actas Observadas</span>
+										</div>
+										
+										<!-- linea -->
+										<div class="row-fluid">
+											<div class="span12">
+												<div style="width:1010px; height:8px; min-height:8px;margin-left: 25px;border-top:1px solid #E5E5E5;">
+												</div>
+											</div>
+										</div>
+										<!-- 
+										<div style="display:block;min-height:20px; border-top:1px solid #E5E5E5; margin-left: 30px;width: 995px;">
+										</div>	 -->
+																		    
+									  
+										<div class="contenedorForm03" style=" min-height:370px;">
+										 	<div  style="float:left; clear:left; margin-top:40px;margin-left:-10px ">
+												<table border="1" style="margin-left:35px" class="cellv">
+													
+													<tr ALIGN="center" style="background:#efefef;font-size: 11px; font-weight: bold; height:18px;">
+														<td   style="width: 100px;" >Fecha</td>
+														<td  style="width: 115px; ">Acta de Celebración</td>
+														<td   style="width: 70px; ">Estado</td>
+														<td   style="width: 115px; ">Observacion</td>					
+														<td  >Sub Observacion</td>
+														<td  style="width: 70px; ">Atender</td>	
+															
+													</tr>
+											
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado1</td>
+														<td>OMISIÓN DE FIRMA </td>
+														<td style="width: 295px">&nbsp;</td>
+														<td><img  onclick="fnDetalleActObs(); "src="images/image.png" id="detalleActa"/></td>	
+													</tr>
+													
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+                                      							<td>OMISIÓN DE FIRMA </td>	
+ 																<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+                                       							<td>OMISIÓN DE FIRMA </td>	
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+														<td>OMISIÓN DE FIRMA </td>																		
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>	
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+                                      					<td>OMISIÓN DE FIRMA </td>	
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>	
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+														<td>OMISIÓN DE FIRMA </td>																		
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+														<td>OMISIÓN DE FIRMA </td>																		
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>	
+													</tr>
+													<tr ALIGN="center" style="background:white;" >
+														<td style="width: 134px; ">19/02/2014 15:23:10</td>
+														<td>1000258001</td>
+														<td>Observado</td>
+														<td>OMISIÓN DE FIRMA </td>																		
+														<td style="width: 295px">&nbsp;</td>
+														<td><img alt="Imagen" src="images/image.png" /></td>	
+													</tr>
+												</table>
+										 	</div>							
+										</div>
+												
+										<div class="contenedorForm03" style=" height:70px; margin-top:25px; text-align:center;">
+											<button style="margin-top:15px;margin-left:560px" class="btn btn-info" type="button"">1</button>
+											<button style="margin-top:15px;" class="btn btn-info" type="button">2</button>
+											<button style="margin-top:15px;" class="btn btn-info" type="button">3</button>
+											<button style="margin-top:15px;" class="btn btn-info" type="button">4</button>
+											<button style="margin-top:15px;" class="btn btn-info" type="button">5</button>
+											<button style="margin-top:15px;" class="btn btn-info" type="button">6</button>
+										</div>
+										
+										<!-- modal detalle acta observada -->
+										<div id="DetalleActObs" style="display:none;">
+											<jsp:include page="detalleActaObservada.jsp"/>
+										</div>
+								  </form>
+								    
+								</div>
+			
+				</div>
+			</div>
+			<div class="span1"></div>			
+		</div>
+		
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top: 40px; margin-bottom: 30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+				
+			</div>
+			<div class="span3"></div>
+			
+			
+			
+		</div>
+
+	</body>
+	
+</html>

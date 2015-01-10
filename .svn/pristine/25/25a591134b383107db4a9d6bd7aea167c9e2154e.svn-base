@@ -1,0 +1,24 @@
+//realiza la lectura del DOM
+$(document).ready(function(){
+
+	//activa el tab4 (vista previa)
+	$("#btnVistaPrevia").click(function(){
+		
+			//consulta datos del reporte
+			var parametros = {
+				connect:{
+	        		url: "consultarDatosActaCeleb.htm",
+	                type: "POST" 
+	    		},
+				data:{
+			    	acta:"1000000001" 
+				}
+			};	
+		    cRequestAjax(parametros, function(response){
+		    	$("#contentPreview").html(response);
+    
+		    });
+		
+	});
+	
+});

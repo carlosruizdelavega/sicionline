@@ -1,0 +1,45 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.service.ActaCelebraService;
+import pe.gob.reniec.actacelebracion.service.UtilService;
+ 
+@Controller
+public class CelebracionController {
+	
+	@Autowired
+	private UtilService utilService;
+	
+	@Autowired
+	private ActaCelebraService actaCelebraService;	
+
+	
+	/**
+	 * Metodo que devuelve la pagina correspondiente al tab de celebracion
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/cargarTabCelebracion.htm")
+    public ModelAndView cargarTabTestigos(HttpServletRequest req, 
+    									  HttpServletResponse res,
+    									  HttpSession session) throws Exception {
+		
+		//definir ModelAndView
+		ModelAndView mv = new ModelAndView("registrarActa/tabCelebracion");
+		
+		//retornar ModelAndView
+		return mv;
+		
+	}
+	
+}

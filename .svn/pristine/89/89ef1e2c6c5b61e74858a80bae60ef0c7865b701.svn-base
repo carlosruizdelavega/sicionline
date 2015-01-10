@@ -1,0 +1,17 @@
+package pe.gob.reniec.actacelebracion.dao;
+
+import java.util.List;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+
+public interface ImpresionDao {
+
+	public CelebracionBean consultarDatosCelebracion(String acta);
+
+	public List<ContrayenteBean> consultarContrayentes(String acta);
+
+	public List<TestigoBean> consultarTestigos(String acta);
+
+}

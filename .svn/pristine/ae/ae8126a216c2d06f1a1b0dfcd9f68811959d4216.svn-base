@@ -1,0 +1,264 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.ResultadoBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.service.ActaCelebraService;
+
+
+@Controller
+public class ActaCelebraController {
+	
+	
+private static final Logger log = Logger.getLogger(ActaCelebraController.class);
+	
+@Autowired
+private ActaCelebraService actaCelebraService;	
+
+
+@RequestMapping("/inicioSistema.htm")
+    public ModelAndView mostrarInicioSis(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo inicioSistema");
+        ModelAndView mv = new ModelAndView("principal/areaPrincipal");
+        return mv;
+    }
+	
+	
+@RequestMapping(value = "/registrarTestigo.htm", method = RequestMethod.POST)
+public @ResponseBody String registrarTestigo(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+	log.info("Ingresa a metodo registrarTestigo");
+	
+	String nuActaCelebra = req.getParameter("nuActaCelebra") == null ? "" : req.getParameter("nuActaCelebra");
+	
+	String tiDocumentoPT = req.getParameter("tiDocumentoPT") == null ? "" : req.getParameter("tiDocumentoPT");
+	String nuDocumentoPT = req.getParameter("nuDocumentoPT") == null ? "" : req.getParameter("nuDocumentoPT");
+	String primerApellidoPT = req.getParameter("primerApellidoPT") == null ? "" : req.getParameter("primerApellidoPT");
+	String segundoApellidoPT = req.getParameter("segundoApellidoPT") == null ? "" : req.getParameter("segundoApellidoPT");
+	String preNombresPT = req.getParameter("preNombresPT") == null ? "" : req.getParameter("preNombresPT");
+	
+	String tiDocumentoST = req.getParameter("tiDocumentoST") == null ? "" : req.getParameter("tiDocumentoST");
+	String nuDocumentoST = req.getParameter("nuDocumentoST") == null ? "" : req.getParameter("nuDocumentoST");
+	String primerApellidoST = req.getParameter("primerApellidoST") == null ? "" : req.getParameter("primerApellidoST");
+	String segundoApellidoST = req.getParameter("segundoApellidoST") == null ? "" : req.getParameter("segundoApellidoST");
+	String preNombresST = req.getParameter("preNombresST") == null ? "" : req.getParameter("preNombresST");
+	
+	String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+	
+	TestigoBean testigoUno = new TestigoBean();
+	testigoUno.setNuActaCelebracion(nuActaCelebra);
+	testigoUno.setCoTestigo("03");
+	testigoUno.setCoTipoDocIdentidad(tiDocumentoPT);
+	testigoUno.setNuDocIdentidad(nuDocumentoPT.toUpperCase());
+	testigoUno.setDePrimerApellido(primerApellidoPT.toUpperCase());
+	testigoUno.setDeSegundoApellido(segundoApellidoPT.toUpperCase());
+	testigoUno.setDePreNombres(preNombresPT.toUpperCase());
+	testigoUno.setIdCrea(usuario);
+	
+	int valTestigoUno = actaCelebraService.registrarTestigo(testigoUno);
+				
+	TestigoBean testigoDos = new TestigoBean();
+	testigoDos.setNuActaCelebracion(nuActaCelebra);
+	testigoDos.setCoTestigo("04");
+	testigoDos.setCoTipoDocIdentidad(tiDocumentoST);
+	testigoDos.setNuDocIdentidad(nuDocumentoST.toUpperCase());
+	testigoDos.setDePrimerApellido(primerApellidoST.toUpperCase());
+	testigoDos.setDeSegundoApellido(segundoApellidoST.toUpperCase());
+	testigoDos.setDePreNombres(preNombresST.toUpperCase());
+	testigoDos.setIdCrea(usuario);
+	
+	
+	int valTestigoDos = actaCelebraService.registrarTestigo(testigoDos);
+	
+	String respuesta = "00";
+			
+	if (valTestigoUno == 1 && valTestigoDos == 1){
+		respuesta = "01"; //01: Los dos testigos registrados	
+		
+	}
+	
+	return respuesta;		
+}
+
+	
+@RequestMapping(value = "/registrarCelebracion.htm", method = RequestMethod.POST)
+public @ResponseBody String registrarCelebracion(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+	
+	String nuActaCelebra = req.getParameter("nuActaCelebra") == null ? "" : req.getParameter("nuActaCelebra");
+	
+	String nroDniAC = req.getParameter("nroDniAC") == null ? "" : req.getParameter("nroDniAC");
+	String desCargoAC = req.getParameter("desCargoAC") == null ? "" : req.getParameter("desCargoAC");
+	String primerApellidoAC = req.getParameter("primerApellidoAC") == null ? "" : req.getParameter("primerApellidoAC");
+	String segundoApellidoAC = req.getParameter("segundoApellidoAC") == null ? "" : req.getParameter("segundoApellidoAC");
+	String preNombresAC = req.getParameter("preNombresAC") == null ? "" : req.getParameter("preNombresAC");
+	String diaCelebracion = req.getParameter("diaCelebracion") == null ? "" : req.getParameter("diaCelebracion");
+	String mesCelebracion = req.getParameter("mesCelebracion") == null ? "" : req.getParameter("mesCelebracion");
+	String anioCelebracion = req.getParameter("anioCelebracion") == null ? "" : req.getParameter("anioCelebracion");
+	String horaEvento = req.getParameter("horaEvento") == null ? "" : req.getParameter("horaEvento");
+	String minutosEvento = req.getParameter("minutosEvento") == null ? "" : req.getParameter("minutosEvento");
+	String nroExpediente = req.getParameter("nroExpediente") == null ? "" : req.getParameter("nroExpediente");
+	String observacionesActa = req.getParameter("observacionesActa") == null ? "" : req.getParameter("observacionesActa");
+	String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+	
+	CelebracionBean celebracionBean = new CelebracionBean();
+	celebracionBean.setNuActaCelebracion(nuActaCelebra);
+	celebracionBean.setNuDocCelebrante(nroDniAC);
+	celebracionBean.setDeCargoCelebrante(desCargoAC.toUpperCase());
+	celebracionBean.setNoCelebrante(preNombresAC.toUpperCase() + " " + primerApellidoAC.toUpperCase() + " " + segundoApellidoAC.toUpperCase());
+	celebracionBean.setFeEvento(anioCelebracion+mesCelebracion+diaCelebracion);
+	celebracionBean.setHoEvento(horaEvento+minutosEvento+"00");
+	celebracionBean.setDeExpediente(nroExpediente.toUpperCase());
+	celebracionBean.setDeObservacion(observacionesActa.toUpperCase());
+	celebracionBean.setCoAccion("01");
+	celebracionBean.setCoEstado("01");
+	celebracionBean.setIdActualiza(usuario);
+	celebracionBean.setIdCrea(usuario);
+	
+	int valRegistraCelebra = actaCelebraService.actualizarCelebracion(celebracionBean);
+			
+	return String.valueOf(valRegistraCelebra);
+
+}
+	
+	@RequestMapping(value = "/registrarContrayente.htm", method = RequestMethod.POST)
+	public @ResponseBody ResultadoBean registrarContrayente(HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		
+		//String nuActaCelebra = req.getParameter("nuActaCelebra") == null ? "" : req.getParameter("nuActaCelebra");
+		
+		String NroDocumento01 = req.getParameter("NroDocumento01") == null ? "" : req.getParameter("NroDocumento01");
+		String ApPrimer01 = req.getParameter("ApPrimer01") == null ? "" : req.getParameter("ApPrimer01");
+		String ApSegundo01 = req.getParameter("ApSegundo01") == null ? "" : req.getParameter("ApSegundo01");
+		String PreNomInscrito01 = req.getParameter("PreNomInscrito01") == null ? "" : req.getParameter("PreNomInscrito01");
+		String Edad01 = req.getParameter("Edad01") == null ? "" : req.getParameter("Edad01");
+		String DeDomicilio01 = req.getParameter("DeDomicilio01") == null ? "" : req.getParameter("DeDomicilio01");
+		String CoNacionalidad01 = req.getParameter("CoNacionalidad01") == null ? "" : req.getParameter("CoNacionalidad01");
+		String CoContinenteNaci01 = req.getParameter("CoContinenteNaci01") == null ? "" : req.getParameter("CoContinenteNaci01");
+		String CoPaisNaci01 = req.getParameter("CoPaisNaci01") == null ? "" : req.getParameter("CoPaisNaci01");
+		String CoDepartamentoNaci01 = req.getParameter("CoDepartamentoNaci01") == null ? "" : req.getParameter("CoDepartamentoNaci01");
+		String CoProvinciaNaci01 = req.getParameter("CoProvinciaNaci01") == null ? "" : req.getParameter("CoProvinciaNaci01");
+		String CoDistritoNaci01 = req.getParameter("CoDistritoNaci01") == null ? "" : req.getParameter("CoDistritoNaci01");
+		String CoCentropobladoNaci01 = req.getParameter("CoCentropobladoNaci01") == null ? "" : req.getParameter("CoCentropobladoNaci01");
+		String CoContinenteDomicilio01 = req.getParameter("CoContinenteDomicilio01") == null ? "" : req.getParameter("CoContinenteDomicilio01");
+		String CoPaisDomicilio01 = req.getParameter("CoPaisDomicilio01") == null ? "" : req.getParameter("CoPaisDomicilio01");
+		String CoDepartamentoDomicilio01 = req.getParameter("CoDepartamentoDomicilio01") == null ? "" : req.getParameter("CoDepartamentoDomicilio01");
+		String CoProvinciaDomicilio01 = req.getParameter("CoProvinciaDomicilio01") == null ? "" : req.getParameter("CoProvinciaDomicilio01");
+		String CoDistritoDomicilio01 = req.getParameter("CoDistritoDomicilio01") == null ? "" : req.getParameter("CoDistritoDomicilio01");
+		String CoCentropobladoDomicilio01 = req.getParameter("CoCentropobladoDomicilio01") == null ? "" : req.getParameter("CoCentropobladoDomicilio01");
+		String CoEstadoCivil01 = req.getParameter("CoEstadoCivil01") == null ? "" : req.getParameter("CoEstadoCivil01");
+		String CoGenero01 = req.getParameter("CoGenero01") == null ? "" : req.getParameter("CoGenero01");
+		String TipoDocumento01 = req.getParameter("TipoDocumento01") == null ? "" : req.getParameter("TipoDocumento01");
+		
+		
+		//String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+		
+		String usuario = "00536";
+		
+		String NroDocumento02 = req.getParameter("NroDocumento02") == null ? "" : req.getParameter("NroDocumento02");
+		String ApPrimer02 = req.getParameter("ApPrimer02") == null ? "" : req.getParameter("ApPrimer02");
+		String ApSegundo02 = req.getParameter("ApSegundo02") == null ? "" : req.getParameter("ApSegundo02");
+		String PreNomInscrito02 = req.getParameter("PreNomInscrito02") == null ? "" : req.getParameter("PreNomInscrito02");
+		String Edad02 = req.getParameter("Edad02") == null ? "" : req.getParameter("Edad02");
+		String DeDomicilio02 = req.getParameter("DeDomicilio02") == null ? "" : req.getParameter("DeDomicilio02");
+		String CoNacionalidad02 = req.getParameter("CoNacionalidad02") == null ? "" : req.getParameter("CoNacionalidad02");
+		String CoContinenteNaci02 = req.getParameter("CoContinenteNaci02") == null ? "" : req.getParameter("CoContinenteNaci02");
+		String CoPaisNaci02 = req.getParameter("CoPaisNaci02") == null ? "" : req.getParameter("CoPaisNaci02");
+		String CoDepartamentoNaci02 = req.getParameter("CoDepartamentoNaci02") == null ? "" : req.getParameter("CoDepartamentoNaci02");
+		String CoProvinciaNaci02 = req.getParameter("CoProvinciaNaci02") == null ? "" : req.getParameter("CoProvinciaNaci02");
+		String CoDistritoNaci02 = req.getParameter("CoDistritoNaci02") == null ? "" : req.getParameter("CoDistritoNaci02");
+		String CoCentropobladoNaci02 = req.getParameter("CoCentropobladoNaci02") == null ? "" : req.getParameter("CoCentropobladoNaci02");
+		String CoContinenteDomicilio02 = req.getParameter("CoContinenteDomicilio02") == null ? "" : req.getParameter("CoContinenteDomicilio02");
+		String CoPaisDomicilio02 = req.getParameter("CoPaisDomicilio02") == null ? "" : req.getParameter("CoPaisDomicilio02");
+		String CoDepartamentoDomicilio02 = req.getParameter("CoDepartamentoDomicilio02") == null ? "" : req.getParameter("CoDepartamentoDomicilio02");
+		String CoProvinciaDomicilio02 = req.getParameter("CoProvinciaDomicilio02") == null ? "" : req.getParameter("CoProvinciaDomicilio02");
+		String CoDistritoDomicilio02 = req.getParameter("CoDistritoDomicilio02") == null ? "" : req.getParameter("CoDistritoDomicilio02");
+		String CoCentropobladoDomicilio02 = req.getParameter("CoCentropobladoDomicilio02") == null ? "" : req.getParameter("CoCentropobladoDomicilio02");
+		String CoEstadoCivil02 = req.getParameter("CoEstadoCivil02") == null ? "" : req.getParameter("CoEstadoCivil02");
+		String CoGenero02 = req.getParameter("CoGenero02") == null ? "" : req.getParameter("CoGenero02");
+		String TipoDocumento02 = req.getParameter("TipoDocumento02") == null ? "" : req.getParameter("TipoDocumento02");
+		
+		
+		 ContrayenteBean contrayenteBean01 = new ContrayenteBean();
+		 
+		 contrayenteBean01.setCoContrayente("01");
+		 
+		 contrayenteBean01.setIdCrea(usuario);
+		 contrayenteBean01.setNuDocIdentidad(NroDocumento01);
+		 contrayenteBean01.setDePrimerApellido(ApPrimer01);
+		 contrayenteBean01.setDeSegundoApellido(ApSegundo01);
+		 contrayenteBean01.setDePrenombres(PreNomInscrito01);
+		 contrayenteBean01.setNuEdad(Edad01);
+		 contrayenteBean01.setDeDireccion(DeDomicilio01);
+		 contrayenteBean01.setCoNacionalidad(CoNacionalidad01);
+		 contrayenteBean01.setCoNaturalCont(CoContinenteNaci01);
+		 contrayenteBean01.setCoNaturalPais(CoPaisNaci01);
+		 contrayenteBean01.setCoNaturalDpto(CoDepartamentoNaci01);
+		 contrayenteBean01.setCoNaturalProv(CoProvinciaNaci01);
+		 contrayenteBean01.setCoNaturalDist(CoDistritoNaci01);
+		 contrayenteBean01.setCoNaturalLoca(CoCentropobladoNaci01);
+		 contrayenteBean01.setCoDomCont(CoContinenteDomicilio01);
+		 contrayenteBean01.setCoDomPais(CoPaisDomicilio01);
+		 contrayenteBean01.setCoDomDpto(CoDepartamentoDomicilio01);
+		 contrayenteBean01.setCoDomProv(CoProvinciaDomicilio01);
+		 contrayenteBean01.setCoDomDist(CoDistritoDomicilio01);
+		 contrayenteBean01.setCoDomLoca(CoCentropobladoDomicilio01);
+		 contrayenteBean01.setCoEstadoCivil(CoEstadoCivil01);
+		 contrayenteBean01.setCoSexo(CoGenero01);
+		 contrayenteBean01.setCoTipoDocIdentidad(TipoDocumento01);
+		 
+		 ContrayenteBean contrayenteBean02 = new ContrayenteBean();
+		 
+		 contrayenteBean02.setCoContrayente("02");
+		 contrayenteBean02.setIdCrea(usuario);
+		 contrayenteBean02.setNuDocIdentidad(NroDocumento02);
+		 contrayenteBean02.setDePrimerApellido(ApPrimer02);
+		 contrayenteBean02.setDeSegundoApellido(ApSegundo02);
+		 contrayenteBean02.setDePrenombres(PreNomInscrito02);
+		 contrayenteBean02.setNuEdad(Edad02);
+		 contrayenteBean02.setDeDireccion(DeDomicilio02);
+		 contrayenteBean02.setCoNacionalidad(CoNacionalidad02);
+		 contrayenteBean02.setCoNaturalCont(CoContinenteNaci02);
+		 contrayenteBean02.setCoNaturalPais(CoPaisNaci02);
+		 contrayenteBean02.setCoNaturalDpto(CoDepartamentoNaci02);
+		 contrayenteBean02.setCoNaturalProv(CoProvinciaNaci02);
+		 contrayenteBean02.setCoNaturalDist(CoDistritoNaci02);
+		 contrayenteBean02.setCoNaturalLoca(CoCentropobladoNaci02);
+		 contrayenteBean02.setCoDomCont(CoContinenteDomicilio02);
+		 contrayenteBean02.setCoDomPais(CoPaisDomicilio02);
+		 contrayenteBean02.setCoDomDpto(CoDepartamentoDomicilio02);
+		 contrayenteBean02.setCoDomProv(CoProvinciaDomicilio02);
+		 contrayenteBean02.setCoDomDist(CoDistritoDomicilio02);
+		 contrayenteBean02.setCoDomLoca(CoCentropobladoDomicilio02);
+		 contrayenteBean02.setCoEstadoCivil(CoEstadoCivil02);
+		 contrayenteBean02.setCoSexo(CoGenero02);
+		 contrayenteBean02.setCoTipoDocIdentidad(TipoDocumento02);
+		 
+		 
+		
+		
+		 /*String DeGenero = req.getParameter("DeGenero") == null ? "" : req.getParameter("DeGenero");
+			String DeNacionalidad = req.getParameter("DeNacionalidad") == null ? "" : req.getParameter("DeNacionalidad");
+			String DeEstadoCivil = req.getParameter("DeEstadoCivil") == null ? "" : req.getParameter("DeEstadoCivil");
+			String DeUbigeoNac = req.getParameter("DeUbigeoNac") == null ? "" : req.getParameter("DeUbigeoNac");
+			String DeUbigeoDom = req.getParameter("DeUbigeoDom") == null ? "" : req.getParameter("DeUbigeoDom");
+					
+	     */
+   	 	
+		ResultadoBean resultadoBean =  actaCelebraService.registrarContrayente(contrayenteBean01, contrayenteBean02, usuario);
+		//TODO
+		return resultadoBean;
+	
+	}
+	
+}

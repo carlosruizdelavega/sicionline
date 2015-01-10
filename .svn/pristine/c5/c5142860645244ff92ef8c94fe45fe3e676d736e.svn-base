@@ -1,0 +1,10 @@
+/**
+ * Funcion que permite ejecutar las operaciones especificadas, cuando se ha cargado completamente el DOM
+ */
+$(document).ready(function(){
+	
+	//cargar pagina inicial de logeo de usuario
+	//fnCargarContenido("login.htm", null, "#contenido");
+	fnCargarContenido("cargarRegistroActa.htm", null, "#contenido");
+	
+});

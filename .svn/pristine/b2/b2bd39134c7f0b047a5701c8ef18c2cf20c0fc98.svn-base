@@ -1,0 +1,12 @@
+package pe.gob.reniec.actacelebracion.service;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+
+public interface ActaCelebraService {
+	
+	public int registrarTestigo(TestigoBean testigoBean);
+	
+	public void registrarCelebracion(CelebracionBean celebracionBean);
+
+}

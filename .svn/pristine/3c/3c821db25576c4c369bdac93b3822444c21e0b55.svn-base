@@ -1,0 +1,67 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<form id="formDetalleActObs" name="formDetalleActObs" class="formModal">
+	<div  class="backContentDialog" style="text-align:left">
+		<fieldset>
+			 <table  class="cellts" style="margin-left:45px" >
+				 <tr>
+				 <td class="etiqueta01"  style="">N° de Acta de Celebraci&oacute;n:</td>
+				 <td style="text-align:left">100007894</td>
+				 </tr>
+				 
+				  <tr>
+				 <td class="etiqueta01" style="" >Primer Contrayente:</td>
+				  <td style="text-align:left">PEDRO ANTONIO ROJAS SALDARRIAGA </td>
+				 </tr>
+				 
+				  <tr>
+				 <td class="etiqueta01" style="">Segundo Contrayente:</td>
+				  <td style="text-align:left">PEDRO ANTONIO ROJAS SALDARRIAGA</td>
+				 </tr>
+				 
+				  <tr>
+				 <td class="etiqueta01" style="">Observaci&oacute;n:</td>
+				  <td style="text-align:left">OMISION DE FIRMA</td>
+				 </tr>
+				 
+				  <tr>
+				 <td class="etiqueta01" style="">Sub Observaci&oacute;n:</td>
+				  <td style="text-align:left">DEL CONTRAYENTE</td>
+				 </tr>
+				 
+				  <tr>
+				 <td colspan="2" class="etiqueta01" style="">Detalle de la Observaci&oacute;n (Glosa):</td>
+				 </tr>
+				 
+				 <tr>
+				 	<td colspan="2" style=""><textarea style="height: 90px; width: 340px">Se verifica desde la bandeja de actas de celebracion obtenidos en el modulo de procesameinto de Registros Civiles, que en el acta en cuestion carece de firma correspondiente al contrayente mujer</textarea></td>
+				 </tr>
+				 
+				<!--  <tr>
+				
+					<td colspan="2" style="text-align:center">
+						<button onclick="fnEditarActaObservada();" style="margin-top:0px; margin-left:10px;" class="btn-small btn-info" type="button" >
+							<i class="icon-pencil icon-white"></i>
+							&nbsp;Editar
+						</button>
+						
+						<button onclick="fnAnularActaObservada();" 	style="margin-top: 0px; margin-left: 10px;" class="btn-small btn-info" type="button">
+								<i class="icon-check icon-white"></i> &nbsp;Anular
+							</button>
+						</td>
+				</tr>-->
+			</table>
+			
+			<div style="text-align:center" >
+				<button onclick="fnEditarActaObservada();" style="margin-top:0px; margin-left:10px;" class="btn-small btn-info" type="button" >
+					<i class="icon-pencil icon-white"></i>
+					&nbsp;Editar
+				</button>
+						
+				<button onclick="fnAnularActaObservada();" 	style="margin-top: 0px; margin-left: 10px;" class="btn-small btn-info" type="button">
+					<i class="icon-check icon-white"></i> &nbsp;Anular
+				</button>
+			</div>
+		</fieldset>
+	</div>
+</form>

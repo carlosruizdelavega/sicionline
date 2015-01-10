@@ -1,0 +1,28 @@
+
+<%@include file="/jsp/include/taglibs.jsp"%>    
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<form id="formVerificarCiudadano" name="formVerificarCiudadano" class="formModal">
+	 <div class="backContentDialog" style="margin-top:30px;" >
+		<fieldset >
+	 		<table>
+				<tr>
+				<td colspan=3><p>Se requiere ingresar el primer apellido para realizar la busqueda del DNI seleccionado </td>
+				</tr>
+				<tr>
+					<td><label><small  style=" font-size: 11px; font-weight: bold;">Primer Apellido</small></label></td>
+					<td ><input id="txtPrimerApellido" type="text" style="margin-top:8px; " maxlength="20"/></td>
+					<!--  
+					<td >
+						<button onclick="fnVerificarCiudadano();" style="" class="btn btn-small btn-info" type="button" >
+									<i class="icon-check icon-white"></i>
+									&nbsp;Verificar
+						</button>
+					</td>
+					-->
+				</tr>
+			</table>
+		</fieldset>
+	 </div>
+</form>

@@ -1,0 +1,12 @@
+package pe.gob.reniec.actacelebracion.service;
+
+import pe.gob.reniec.actacelebracion.bean.UsuarioBean;
+
+public interface UsuarioService {
+	
+	public UsuarioBean listaUsuario(UsuarioBean usuarioBean);
+
+	public UsuarioBean cambiarContrasenia (UsuarioBean usuarioBean);
+	
+	public void cerrarSesion(UsuarioBean usuarioBean);
+}

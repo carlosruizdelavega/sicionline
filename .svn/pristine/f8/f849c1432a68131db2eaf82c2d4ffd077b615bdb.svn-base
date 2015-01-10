@@ -1,0 +1,373 @@
+/**
+ * Funcion que carga alert
+ */
+function cAlert(message, idElementFocus, tipo, fnSuccessName) {
+
+	// verifica mensaje
+	var n = message.length;
+	var ancho = 320;
+	var alto = 170;
+	if (n > 40) {
+		ancho = 400;
+		alto = 200;
+	}
+
+	//tipo:0
+	if (tipo == "0") {
+		
+		var advertencia = '<div id="dialog-message" style="display:none;">'
+				+ message + '</div>';
+		$("body").append(advertencia);
+
+		// carga dialog
+		$("#dialog-message").dialog({
+			title : "Mensaje del sistema",
+			width : ancho,
+			height : alto,
+			modal : true,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Aceptar" : function() {
+					
+					//cerrar dialog
+					$(this).dialog("close");
+					
+					//ejecutar funcion
+					if(fnSuccessName != "" && fnSuccessName != null){
+						eval(fnSuccessName);
+					}
+					
+				}
+			},
+			close : function(event, ui) {
+
+				// elimina dialog
+				$("#dialog-message").remove();
+
+				// enfoca control
+				idElementFocus = "#" + $.trim(idElementFocus);
+				$(idElementFocus).focus();
+			}
+		});
+
+	//tipo:1
+	} else if (tipo == "1") {
+		
+		var advertencia = '<div id="dialog-message" style="display:none;">'
+				+ message + '</div>';
+		$("body").append(advertencia);
+
+		$("#dialog-message").dialog({
+			title : "Mensaje del sistema",
+			width : ancho,
+			height : alto,
+			modal : true,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Aceptar" : function() {
+					window.location.href = "inicio.htm";
+				}
+			},
+			close : function(event, ui) {
+
+				// elimina dialog
+				$("#dialog-message").remove();
+
+				window.location.href = "inicio.htm";
+			}
+		});
+	}
+
+}
+
+/**
+ * Funcion que carga modal indTypeButton: 1: Aceptar 2: (default)Guardar,
+ * Cancelar 3: Aceptar, Cancelar (dialog Confirmar)
+ */
+function cModal(idDivHtml, title, width, height, fnSuccessName, indTypeButton) {
+
+	// verifica tipo de botones a mostrar
+	if (indTypeButton == 1) {
+
+		// carga modal
+		$("#" + idDivHtml).dialog({
+			autoOpen : true,
+			width : width,
+			height : height,
+			modal : true,
+			title : title,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Aceptar" : function() {
+					eval(fnSuccessName);
+				}
+			},
+			close : function() {
+				$(this).dialog("close");
+			}
+		});
+
+	} else if (indTypeButton == 2) {
+
+		// carga modal
+		$("#" + idDivHtml).dialog({
+			autoOpen : true,
+			width : width,
+			height : height,
+			modal : true,
+			title : title,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Guardar" : function() {
+					eval(fnSuccessName);
+				},
+				"Cancelar" : function() {
+					$(this).dialog("close");
+				}
+			},
+			close : function() {
+				$(this).dialog("close");
+			}
+		});
+
+	} else if (indTypeButton == 3) {
+		$("#" + idDivHtml).dialog({
+			autoOpen : true,
+			width : width,
+			height : height,
+			modal : true,
+			title : title,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Aceptar" : function() {
+					eval(fnSuccessName);
+				},
+				"Cancelar" : function() {
+					$(this).dialog("close");
+				}
+			},
+			close : function() {
+				$(this).dialog("close");
+			}
+		});
+
+	} else {
+		$("#" + idDivHtml).dialog({
+			autoOpen : true,
+			width : width,
+			height : height,
+			modal : true,
+			title : title,
+			resizable : false,
+			closeText : "Cerrar",
+			buttons : {
+				"Aceptar" : function() {
+					$(this).dialog("close");
+				}
+			},
+			close : function() {
+				$(this).dialog("close");
+			}
+		});
+
+	}
+
+}
+
+/**
+ * Funcion que crea y destruye loader accion: open (crea loader), close (elimina
+ * loader)
+ */
+function cLoader(accion) {
+
+	// define variable de retorno
+	var ind = false;
+
+	// recibe accion
+	var option = $.trim(accion);
+
+	// verifica accion
+	if (option == "open") {
+
+		// crea loader
+		$("body")
+				.append(
+						'<div id="cLoader" class="ui-widget-overlay ui-front"></div>'
+								+ '<div id="cLoaderDialog" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front"'
+								+ 'style="display:block; width:248px; height:70px;'
+								+ 'left:50%; margin-left:-124px; top:50%; margin-top:-35px;">'
+								+ '<div style="display:block; width:204px; height:19; margin:auto; margin-top:14px;">'
+								+ 'Cargando...'
+								+ '</div>'
+								+ '<div style="display:block; width:220px; height:19px; margin:auto;">'
+								+ '<img src="images/imgLoader.gif" border="0" />'
+								+ '</div>' + '</div>');
+
+		// creacion correcta
+		ind = true;
+
+	} else if (option == "close") {
+
+		// remueve loader
+		$("#cLoader").remove();
+		$("#cLoaderDialog").remove();
+
+		// asigna resultado
+		ind = true;
+
+	} else {
+
+		// asigna resultado
+		ind = false;
+
+	}
+
+	// retorna respuesta
+	return ind;
+
+}
+
+/**
+ * Funcion que permite realizar consultas ajax
+ */
+function cRequestAjax(param, callback) {
+
+	// define variable a retornar
+	var objRespuesta = null;
+
+	// muestra loader
+	//cLoader("open");
+
+	// recibe parametros de conexion (connect)
+
+	// url
+	var url = param.connect.url;
+
+	// async
+	var async = true;
+	if (($.trim(param.connect.async) != "")
+			&& ($.trim(param.connect.async) != null)) {
+		async = $.trim(param.connect.async);
+	}
+
+	// cache
+	var cache = true;
+	if (($.trim(param.connect.cache) != "")
+			&& ($.trim(param.connect.cache) != null)) {
+		cache = $.trim(param.connect.cache);
+	}
+
+	// dataType (El valor por default es "Intelligent Guess", pero este
+	// componente lo define por default como "json")
+	/*
+	 * var dataType = "json"; if(($.trim(param.connect.dataType) != "") &&
+	 * ($.trim(param.connect.dataType) != null)){ dataType =
+	 * $.trim(param.connect.dataType); }
+	 */
+
+	// type
+	var type = "GET";
+	if (($.trim(param.connect.type) != "")
+			&& ($.trim(param.connect.type) != null)) {
+		type = $.trim(param.connect.type);
+	}
+
+	// recibe datos como parametros (data)
+	var data = param.data;
+
+	// define variables de respuesta
+	$.ajax({
+		async : async,
+		cache : cache,
+		// dataType: dataType,
+		type : type,
+		url : url,
+		data : data,
+		success : function(response) {
+
+			// oculta loader
+			//cLoader("close");
+
+			// carga resultado
+			objRespuesta = response;
+			callback(objRespuesta);
+
+		},
+		error : function() {
+
+			// oculta loader
+			cLoader("close");
+
+			// carga resultado
+			objRespuesta = null;
+			callback(objRespuesta);
+
+		}
+	});
+
+	// retorna resultado
+	return objRespuesta;
+
+}
+
+function fnSesionExpirada(){
+  //  window.location.href='Login.do'
+}
+
+
+function fnSettingAjaxJquery(){
+    
+  jQuery(document).ajaxStart(function() { 
+    	fnMostrarModalCargando();
+    });
+  
+  jQuery(document).ajaxStop(function(){
+     //$("#divLoader").css('cursor','pointer');
+     $("#divLoader").remove();
+  });
+
+  jQuery(document).ajaxError(function(event, XMLHttpRequest, ajaxOptions, thrownError){
+     
+     if(XMLHttpRequest.responseText=='-1'){
+      alerta("Su sesion ha expirado.","onSesionExpirada()");        
+      return;
+     }
+      error(XMLHttpRequest.responseText+"<br/><br/>(status error:"+XMLHttpRequest.status+")");
+  });
+  
+  jQuery.ajaxSetup({ 
+          scriptCharset: "utf-8" ,
+          contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+         // type: "POST"
+  });
+
+}
+
+
+function fnMostrarModalCargando(){
+    //var html =  //'<div id="divLoader" class="ui-widget-overlay ui-front"></div>' +
+    	 var html =  "<div id='divLoader'>";
+    html += "<p>Espere un momento por favor...  <img alt='Cargando' src='images/imgLoader.gif'/><\/p>";
+    html += "<\/div>";
+        $('body').append($(html));
+        
+       $("#divLoader").dialog({
+    	          //    dialogClass: "no-close",
+                      resizable: false, 
+                      closeOnEscape: false, 
+                      closeText: 'hide', //Specifies the text for the close button
+                      bgiframe: false,
+                      height: 120,
+                      width: 250,
+                      draggable: false, 
+                      modal: true
+                      });
+       $("#divLoader").dialog("widget").find(".ui-dialog-titlebar").hide();
+       
+    
+}

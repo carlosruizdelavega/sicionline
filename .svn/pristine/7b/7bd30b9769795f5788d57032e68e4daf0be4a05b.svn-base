@@ -1,0 +1,259 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+public class ContrayenteBean {
+	
+	private String  nuActaCelebracion,
+					coContrayente,
+					dePrimerApellido,
+					deSegundoApellido,
+					dePrenombres,
+					nuEdad,
+					deEstadoCivil,
+					nuDocIdentidad,
+					deDireccion,
+					coSexo,
+					coNaturalCont,
+					coNaturalPais,
+					coNaturalDpto,
+					coNaturalProv,
+					coNaturalDist,
+					coNaturalLoca,
+					deNaturalUbigeo,
+					coDomCont,
+					coDomPais,
+					coDomDpto,
+					coDomProv,
+					coDomDist,
+					coDomLoca,
+					deDomUbigeo,
+					coNacionalidad,
+					deNacionalidad,
+					coTipoDocIdentidad,
+					deTipoDocIdentidad;
+
+	public String getNuActaCelebracion() {
+		return nuActaCelebracion;
+	}
+
+	public void setNuActaCelebracion(String nuActaCelebracion) {
+		this.nuActaCelebracion = nuActaCelebracion;
+	}
+
+	public String getCoContrayente() {
+		return coContrayente;
+	}
+
+	public void setCoContrayente(String coContrayente) {
+		this.coContrayente = coContrayente;
+	}
+
+	public String getDePrimerApellido() {
+		return dePrimerApellido;
+	}
+
+	public void setDePrimerApellido(String dePrimerApellido) {
+		this.dePrimerApellido = dePrimerApellido;
+	}
+
+	public String getDeSegundoApellido() {
+		return deSegundoApellido;
+	}
+
+	public void setDeSegundoApellido(String deSegundoApellido) {
+		this.deSegundoApellido = deSegundoApellido;
+	}
+
+	public String getDePrenombres() {
+		return dePrenombres;
+	}
+
+	public void setDePrenombres(String dePrenombres) {
+		this.dePrenombres = dePrenombres;
+	}
+
+	public String getNuEdad() {
+		return nuEdad;
+	}
+
+	public void setNuEdad(String nuEdad) {
+		this.nuEdad = nuEdad;
+	}
+
+	public String getNuDocIdentidad() {
+		return nuDocIdentidad;
+	}
+
+	public void setNuDocIdentidad(String nuDocIdentidad) {
+		this.nuDocIdentidad = nuDocIdentidad;
+	}
+
+	public String getDeDireccion() {
+		return deDireccion;
+	}
+
+	public void setDeDireccion(String deDireccion) {
+		this.deDireccion = deDireccion;
+	}
+
+	public String getCoSexo() {
+		return coSexo;
+	}
+
+	public void setCoSexo(String coSexo) {
+		this.coSexo = coSexo;
+	}
+
+	public String getCoNaturalCont() {
+		return coNaturalCont;
+	}
+
+	public void setCoNaturalCont(String coNaturalCont) {
+		this.coNaturalCont = coNaturalCont;
+	}
+
+	public String getCoNaturalPais() {
+		return coNaturalPais;
+	}
+
+	public void setCoNaturalPais(String coNaturalPais) {
+		this.coNaturalPais = coNaturalPais;
+	}
+
+	public String getCoNaturalDpto() {
+		return coNaturalDpto;
+	}
+
+	public void setCoNaturalDpto(String coNaturalDpto) {
+		this.coNaturalDpto = coNaturalDpto;
+	}
+
+	public String getCoNaturalProv() {
+		return coNaturalProv;
+	}
+
+	public void setCoNaturalProv(String coNaturalProv) {
+		this.coNaturalProv = coNaturalProv;
+	}
+
+	public String getCoNaturalDist() {
+		return coNaturalDist;
+	}
+
+	public void setCoNaturalDist(String coNaturalDist) {
+		this.coNaturalDist = coNaturalDist;
+	}
+
+	public String getCoNaturalLoca() {
+		return coNaturalLoca;
+	}
+
+	public void setCoNaturalLoca(String coNaturalLoca) {
+		this.coNaturalLoca = coNaturalLoca;
+	}
+
+	public String getCoDomCont() {
+		return coDomCont;
+	}
+
+	public void setCoDomCont(String coDomCont) {
+		this.coDomCont = coDomCont;
+	}
+
+	public String getCoDomPais() {
+		return coDomPais;
+	}
+
+	public void setCoDomPais(String coDomPais) {
+		this.coDomPais = coDomPais;
+	}
+
+	public String getCoDomDpto() {
+		return coDomDpto;
+	}
+
+	public void setCoDomDpto(String coDomDpto) {
+		this.coDomDpto = coDomDpto;
+	}
+
+	public String getCoDomProv() {
+		return coDomProv;
+	}
+
+	public void setCoDomProv(String coDomProv) {
+		this.coDomProv = coDomProv;
+	}
+
+	public String getCoDomDist() {
+		return coDomDist;
+	}
+
+	public void setCoDomDist(String coDomDist) {
+		this.coDomDist = coDomDist;
+	}
+
+	public String getCoDomLoca() {
+		return coDomLoca;
+	}
+
+	public void setCoDomLoca(String coDomLoca) {
+		this.coDomLoca = coDomLoca;
+	}
+
+	public String getCoNacionalidad() {
+		return coNacionalidad;
+	}
+
+	public void setCoNacionalidad(String coNacionalidad) {
+		this.coNacionalidad = coNacionalidad;
+	}
+
+	public String getCoTipoDocIdentidad() {
+		return coTipoDocIdentidad;
+	}
+
+	public void setCoTipoDocIdentidad(String coTipoDocIdentidad) {
+		this.coTipoDocIdentidad = coTipoDocIdentidad;
+	}
+
+	public String getDeNaturalUbigeo() {
+		return deNaturalUbigeo;
+	}
+
+	public void setDeNaturalUbigeo(String deNaturalUbigeo) {
+		this.deNaturalUbigeo = deNaturalUbigeo;
+	}
+
+	public String getDeDomUbigeo() {
+		return deDomUbigeo;
+	}
+
+	public void setDeDomUbigeo(String deDomUbigeo) {
+		this.deDomUbigeo = deDomUbigeo;
+	}
+
+	public String getDeNacionalidad() {
+		return deNacionalidad;
+	}
+
+	public void setDeNacionalidad(String deNacionalidad) {
+		this.deNacionalidad = deNacionalidad;
+	}
+
+	public String getDeTipoDocIdentidad() {
+		return deTipoDocIdentidad;
+	}
+
+	public void setDeTipoDocIdentidad(String deTipoDocIdentidad) {
+		this.deTipoDocIdentidad = deTipoDocIdentidad;
+	}
+
+	public String getDeEstadoCivil() {
+		return deEstadoCivil;
+	}
+
+	public void setDeEstadoCivil(String deEstadoCivil) {
+		this.deEstadoCivil = deEstadoCivil;
+	}
+					
+
+}

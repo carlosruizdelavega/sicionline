@@ -1,0 +1,15 @@
+function fnRegistrarActa() {
+	window.location.href = "cargarRegistroActa.htm";
+}
+
+function fnReporteActa() {
+	window.location.href = "consultaReporte.htm";
+}
+
+function fnActasObservadas() {
+	window.location.href = "actasObservadas.htm";
+}
+
+function fnProcesamientoActa() {
+	window.location.href = "asignacionActa.htm";
+}

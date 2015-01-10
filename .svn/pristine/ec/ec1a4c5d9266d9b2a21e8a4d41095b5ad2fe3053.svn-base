@@ -1,0 +1,702 @@
+$(document).ready(function(){
+
+	//enfocar inputtext de usuario
+	$("#txtUser").focus();
+	
+	//cargar tabs
+	$("#tabs").tabs({
+		/*beforeActivate: function(event, ui){
+			
+			//obtener tab seleccionado
+			var elementNext = $(ui.newTab.prevObject).attr("id");
+
+			//si es tab 4 (vista previa)
+			if(elementNext == "ui-id-4"){
+				fnConsultarDatosActaCeleb();
+			}
+			
+		}*/
+	});
+	
+	//mostrar tab contrayentes
+	fnCargarTab(1);
+	
+	 /*$(function() {
+			$("#btnImprimirActa").button.click(function(){
+				var confirmar=confirm("Imprimio Correctamente");
+			});
+			  
+	});*/
+	//Carga valores por defecto
+	//loadValuesDefault();
+	
+	fnSettingAjaxJquery();
+	
+});
+
+/**
+ * Funcion que permite cargar un tab especifico, haciendo uso de los botones siguiente y anterior
+ */
+function fnCargarTab(nroTab){
+
+	//los tabs empiezan con 0
+	nroTab = nroTab - 1;
+	
+	//verificar tab
+	var arrayTabs = new Array(3);
+	if(nroTab == 0){
+		arrayTabs = [1,2,3];
+	}else if(nroTab == 1){
+		arrayTabs = [0,2,3];
+	}else if(nroTab == 2){
+		arrayTabs = [0,1,3];
+	}else if(nroTab == 3){
+		arrayTabs = [0,1,2];
+	}
+	
+	//desabilitar todos los tabs
+	$("#tabs").tabs({disabled:arrayTabs});
+	
+	//habilitar tab especificado
+	$("#tabs").tabs({enabled:[nroTab]});
+		
+	//mostrar tab especificado
+	$("#tabs").tabs({active:nroTab});
+	
+}
+
+
+
+function fnBuscarCiudadano(rolCiudadano,numTab) {
+		
+	if(fnValidarBusquedaDNI(rolCiudadano)){
+		
+		var titulo = "Verificar Ciudadano";
+
+		$("#dialogVerificarCiudadano").dialog({
+			resizable : false,
+			closeOnEscape : false,
+			width : 600,
+			modal : true,
+			title : titulo,
+			closeText : "Cerrar",
+			buttons : {
+				"Verificar": function() {
+					fnVerificarCiudadano(rolCiudadano,numTab);
+				}
+			}
+		});         
+						
+	}					
+	$('#txtPrimerApellido').val('');
+}
+
+
+function fnValidarBusquedaDNI(rolCiudadano){
+		
+	var $nroDocumento = $("#txtNroDocumento"+rolCiudadano).val();
+	var $sizeNro = $.trim($nroDocumento).length;
+	var $tipoDocumento = $("#cboTipoDocumento"+rolCiudadano).val();
+		
+	if(rolCiudadano!="AC"){
+		
+		if ($tipoDocumento != '01'){
+			cAlert("Debe seleccionar como tipo de Documento DNI/LE","cboTipoDocumento","0");
+			return false;
+			
+		}  
+		
+		if ($sizeNro != 8){
+			cAlert("La longitud del DNI es de 8 digitos","txtNroDocumento","0");
+			return false;
+			
+		}
+		
+		return true;
+	}else{
+		
+		if ($sizeNro != 8){
+			cAlert("La longitud del DNI es de 8 digitos","txtNroDocumento","0");
+			return false;
+			
+		}
+		
+		return true;
+	}	
+	
+}
+
+function fnVerificarCiudadano(rolCiudadano,numTab){
+	
+	var $nroDocumento = $("#txtNroDocumento"+rolCiudadano).val();
+	var $primerApellido = $("#txtPrimerApellido").val();
+	var deGenero;
+	
+	if(rolCiudadano=='01') deGenero='MASCULINO'
+		else deGenero='FEMENINO';
+	
+	var coSexo=rolCiudadano;
+	    
+	var parametros = {
+			connect:{
+        		url: "consultarPorDniAniIndex.htm",
+                type: "POST"
+    		},
+    		data:{
+    			dni: $nroDocumento,
+    			//primerApellido: $primerApellido
+    		}
+	
+	};
+	
+	cRequestAjax(parametros, function(response){
+		
+		//alert(response.existeDni);
+		//alert($.trim($primerApellido.toUpperCase()));
+		coSexoAni=response.coGenero;	
+		//alert("coSexo:"+coSexo+"-"+"coSexoAni:"+coSexoAni);
+		
+	/*	if (coSexo!=coSexoAni){
+			cAlert("El genero del Contrayente debe ser "+deGenero, null, "0", null);
+			$('#dialogVerificarCiudadano').dialog('close');
+		//	return; 
+			
+		}*/
+		
+		if (response.existeDni==false){
+			cAlert("El Dni ingresado no existe", null, "0", null);
+			$('#dialogVerificarCiudadano').dialog('close');
+			return; 
+			
+		}
+		
+		
+		if ($.trim($primerApellido.toUpperCase()) != $.trim(response.apPrimer)) {
+			
+			
+			
+
+			$("#divApDistinto").show();
+			$("#divApAni").html("");
+			$("#divApIng").html("");
+			$("#divApAni").html(response.apPrimer);
+			$("#divApIng").html($primerApellido);
+			
+
+		} else {
+			$("#divApDistinto").hide();
+		//	$("#divApAni").html("");
+		//	$("#divApIng").html("");
+			fnObtenerDatosAniPorDni(rolCiudadano, numTab);
+
+		}
+		
+
+	});
+	
+}
+function fnObtenerDatosAniPorDni(rolCiudadano, numTab){
+	
+	var $nroDocumento = $("#txtNroDocumento"+rolCiudadano).val();
+	
+	var parametros = {
+			connect:{
+        		url: "obtenerDatosAniPorDni.htm",
+                type: "POST"
+    		},
+    		data:{
+    			dni: $nroDocumento,
+    			rolCiudadano: rolCiudadano
+    		}
+	
+	};
+	
+	cRequestAjax(parametros, function(response){
+	
+		if (numTab=="01"){
+			fnSetearDatosDni(rolCiudadano, response);
+		
+		}else if (numTab=="02" || numTab=="03"){
+			$("#txtApPrimer" + rolCiudadano).val(response.apPrimer);
+			$("#txtApSegundo" + rolCiudadano).val(response.apSegundo);
+			$("#txtPreNomInscrito" + rolCiudadano).val(response.preNomInscrito);
+			
+		}
+		
+		$('#dialogVerificarCiudadano').dialog('close');
+		
+	});
+	
+}
+
+function fnEditarActa(){
+	window.location.href='editarActa02.htm';
+}
+function fnAnularActa(){
+	
+	//carga modal
+	var title = "Anulación del Acta de Celebración";
+
+		
+		$("#AnularActa").dialog({
+			autoOpen:true,
+			 width:500,
+	  	     height:320,
+	  	     modal: true,
+			 resizable: false,
+			 title: title,
+			 closeText: "Cerrar",
+			 /*
+			 close : function() {
+					
+					$(this).dialog("close");
+				}*/
+		});
+}
+function fnRealizarAnularActa(){
+	window.location.href='editarActa01.htm';
+}
+function fnDetalleActObs(){
+	//carga modal
+	var title = "Detalle de Observación del Acta de Celebración";
+	
+	$("#DetalleActObs").dialog({
+		autoOpen:true,
+		width:500,
+		height:364,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  	    /*
+	  	  buttons : {
+				
+	  		  	
+				"Editar" : function() {
+					
+					$(this).dialog("close");
+				},
+	
+				"Anular" : function() {
+					
+				$(this).dialog("close");
+				
+				}
+			},
+			*/
+		});
+	
+}
+function fnCargoAutoridad(){
+		$('#busox1, #busox2').hide();
+		fnlimpiarCargoAutoridad();
+		$('#busox' + $('#CargoAutoridadCelebrante').find('option:selected').attr('id')).show();	
+}
+function fnlimpiarCargoAutoridad(){
+	$("#autoridadCelebrante").val('');
+	
+}
+function fnRenombrarActa(){
+	
+	//carga modal
+	var title = "Validación de Código de Barras";
+	
+	$("#validacionCodigo").dialog({
+		autoOpen:true,
+		width:600,
+		height:340,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  /*	    
+	  	   buttons: {
+	        "Actualizar": function() {
+	        	$(this).dialog("close");
+	        	guardarOrec();
+	        },
+	        "Cancelar": function() {
+	        	$(this).dialog("close");
+	        }
+	      },
+*/		
+			close : function() {
+				
+				$(this).dialog("close");
+			}
+		
+		});
+	
+}
+
+function fncargarActa(){
+	
+	//carga modal
+	var title = "Actas seleccionadas";
+	
+	$("#actasSeleccionadas").dialog({
+		autoOpen:true,
+		width:600,
+		height:310,
+		modal:true,
+  	    title: title,
+  	    resizable: false,
+  	    closeText: "Cerrar",
+  /*	    
+	  	   buttons: {
+	        "Actualizar": function() {
+	        	$(this).dialog("close");
+	        	guardarOrec();
+	        },
+	        "Cancelar": function() {
+	        	$(this).dialog("close");
+	        }
+	      },
+*/		
+			close : function() {
+				
+				$(this).dialog("close");
+			}
+		
+		});
+	
+}
+function fnFecha(){
+	
+//define variables
+var monthNamesShort = [ "Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic" ];
+var dayNames = [ "Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado" ];
+var dayNamesMin = [ "Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab" ];	
+	
+//carga fechas iniciales
+$("#feInicio").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      monthNamesShort: monthNamesShort,
+      dayNames: dayNames,
+      dayNamesMin: dayNamesMin,
+      dateFormat: "dd/mm/yy",
+      onSelect: function(selected) {
+    	  $("#feFin").datepicker("option","minDate",selected);
+	  }
+});
+
+//carga fechas finales
+$("#feFin").datepicker({
+      changeMonth: true,
+      changeYear: true,
+      monthNamesShort: monthNamesShort, 
+      dayNames: dayNames, 
+      dayNamesMin: dayNamesMin,	
+      dateFormat: "dd/mm/yy"
+});	
+}
+
+/**
+ * Funcion que permite consultar actas desde el modulo de consultas y reportes
+ */
+
+function fnBuscarActaReporte(){
+	
+	//define variables
+	var feInicio="";
+	var feFin="";
+	
+	
+			
+			
+	if($("#feInicio").val()=="" && $("#feFin").val()==""){
+		cAlert("Debe ingresar el intervalo de fechas","feInicio","0");
+        return;
+	}
+	
+
+	if($("#feInicio").val()!=""){
+		if($("#feFin").val()==""){
+			cAlert("Debe ingresar la Fecha de Fin","feFin","0");
+	        return;
+		}
+		/*
+		else{
+			var fecInicioSf = $("#feInicio").val().split('/');				
+			fecInicio = fecInicioSf[2] + fecInicioSf[1] + fecInicioSf[0];
+			
+			var fecFinsf = $("#feFin").val().split('/');
+			fecFin = fecFinsf[2] + fecFinsf[1] + fecFinsf[0];
+		}	*/		
+	}
+	
+	if($("#feFin").val()!=""){
+		if($("#feInicio").val()==""){
+			cAlert("Debe ingresar la Fecha de Inicio","feInicio","0");
+	        return;	
+		}
+/*		else{
+			var fecInicioSf = $("#feInicio").val().split('/');				
+			fecInicio = fecInicioSf[2] + fecInicioSf[1] + fecInicioSf[0];
+			
+			var fecFinsf = $("#feFin").val().split('/');
+			fecFin = fecFinsf[2] + fecFinsf[1] + fecFinsf[0];
+		}*/			
+	}
+	
+			
+	
+	
+		
+	//consulta datos del reporte
+	var parametros = {
+			connect:{
+        		url: "verRepActas.htm",
+                type: "POST" 
+    		},
+			data:{
+		 
+		    	feInicio:feInicio,
+		    	feFin:feFin
+			}
+	};	
+    cRequestAjax(parametros, function(response){
+    	
+    	//verifica respuesta
+    	if(response==""){
+    		
+    		//muestra mensaje que no se encontraron datos
+    		cAlert("No se encontraron registros", null,"0");
+            return;
+            
+        }else{
+        	
+  
+        	//Carga listaActa.jsp en divlistaActas (consultaReporte.jsp)
+        	$("#divlistaActas").html(response);
+        	$("#divlistaActas").show("slow");
+        	
+        	//recibe cantidad de registros
+        	//var cantReg = $("#cantidadRepActas").val();
+        	var cantReg = $("#cantidadListaActas").val(2);
+        	
+        	$('#divPagListaActas').smartpaginator({
+                totalrecords: cantReg,
+                recordsperpage: 8,
+                datacontainer: 'listaActas',
+                dataelement: 'tbody tr',
+                initval: 0,
+                //next: 'Sgte',
+                go:'Ir',
+                //prev: 'Prev',
+                //first: '<<',
+                //last: '>>',
+                theme: 'custom'
+             });
+        	
+        }       
+    });
+}
+
+/**
+ * Funcion que permite consultar actas desde el modulo de Acta de Celebracion - Edicion Acta
+ */
+function fnBuscarActa(){
+	
+	//define variables
+	var primerApellido="";
+	var segundoApellido="";
+	var preNombres="";
+	var nroActaCeleb="";
+	
+	
+	if(($("#primerApellido").val()=="" && $("#segundoApellido").val()=="" && $("#preNombres").val()=="")&&($("#nroActaCeleb").val()=="")){
+		cAlert("Debe ingresar los datos del contrayente o el Numero de Acta de celebracion","primerApellido","0");
+        return;
+	}
+	
+	if($("#primerApellido").val()!="" ){
+		if($("#segundoApellido").val()==""){
+			cAlert("Debe ingresar el segundo apellido del contrayente","segundoApellido","0");
+	        return;
+		}else if($("#preNombres").val()==""){
+				cAlert("Debe ingresar los nombres del contrayente","preNombres","0");
+				return;
+				}
+	}
+	
+	if($("#segundoApellido").val()!="" ){
+		if($("#primerApellido").val()==""){
+			cAlert("Debe ingresar el primer apellido del contrayente","segundoApellido","0");
+	        return;
+		}else if($("#preNombres").val()==""){
+				cAlert("Debe ingresar los nombres del contrayente","preNombres","0");
+				return;
+				}
+	}
+	
+	if($("#preNombres").val()!="" ){
+		if($("#primerApellido").val()==""){
+			cAlert("Debe ingresar el primer apellido del contrayente","primerApellido","0");
+	        return;
+		}else if($("#segundoApellido").val()==""){
+				cAlert("Debe ingresar el segundo apellido del contrayente","segundoApellido","0");
+				return;
+				}
+	}
+	
+	//consulta datos del reporte
+	var parametros = {
+			connect:{
+        		url: "buscarActa.htm",
+                type: "POST" 
+    		},
+			data:{
+				primerApellido:primerApellido,
+		    	segundoApellido:segundoApellido,
+		    	preNombres:preNombres,
+		    	nroActaCeleb:nroActaCeleb,
+			}
+	};	
+    cRequestAjax(parametros, function(response){
+    	
+    	//verifica respuesta
+    	if(response==""){
+    		
+    		//muestra mensaje que no se encontraron datos
+    		cAlert("No se encontraron registros", null,"0");
+            return;
+            
+        }else{
+        	
+  
+        	//carga html de respuesta en div
+        	$("#divbuscaActa").html(response);
+        	$("#divbuscaActa").show("slow");
+        	
+        	//recibe cantidad de registros
+        	//var cantReg = $("#cantidadRepActas").val();
+        	//var cantReg = $("#cantidadListaActas").val(2);
+        	/*
+        	$('#divPagListaActas').smartpaginator({
+                totalrecords: cantReg,
+                recordsperpage: 10,
+                datacontainer: 'listaActas',
+                dataelement: 'tbody tr',
+                initval: 0,
+                //next: 'Sgte',
+                go:'Ir',
+                //prev: 'Prev',
+                //first: '<<',
+                //last: '>>',
+                theme: 'custom'
+             });*/
+        	
+        }       
+    });
+ 	
+}
+
+
+
+function fnRegistrarTestigo(){
+	
+	var nuActaCelebra = $("#txtNroActaCelebracion").val();
+	var tiDocumentoPT = $("#cboTipoDocumentoPT").val();
+	var nuDocumentoPT = $("#txtNroDocumentoPT").val();
+	var primerApellidoPT = $("#txtApPrimerPT").val();
+	var segundoApellidoPT = $("#txtApSegundoPT").val();
+	var preNombresPT = $("#txtPreNomInscritoPT").val();
+	var tiDocumentoST = $("#cboTipoDocumentoST").val();
+	var nuDocumentoST = $("#txtNroDocumentoST").val();
+	var primerApellidoST = $("#txtApPrimerST").val();
+	var segundoApellidoST = $("#txtApSegundoST").val();
+	var preNombresST = $("#txtPreNomInscritoST").val();
+	
+	var parametros = {
+    		connect:{
+        		url: "registrarTestigo.htm",
+                type: "POST"
+    		},
+    		data:{
+    			nuActaCelebra:nuActaCelebra,
+    			tiDocumentoPT:tiDocumentoPT,
+    			nuDocumentoPT:nuDocumentoPT,
+    			primerApellidoPT:primerApellidoPT,
+    			segundoApellidoPT:segundoApellidoPT,
+    			preNombresPT:preNombresPT,
+    			tiDocumentoST:tiDocumentoST,
+    			nuDocumentoST:nuDocumentoST,
+    			primerApellidoST:primerApellidoST,
+    			segundoApellidoST:segundoApellidoST,
+    			preNombresST:preNombresST
+    		}
+     };
+	
+	cRequestAjax(parametros, function(response){
+		var data="";
+		if(response == "01"){
+        	data = "Los testigos han sido registrados";
+        	cAlert(data, null,"0");
+        	fnCargarTab(3);
+        }else{
+        	data = "Los testigos no han sido registrados";
+        	cAlert(data, null,"0");
+        }
+	});
+}
+
+function fnActualizarCelebracion(){
+	
+	var nuActaCelebra = $("#txtNroActaCelebracion").val();
+	var nroDniAC = $("#txtNroDocumentoAC").val();
+	var desCargoAC = $("#txtDesCargoAC").val();
+	var primerApellidoAC = $("#txtApPrimerAC").val();
+	var segundoApellidoAC = $("#txtApSegundoAC").val();
+	var preNombresAC = $("#txtPreNomInscritoAC").val();
+	var diaCelebracion = $("#cmbDiaCelebracion").val();
+	var mesCelebracion = $("#cmbMesCelebracion").val();
+	var anioCelebracion = $("#txtAnioCelebracion").val();
+	var horaEvento = $("#txtHoraEvento").val();
+	var minutosEvento = $("#txtMinutosEvento").val();
+	var nroExpediente = $("#txtNroExpediente").val();
+	var observacionesActa = $("textarea#txaObservacionesActa").val();
+	
+	var parametros = {
+    		connect:{
+        		url: "registrarCelebracion.htm",
+                type: "POST"
+    		},
+    		data:{
+    			nuActaCelebra:nuActaCelebra,
+    			nroDniAC:nroDniAC,
+    			desCargoAC:desCargoAC,
+    			primerApellidoAC:primerApellidoAC,
+    			segundoApellidoAC:segundoApellidoAC,
+    			preNombresAC:preNombresAC,
+    			diaCelebracion:diaCelebracion,
+    			mesCelebracion:mesCelebracion,
+    			anioCelebracion:anioCelebracion,
+    			horaEvento:horaEvento,
+    			minutosEvento:minutosEvento,
+    			nroExpediente:nroExpediente,
+    			observacionesActa:observacionesActa
+    		}
+     };
+	
+	cRequestAjax(parametros, function(response){
+		var data="";
+	//	alert("response:"+response);
+		
+		if(response == "1"){
+        	
+			data = "Los datos de celebraci&oacute;n han sido registrados";
+        	cAlert(data, null,"0");
+        	fnCargarTab(4);
+        	fnConsultarDatosActaCeleb();
+        	
+        }else{
+        	data = "Los datos de celebraci&oacute;n no han sido registrados";
+        	cAlert(data, null,"0");
+        }
+	});
+	
+
+}
+

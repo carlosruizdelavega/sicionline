@@ -1,0 +1,8 @@
+<!-- bootstrap -->
+<link rel="stylesheet" type="text/css" href="${ruta}/css/general/bootstrap/bootstrap${min}.css" />
+
+<!-- jquery ui (componentes jquery ui, personalizados para bootstrap) -->
+<link rel="stylesheet" type="text/css" href="${ruta}/css/general/jquery/jquery-ui-1.10.0.custom${min}.css" />
+
+<!-- componentes -->
+<link rel="stylesheet" type="text/css" href="${ruta}/css/general/componentes/estiloGeneral-1.0${min}.css" />

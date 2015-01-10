@@ -1,0 +1,33 @@
+package pe.gob.reniec.actacelebracion.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.gob.reniec.actacelebracion.bean.UsuarioBean;
+import pe.gob.reniec.actacelebracion.dao.UsuarioDao;
+import pe.gob.reniec.actacelebracion.service.UsuarioService;
+
+@Service
+public class UsuarioServiceImpl implements UsuarioService {
+
+	@Autowired
+	private UsuarioDao usuarioDao;
+	
+	public UsuarioBean listaUsuario(UsuarioBean usuarioBean) {
+		UsuarioBean usuarioBeanOut = usuarioDao.listaUsuario(usuarioBean);
+		return usuarioBeanOut;
+	}
+
+	
+	public UsuarioBean cambiarContrasenia(UsuarioBean usuarioBean) {
+		UsuarioBean usuarioBeanOut = usuarioDao.cambiarContrasenia(usuarioBean);
+		return usuarioBeanOut;
+	}
+
+	
+	public void cerrarSesion(UsuarioBean usuarioBean) {
+		usuarioDao.cerrarSesion(usuarioBean);
+		
+	}
+
+}

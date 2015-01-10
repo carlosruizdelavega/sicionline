@@ -1,0 +1,218 @@
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" /> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Acta de Celebraci&oacute;n</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.css" />
+		
+		<!-- bootstrap js -->
+		<script type="text/javascript" src="${ruta}/bootstrap/js/bootstrap.min.js"></script>
+
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/actaCeleb/actaCeleb.js"></script>
+				
+		<!-- estilos propios -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/resultadoVerificacion.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+	 
+		<!-- icon -->
+		<link rel="shortcut icon" href="./images/favicon.ico"></link>
+		
+	</head>
+		
+	<body>
+
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10" style="height:120px; margin-top:10px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+		
+		<!-- menu -->
+		<div class="row-fluid">
+			<div class="span1"></div>		
+			<div class="span10" style="margin-top: 10px;">
+				<!-- ini: barra de menu -->
+			    <div class="navbar">
+				    <div class="navbar-inner">
+					    <div class="container">
+					     <!-- titulo -->
+						    <a class="brand" href="#">Carga de Imágenes</a>
+						    <!-- links de navegacion -->
+							 <!-- links adicionales -->
+							<ul class="nav pull-right" style="margin-right:-12px;">
+								<li>
+									<button type="button" class="btn btn-small btn-info" style="margin-top:7px;" 
+										onclick="window.location.href='inicioSistema.htm';">
+										<i class="icon-home icon-white"></i>&nbsp;&nbsp;
+										Men&uacute; principal
+									</button>
+								</li>
+								<li class="divider-vertical"></li>
+								<li>
+									<button type="button" class="btn btn-small btn-primary" style="margin-top:7px;" 
+										onclick="fnCerrarSesion();">
+										<i class="icon-lock icon-white"></i>&nbsp;&nbsp;
+										Cerrar sesi&oacute;n
+									</button>
+								</li>
+							</ul>						     
+						    
+					    </div>
+				    </div>
+			    </div>
+	   			<!-- fin: barra de menu -->
+			</div>
+			<div class="span1"></div>			
+		</div>
+				
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>				
+			<div class="span10">
+				<div class="backContent" style="display:block;width:auto; height:auto; padding:5px;">
+				
+							<!-- ini: formulario de filtro -->
+					<div class="contenedorForm" style="">
+						<form action="#" enctype="multipart/form-data" id="cargaActa" >
+						 
+							 <!-- titulo -->
+							<div style="display: block; height:32px; margin-top: 25px; margin-left: 30px; ">
+								<span class="titulo02">Carga de Imágenes del Acta de Celebración</span>
+							</div>
+						
+							<!-- linea -->
+							<div style="display:block; height:20px; min-height:20px; border-top:1px solid #E5E5E5; width: 995px; margin-left: 30px;">
+							</div>
+							
+							<div class="contenedorForm03" style="height:50px; margin-bottom:25px; text-align:center;padding-right:45px">
+								<h6 >Seleccione Actas Digitalizadas&nbsp;&nbsp;&nbsp;
+									<button onclick="fncargarActa();"type="button" class="btn btn-small btn-primary" style="margin-top:0px;" >
+										<i class="icon-search icon-white"></i>&nbsp;&nbsp;Examinar
+									</button>
+									
+									
+									<!--<input class="icon-search icon-white" type="file" name="ui" id="ui">-->
+								</h6> 
+							</div>
+							<!-- modal validar codigo de barra-->
+							<div id="actasSeleccionadas" style="display:none;">
+										<jsp:include page="actasSeleccionadas.jsp"/>
+							</div>
+							<div class="contenedorForm02" style="background-color:#828282;color:#FFF">BANDEJA DE CARGA DE IMAGENES</div>
+																    
+						   	<div id="tabs" style="" class="tabs" >
+								<ul style=" ">
+									<li><a href="#tabs-1" style="background-color:#F5F5F5;border-bottom:1px solid #F5F5F5">Imagenes por Procesar</a></li>
+									<li><a href="#tabs-2" style="background-color:#F5F5F5; border-bottom:1px solid #F5F5F5">Imagenes Procesadas</a></li>
+								</ul>
+									
+								<div  id="tabs-1" style="background-color: white;  border:1px solid #000000;border-top:0px;" >
+									<table style="width:412px">
+										<tr>
+											<td width="260" bgcolor="#FF0000" style="text-align:right">
+												<button  onclick="fnRenombrarActa();" type="button" class="btn btn-small btn-primary" style="margin-top:21px;margin-left:20px; " >
+												<i class="icon-pencil icon-white"></i>&nbsp;Renombrar Manualmente
+												</button>
+											</td>
+										</tr>
+																			
+										<tr>
+											<td>--<td width="10">
+										</tr>
+																			
+										<tr>
+											<td>--<td>
+										</tr>
+									</table>
+									<!-- modal validar codigo de barra-->
+									<div id="validacionCodigo" style="display:none;">
+										<jsp:include page="validCodigoBarr.jsp"/>
+									</div>
+								</div>
+								
+								<div id="tabs-2" style="background-color: white;  border:1px solid #000000;border-top:0px;" >
+									<table class="cellh" style="margin-right: 20px;">
+										<tr>
+											<td class="etiqueta01" bgcolor="#EFEFEF" style="background-color: #efefef;border-right:2px solid white;">
+												<strong>Fecha Carga</strong>
+											</td>	
+											<td class="etiqueta01" bgcolor="#EFEFEF" style="background-color: #efefef;border-right:2px solid white;">
+												<strong>Nombre Imagen</strong>
+											</td>	
+											<td class="etiqueta01" bgcolor="#EFEFEF" style="background-color: #efefef;border-right:2px solid white;">
+												<strong>N° de Acta</strong>
+											</td>	
+											<td class="etiqueta01" bgcolor="#EFEFEF" style="background-color: #efefef;border-right:2px solid white;">
+												<strong>Estado Actual</strong>
+											</td>		
+											<td class="etiqueta01" bgcolor="#EFEFEF" style="background-color: #efefef;border-right:2px solid white;">
+												<strong>Imagen</strong>
+											</td>	
+										</tr>
+										
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+										</tr>
+									</table>
+								</div>
+							</div>											 		
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="span1"></div>			
+	
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top: 40px; margin-bottom: 30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+			</div>
+			<div class="span3"></div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,1106 @@
+package pe.gob.reniec.actacelebracion.bean;
+
+public class AniBean {
+	
+	
+	
+	
+	
+	private String  nuDni, 
+					gpVotacion, 
+					apPrimer, 
+					apSegundo, 
+					apCasada, 
+					inImprimeCasada, 
+					preNomInscrito, 
+					coPostal, 
+					dePrefDireccion, 
+					deDireccion, 
+					nuDireccion, 
+					deBlockChalet, 
+					deInterior, 
+					deUrbanizacion, 
+					deEtapa, 
+					deManzana, 
+					deLoteDireccion, 
+					deEstatura, 
+					deGenero, 
+					inImprimeDiscapacidad, 
+					inImprimeInterdiccion, 
+					feNacimiento, 
+					inDonaOrgano, 
+					apPadrePrimer, 
+					apPadreSegundo, 
+					preNomPadre, 
+					nuDocPadre, 
+					apMadrePrimer, 
+					apMadreSegundo, 
+					preNomMadre, 
+					nuDocMadre, 
+					coDedoDerecho, 
+					coDedoIzquierdo, 
+					nuTelefono, 
+					deEmail, 
+					feInscripcion, 
+					feEmision, 
+					feCaducidad, 
+					nuFichaReg, 
+					nuImag, 
+					usCreaAudi, 
+					feCreaAudi, 
+					usModiAudi, 
+					feModiAudi, 
+					feRestri, 
+					nuDocant, 
+					coProvinciaRestri, 
+					coDepartamentoRestri, 
+					coDistritoRestri, 
+					coCentropobladoRestri, 
+					coDepartamentoNaci, 
+					coCentropobladoNaci, 
+					coDistritoNaci, 
+					coProvinciaNaci, 
+					coDistritoDomicilio, 
+					coDepartamentoDomicilio, 
+					coCentropobladoDomicilio, 
+					coProvinciaDomicilio, 
+					coTipodocPadre, 
+					coTipodocMadre, 
+					coRestri, 
+					coNivelEduca, 
+					coEstadoCivil, 
+					coVotacion, 
+					coObs, 
+					coContinenteRestri, 
+					coPaisRestri, 
+					coContinenteNaci, 
+					coPaisNaci, 
+					coContinenteDomicilio, 
+					coPaisDomicilio, 
+					coDocEmi, 
+					inEmision, 
+					tiFichaReg, 
+					dePrefBlock, 
+					dePrefInterior, 
+					dePrefUrb, 
+					inInterDisc, 
+					coDiscapacidad, 
+					coInterdiccion, 
+					coTipoDocResp, 
+					nuDocResp, 
+					apRespPrimer, 
+					apRespSegundo, 
+					apRespCasada, 
+					preNomResp, 
+					apMadreCasada, 
+					coTipoDocConyuge, 
+					nuDocConyuge, 
+					apConyugePrimer, 
+					apConyugeSegundo, 
+					apConyugeCasada, 
+					preNomConyuge, 
+					coTipoDocDeclarante, 
+					nuDocDeclarante, 
+					apDeclaPrimer, 
+					apDeclaSegundo, 
+					apDeclaCasada, 
+					prNomDecla, 
+					coDecla, 
+					coVinculo, 
+					nuDniTestigo1, 
+					tiTestigo1, 
+					nuDniTestigo2, 
+					tiTestigo2, 
+					coDocAdj, 
+					nuDocAdj, 
+					scoreHueDer, 
+					scoreHueIzq, 
+					nuActaRegistral, 
+					inRegistroCivil, 
+					noDomicilio;
+	
+	
+	private String  deUbigeoDom,
+					deUbigeoNac,
+					deDomicilio,
+					edad,
+					deNacionalidad,
+					deEstadoCivil,
+					coNacionalidad,
+					coGenero;
+	
+
+	public String getCoNacionalidad() {
+		return coNacionalidad;
+	}
+
+	public void setCoNacionalidad(String coNacionalidad) {
+		this.coNacionalidad = coNacionalidad;
+	}
+
+	public String getDeUbigeoNac() {
+		return deUbigeoNac;
+	}
+
+	public String getDeEstadoCivil() {
+		return deEstadoCivil;
+	}
+
+	public void setDeEstadoCivil(String deEstadoCivil) {
+		this.deEstadoCivil = deEstadoCivil;
+	}
+
+	public void setDeUbigeoNac(String deUbigeoNac) {
+		this.deUbigeoNac = deUbigeoNac;
+	}
+
+	public String getCoGenero() {
+		
+		if(coGenero!=null){
+			
+			return "0"+coGenero;
+			
+		}else{
+		
+		return coGenero;
+		}
+	}
+
+	public void setCoGenero(String coGenero) {
+		this.coGenero = coGenero;
+	}
+
+	
+
+	
+	public String getDeNacionalidad() {
+		return deNacionalidad;
+	}
+
+	public void setDeNacionalidad(String deNacionalidad) {
+		this.deNacionalidad = deNacionalidad;
+	}
+
+	
+	public String getEdad() {
+		return edad;
+	}
+
+	public void setEdad(String edad) {
+		this.edad = edad;
+	}
+
+	public String getNuDni() {
+		return nuDni;
+	}
+
+	public void setNuDni(String nuDni) {
+		this.nuDni = nuDni;
+	}
+
+	public String getGpVotacion() {
+		return gpVotacion;
+	}
+
+	public void setGpVotacion(String gpVotacion) {
+		this.gpVotacion = gpVotacion;
+	}
+
+	public String getApPrimer() {
+		return apPrimer;
+	}
+
+	public void setApPrimer(String apPrimer) {
+		this.apPrimer = apPrimer;
+	}
+
+	public String getApSegundo() {
+		return apSegundo;
+	}
+
+	public void setApSegundo(String apSegundo) {
+		this.apSegundo = apSegundo;
+	}
+
+	public String getApCasada() {
+		return apCasada;
+	}
+
+	public void setApCasada(String apCasada) {
+		this.apCasada = apCasada;
+	}
+
+	public String getInImprimeCasada() {
+		return inImprimeCasada;
+	}
+
+	public void setInImprimeCasada(String inImprimeCasada) {
+		this.inImprimeCasada = inImprimeCasada;
+	}
+
+	public String getPreNomInscrito() {
+		return preNomInscrito;
+	}
+
+	public void setPreNomInscrito(String preNomInscrito) {
+		this.preNomInscrito = preNomInscrito;
+	}
+
+	public String getCoPostal() {
+		return coPostal;
+	}
+
+	public void setCoPostal(String coPostal) {
+		this.coPostal = coPostal;
+	}
+
+	public String getDePrefDireccion() {
+		return dePrefDireccion;
+	}
+
+	public void setDePrefDireccion(String dePrefDireccion) {
+		this.dePrefDireccion = dePrefDireccion;
+	}
+
+	public String getDeDireccion() {
+		return deDireccion;
+	}
+
+	public void setDeDireccion(String deDireccion) {
+		this.deDireccion = deDireccion;
+	}
+
+	public String getNuDireccion() {
+		return nuDireccion;
+	}
+
+	public void setNuDireccion(String nuDireccion) {
+		this.nuDireccion = nuDireccion;
+	}
+
+	public String getDeBlockChalet() {
+		return deBlockChalet;
+	}
+
+	public void setDeBlockChalet(String deBlockChalet) {
+		this.deBlockChalet = deBlockChalet;
+	}
+
+	public String getDeInterior() {
+		return deInterior;
+	}
+
+	public void setDeInterior(String deInterior) {
+		this.deInterior = deInterior;
+	}
+
+	public String getDeUrbanizacion() {
+		return deUrbanizacion;
+	}
+
+	public void setDeUrbanizacion(String deUrbanizacion) {
+		this.deUrbanizacion = deUrbanizacion;
+	}
+
+	public String getDeEtapa() {
+		return deEtapa;
+	}
+
+	public void setDeEtapa(String deEtapa) {
+		this.deEtapa = deEtapa;
+	}
+
+	public String getDeManzana() {
+		return deManzana;
+	}
+
+	public void setDeManzana(String deManzana) {
+		this.deManzana = deManzana;
+	}
+
+	public String getDeLoteDireccion() {
+		return deLoteDireccion;
+	}
+
+	public void setDeLoteDireccion(String deLoteDireccion) {
+		this.deLoteDireccion = deLoteDireccion;
+	}
+
+	public String getDeEstatura() {
+		return deEstatura;
+	}
+
+	public void setDeEstatura(String deEstatura) {
+		this.deEstatura = deEstatura;
+	}
+
+	public String getDeGenero() {
+		return deGenero;
+	}
+
+	public void setDeGenero(String deGenero) {
+		this.deGenero = deGenero;
+	}
+
+	public String getInImprimeDiscapacidad() {
+		return inImprimeDiscapacidad;
+	}
+
+	public void setInImprimeDiscapacidad(String inImprimeDiscapacidad) {
+		this.inImprimeDiscapacidad = inImprimeDiscapacidad;
+	}
+
+	public String getInImprimeInterdiccion() {
+		return inImprimeInterdiccion;
+	}
+
+	public void setInImprimeInterdiccion(String inImprimeInterdiccion) {
+		this.inImprimeInterdiccion = inImprimeInterdiccion;
+	}
+
+	public String getFeNacimiento() {
+		return feNacimiento;
+	}
+
+	public void setFeNacimiento(String feNacimiento) {
+		this.feNacimiento = feNacimiento;
+	}
+
+	public String getInDonaOrgano() {
+		return inDonaOrgano;
+	}
+
+	public void setInDonaOrgano(String inDonaOrgano) {
+		this.inDonaOrgano = inDonaOrgano;
+	}
+
+	public String getApPadrePrimer() {
+		return apPadrePrimer;
+	}
+
+	public void setApPadrePrimer(String apPadrePrimer) {
+		this.apPadrePrimer = apPadrePrimer;
+	}
+
+	public String getApPadreSegundo() {
+		return apPadreSegundo;
+	}
+
+	public void setApPadreSegundo(String apPadreSegundo) {
+		this.apPadreSegundo = apPadreSegundo;
+	}
+
+	public String getPreNomPadre() {
+		return preNomPadre;
+	}
+
+	public void setPreNomPadre(String preNomPadre) {
+		this.preNomPadre = preNomPadre;
+	}
+
+	public String getNuDocPadre() {
+		return nuDocPadre;
+	}
+
+	public void setNuDocPadre(String nuDocPadre) {
+		this.nuDocPadre = nuDocPadre;
+	}
+
+	public String getApMadrePrimer() {
+		return apMadrePrimer;
+	}
+
+	public void setApMadrePrimer(String apMadrePrimer) {
+		this.apMadrePrimer = apMadrePrimer;
+	}
+
+	public String getApMadreSegundo() {
+		return apMadreSegundo;
+	}
+
+	public void setApMadreSegundo(String apMadreSegundo) {
+		this.apMadreSegundo = apMadreSegundo;
+	}
+
+	public String getPreNomMadre() {
+		return preNomMadre;
+	}
+
+	public void setPreNomMadre(String preNomMadre) {
+		this.preNomMadre = preNomMadre;
+	}
+
+	public String getNuDocMadre() {
+		return nuDocMadre;
+	}
+
+	public void setNuDocMadre(String nuDocMadre) {
+		this.nuDocMadre = nuDocMadre;
+	}
+
+	public String getCoDedoDerecho() {
+		return coDedoDerecho;
+	}
+
+	public void setCoDedoDerecho(String coDedoDerecho) {
+		this.coDedoDerecho = coDedoDerecho;
+	}
+
+	public String getCoDedoIzquierdo() {
+		return coDedoIzquierdo;
+	}
+
+	public void setCoDedoIzquierdo(String coDedoIzquierdo) {
+		this.coDedoIzquierdo = coDedoIzquierdo;
+	}
+
+	public String getNuTelefono() {
+		return nuTelefono;
+	}
+
+	public void setNuTelefono(String nuTelefono) {
+		this.nuTelefono = nuTelefono;
+	}
+
+	public String getDeEmail() {
+		return deEmail;
+	}
+
+	public void setDeEmail(String deEmail) {
+		this.deEmail = deEmail;
+	}
+
+	public String getFeInscripcion() {
+		return feInscripcion;
+	}
+
+	public void setFeInscripcion(String feInscripcion) {
+		this.feInscripcion = feInscripcion;
+	}
+
+	public String getFeEmision() {
+		return feEmision;
+	}
+
+	public void setFeEmision(String feEmision) {
+		this.feEmision = feEmision;
+	}
+
+	public String getFeCaducidad() {
+		return feCaducidad;
+	}
+
+	public void setFeCaducidad(String feCaducidad) {
+		this.feCaducidad = feCaducidad;
+	}
+
+	public String getNuFichaReg() {
+		return nuFichaReg;
+	}
+
+	public void setNuFichaReg(String nuFichaReg) {
+		this.nuFichaReg = nuFichaReg;
+	}
+
+	public String getNuImag() {
+		return nuImag;
+	}
+
+	public void setNuImag(String nuImag) {
+		this.nuImag = nuImag;
+	}
+
+	public String getUsCreaAudi() {
+		return usCreaAudi;
+	}
+
+	public void setUsCreaAudi(String usCreaAudi) {
+		this.usCreaAudi = usCreaAudi;
+	}
+
+	public String getFeCreaAudi() {
+		return feCreaAudi;
+	}
+
+	public void setFeCreaAudi(String feCreaAudi) {
+		this.feCreaAudi = feCreaAudi;
+	}
+
+	public String getUsModiAudi() {
+		return usModiAudi;
+	}
+
+	public void setUsModiAudi(String usModiAudi) {
+		this.usModiAudi = usModiAudi;
+	}
+
+	public String getFeModiAudi() {
+		return feModiAudi;
+	}
+
+	public void setFeModiAudi(String feModiAudi) {
+		this.feModiAudi = feModiAudi;
+	}
+
+	public String getFeRestri() {
+		return feRestri;
+	}
+
+	public void setFeRestri(String feRestri) {
+		this.feRestri = feRestri;
+	}
+
+	public String getNuDocant() {
+		return nuDocant;
+	}
+
+	public void setNuDocant(String nuDocant) {
+		this.nuDocant = nuDocant;
+	}
+
+	public String getCoProvinciaRestri() {
+		return coProvinciaRestri;
+	}
+
+	public void setCoProvinciaRestri(String coProvinciaRestri) {
+		this.coProvinciaRestri = coProvinciaRestri;
+	}
+
+	public String getCoDepartamentoRestri() {
+		return coDepartamentoRestri;
+	}
+
+	public void setCoDepartamentoRestri(String coDepartamentoRestri) {
+		this.coDepartamentoRestri = coDepartamentoRestri;
+	}
+
+	public String getCoDistritoRestri() {
+		return coDistritoRestri;
+	}
+
+	public void setCoDistritoRestri(String coDistritoRestri) {
+		this.coDistritoRestri = coDistritoRestri;
+	}
+
+	public String getCoCentropobladoRestri() {
+		return coCentropobladoRestri;
+	}
+
+	public void setCoCentropobladoRestri(String coCentropobladoRestri) {
+		this.coCentropobladoRestri = coCentropobladoRestri;
+	}
+
+	public String getCoDepartamentoNaci() {
+		return coDepartamentoNaci;
+	}
+
+	public void setCoDepartamentoNaci(String coDepartamentoNaci) {
+		this.coDepartamentoNaci = coDepartamentoNaci;
+	}
+
+	public String getCoCentropobladoNaci() {
+		return coCentropobladoNaci;
+	}
+
+	public void setCoCentropobladoNaci(String coCentropobladoNaci) {
+		this.coCentropobladoNaci = coCentropobladoNaci;
+	}
+
+	public String getCoDistritoNaci() {
+		return coDistritoNaci;
+	}
+
+	public void setCoDistritoNaci(String coDistritoNaci) {
+		this.coDistritoNaci = coDistritoNaci;
+	}
+
+	public String getCoProvinciaNaci() {
+		return coProvinciaNaci;
+	}
+
+	public void setCoProvinciaNaci(String coProvinciaNaci) {
+		this.coProvinciaNaci = coProvinciaNaci;
+	}
+
+	public String getCoDistritoDomicilio() {
+		return coDistritoDomicilio;
+	}
+
+	public void setCoDistritoDomicilio(String coDistritoDomicilio) {
+		this.coDistritoDomicilio = coDistritoDomicilio;
+	}
+
+	public String getCoDepartamentoDomicilio() {
+		return coDepartamentoDomicilio;
+	}
+
+	public void setCoDepartamentoDomicilio(String coDepartamentoDomicilio) {
+		this.coDepartamentoDomicilio = coDepartamentoDomicilio;
+	}
+
+	public String getCoCentropobladoDomicilio() {
+		return coCentropobladoDomicilio;
+	}
+
+	public void setCoCentropobladoDomicilio(String coCentropobladoDomicilio) {
+		this.coCentropobladoDomicilio = coCentropobladoDomicilio;
+	}
+
+	public String getCoProvinciaDomicilio() {
+		return coProvinciaDomicilio;
+	}
+
+	public void setCoProvinciaDomicilio(String coProvinciaDomicilio) {
+		this.coProvinciaDomicilio = coProvinciaDomicilio;
+	}
+
+	public String getCoTipodocPadre() {
+		return coTipodocPadre;
+	}
+
+	public void setCoTipodocPadre(String coTipodocPadre) {
+		this.coTipodocPadre = coTipodocPadre;
+	}
+
+	public String getCoTipodocMadre() {
+		return coTipodocMadre;
+	}
+
+	public void setCoTipodocMadre(String coTipodocMadre) {
+		this.coTipodocMadre = coTipodocMadre;
+	}
+
+	public String getCoRestri() {
+		return coRestri;
+	}
+
+	public void setCoRestri(String coRestri) {
+		this.coRestri = coRestri;
+	}
+
+	public String getCoNivelEduca() {
+		return coNivelEduca;
+	}
+
+	public void setCoNivelEduca(String coNivelEduca) {
+		this.coNivelEduca = coNivelEduca;
+	}
+
+	public String getCoEstadoCivil() {
+		return coEstadoCivil;
+	}
+
+	public void setCoEstadoCivil(String coEstadoCivil) {
+		this.coEstadoCivil = coEstadoCivil;
+	}
+
+	public String getCoVotacion() {
+		return coVotacion;
+	}
+
+	public void setCoVotacion(String coVotacion) {
+		this.coVotacion = coVotacion;
+	}
+
+	public String getCoObs() {
+		return coObs;
+	}
+
+	public void setCoObs(String coObs) {
+		this.coObs = coObs;
+	}
+
+	public String getCoContinenteRestri() {
+		return coContinenteRestri;
+	}
+
+	public void setCoContinenteRestri(String coContinenteRestri) {
+		this.coContinenteRestri = coContinenteRestri;
+	}
+
+	public String getCoPaisRestri() {
+		return coPaisRestri;
+	}
+
+	public void setCoPaisRestri(String coPaisRestri) {
+		this.coPaisRestri = coPaisRestri;
+	}
+
+	public String getCoContinenteNaci() {
+		return coContinenteNaci;
+	}
+
+	public void setCoContinenteNaci(String coContinenteNaci) {
+		this.coContinenteNaci = coContinenteNaci;
+	}
+
+	public String getCoPaisNaci() {
+		return coPaisNaci;
+	}
+
+	public void setCoPaisNaci(String coPaisNaci) {
+		this.coPaisNaci = coPaisNaci;
+	}
+
+	public String getCoContinenteDomicilio() {
+		return coContinenteDomicilio;
+	}
+
+	public void setCoContinenteDomicilio(String coContinenteDomicilio) {
+		this.coContinenteDomicilio = coContinenteDomicilio;
+	}
+
+	public String getCoPaisDomicilio() {
+		return coPaisDomicilio;
+	}
+
+	public void setCoPaisDomicilio(String coPaisDomicilio) {
+		this.coPaisDomicilio = coPaisDomicilio;
+	}
+
+	public String getCoDocEmi() {
+		return coDocEmi;
+	}
+
+	public void setCoDocEmi(String coDocEmi) {
+		this.coDocEmi = coDocEmi;
+	}
+
+	public String getInEmision() {
+		return inEmision;
+	}
+
+	public void setInEmision(String inEmision) {
+		this.inEmision = inEmision;
+	}
+
+	public String getTiFichaReg() {
+		return tiFichaReg;
+	}
+
+	public void setTiFichaReg(String tiFichaReg) {
+		this.tiFichaReg = tiFichaReg;
+	}
+
+	public String getDePrefBlock() {
+		return dePrefBlock;
+	}
+
+	public void setDePrefBlock(String dePrefBlock) {
+		this.dePrefBlock = dePrefBlock;
+	}
+
+	public String getDePrefInterior() {
+		return dePrefInterior;
+	}
+
+	public void setDePrefInterior(String dePrefInterior) {
+		this.dePrefInterior = dePrefInterior;
+	}
+
+	public String getDePrefUrb() {
+		return dePrefUrb;
+	}
+
+	public void setDePrefUrb(String dePrefUrb) {
+		this.dePrefUrb = dePrefUrb;
+	}
+
+	public String getInInterDisc() {
+		return inInterDisc;
+	}
+
+	public void setInInterDisc(String inInterDisc) {
+		this.inInterDisc = inInterDisc;
+	}
+
+	public String getCoDiscapacidad() {
+		return coDiscapacidad;
+	}
+
+	public void setCoDiscapacidad(String coDiscapacidad) {
+		this.coDiscapacidad = coDiscapacidad;
+	}
+
+	public String getCoInterdiccion() {
+		return coInterdiccion;
+	}
+
+	public void setCoInterdiccion(String coInterdiccion) {
+		this.coInterdiccion = coInterdiccion;
+	}
+
+	public String getCoTipoDocResp() {
+		return coTipoDocResp;
+	}
+
+	public void setCoTipoDocResp(String coTipoDocResp) {
+		this.coTipoDocResp = coTipoDocResp;
+	}
+
+	public String getNuDocResp() {
+		return nuDocResp;
+	}
+
+	public void setNuDocResp(String nuDocResp) {
+		this.nuDocResp = nuDocResp;
+	}
+
+	public String getApRespPrimer() {
+		return apRespPrimer;
+	}
+
+	public void setApRespPrimer(String apRespPrimer) {
+		this.apRespPrimer = apRespPrimer;
+	}
+
+	public String getApRespSegundo() {
+		return apRespSegundo;
+	}
+
+	public void setApRespSegundo(String apRespSegundo) {
+		this.apRespSegundo = apRespSegundo;
+	}
+
+	public String getApRespCasada() {
+		return apRespCasada;
+	}
+
+	public void setApRespCasada(String apRespCasada) {
+		this.apRespCasada = apRespCasada;
+	}
+
+	public String getPreNomResp() {
+		return preNomResp;
+	}
+
+	public void setPreNomResp(String preNomResp) {
+		this.preNomResp = preNomResp;
+	}
+
+	public String getApMadreCasada() {
+		return apMadreCasada;
+	}
+
+	public void setApMadreCasada(String apMadreCasada) {
+		this.apMadreCasada = apMadreCasada;
+	}
+
+	public String getCoTipoDocConyuge() {
+		return coTipoDocConyuge;
+	}
+
+	public void setCoTipoDocConyuge(String coTipoDocConyuge) {
+		this.coTipoDocConyuge = coTipoDocConyuge;
+	}
+
+	public String getNuDocConyuge() {
+		return nuDocConyuge;
+	}
+
+	public void setNuDocConyuge(String nuDocConyuge) {
+		this.nuDocConyuge = nuDocConyuge;
+	}
+
+	public String getApConyugePrimer() {
+		return apConyugePrimer;
+	}
+
+	public void setApConyugePrimer(String apConyugePrimer) {
+		this.apConyugePrimer = apConyugePrimer;
+	}
+
+	public String getApConyugeSegundo() {
+		return apConyugeSegundo;
+	}
+
+	public void setApConyugeSegundo(String apConyugeSegundo) {
+		this.apConyugeSegundo = apConyugeSegundo;
+	}
+
+	public String getApConyugeCasada() {
+		return apConyugeCasada;
+	}
+
+	public void setApConyugeCasada(String apConyugeCasada) {
+		this.apConyugeCasada = apConyugeCasada;
+	}
+
+	public String getPreNomConyuge() {
+		return preNomConyuge;
+	}
+
+	public void setPreNomConyuge(String preNomConyuge) {
+		this.preNomConyuge = preNomConyuge;
+	}
+
+	public String getCoTipoDocDeclarante() {
+		return coTipoDocDeclarante;
+	}
+
+	public void setCoTipoDocDeclarante(String coTipoDocDeclarante) {
+		this.coTipoDocDeclarante = coTipoDocDeclarante;
+	}
+
+	public String getNuDocDeclarante() {
+		return nuDocDeclarante;
+	}
+
+	public void setNuDocDeclarante(String nuDocDeclarante) {
+		this.nuDocDeclarante = nuDocDeclarante;
+	}
+
+	public String getApDeclaPrimer() {
+		return apDeclaPrimer;
+	}
+
+	public void setApDeclaPrimer(String apDeclaPrimer) {
+		this.apDeclaPrimer = apDeclaPrimer;
+	}
+
+	public String getApDeclaSegundo() {
+		return apDeclaSegundo;
+	}
+
+	public void setApDeclaSegundo(String apDeclaSegundo) {
+		this.apDeclaSegundo = apDeclaSegundo;
+	}
+
+	public String getApDeclaCasada() {
+		return apDeclaCasada;
+	}
+
+	public void setApDeclaCasada(String apDeclaCasada) {
+		this.apDeclaCasada = apDeclaCasada;
+	}
+
+	public String getPrNomDecla() {
+		return prNomDecla;
+	}
+
+	public void setPrNomDecla(String prNomDecla) {
+		this.prNomDecla = prNomDecla;
+	}
+
+	public String getCoDecla() {
+		return coDecla;
+	}
+
+	public void setCoDecla(String coDecla) {
+		this.coDecla = coDecla;
+	}
+
+	public String getCoVinculo() {
+		return coVinculo;
+	}
+
+	public void setCoVinculo(String coVinculo) {
+		this.coVinculo = coVinculo;
+	}
+
+	public String getNuDniTestigo1() {
+		return nuDniTestigo1;
+	}
+
+	public void setNuDniTestigo1(String nuDniTestigo1) {
+		this.nuDniTestigo1 = nuDniTestigo1;
+	}
+
+	public String getTiTestigo1() {
+		return tiTestigo1;
+	}
+
+	public void setTiTestigo1(String tiTestigo1) {
+		this.tiTestigo1 = tiTestigo1;
+	}
+
+	public String getNuDniTestigo2() {
+		return nuDniTestigo2;
+	}
+
+	public void setNuDniTestigo2(String nuDniTestigo2) {
+		this.nuDniTestigo2 = nuDniTestigo2;
+	}
+
+	public String getTiTestigo2() {
+		return tiTestigo2;
+	}
+
+	public void setTiTestigo2(String tiTestigo2) {
+		this.tiTestigo2 = tiTestigo2;
+	}
+
+	public String getCoDocAdj() {
+		return coDocAdj;
+	}
+
+	public void setCoDocAdj(String coDocAdj) {
+		this.coDocAdj = coDocAdj;
+	}
+
+	public String getNuDocAdj() {
+		return nuDocAdj;
+	}
+
+	public void setNuDocAdj(String nuDocAdj) {
+		this.nuDocAdj = nuDocAdj;
+	}
+
+	public String getScoreHueDer() {
+		return scoreHueDer;
+	}
+
+	public void setScoreHueDer(String scoreHueDer) {
+		this.scoreHueDer = scoreHueDer;
+	}
+
+	public String getScoreHueIzq() {
+		return scoreHueIzq;
+	}
+
+	public void setScoreHueIzq(String scoreHueIzq) {
+		this.scoreHueIzq = scoreHueIzq;
+	}
+
+	public String getNuActaRegistral() {
+		return nuActaRegistral;
+	}
+
+	public void setNuActaRegistral(String nuActaRegistral) {
+		this.nuActaRegistral = nuActaRegistral;
+	}
+
+	public String getInRegistroCivil() {
+		return inRegistroCivil;
+	}
+
+	public void setInRegistroCivil(String inRegistroCivil) {
+		this.inRegistroCivil = inRegistroCivil;
+	}
+
+	public String getNoDomicilio() {
+		return noDomicilio;
+	}
+
+	public void setNoDomicilio(String noDomicilio) {
+		this.noDomicilio = noDomicilio;
+	}
+
+	public String getDeUbigeoDom() {
+		return deUbigeoDom;
+	}
+
+	public void setDeUbigeoDom(String deUbigeoDom) {
+		this.deUbigeoDom = deUbigeoDom;
+	}
+
+	public String getDeDomicilio() {
+		return deDomicilio;
+	}
+
+	public void setDeDomicilio(String deDomicilio) {
+		this.deDomicilio = deDomicilio;
+	} 
+	
+	
+}

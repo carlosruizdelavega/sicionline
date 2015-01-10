@@ -1,0 +1,143 @@
+function fnCargarTabContrayente(){
+	 $.ajax({
+        url: "cargarTabContrayente.htm",
+        type:"POST",
+        cache: false,
+        success: function(data, textStatus, jqXHR) {    
+       	//cboCoNacionalidad01 alert(data);
+       	 $('#divContentTab1').html(data);
+       	 
+       	 $('#cboTipoDocumento01').on('change', function() {
+       		  //alert($(this).val() ); 
+       		  fnLimpiarControles('divCon01');
+       		  
+       		});
+       	 
+       	 $('#cboTipoDocumento02').on('change', function() {
+      		  //alert($(this).val() ); 
+      		  fnLimpiarControles('divCon02');
+      		  
+      		});
+       	 
+        }
+        });
+}
+
+function fnRegistrarContrayente(){
+	
+//	alert("llego");
+	
+//var $nroDocumento = $("#txtNroDocumento"+tipoContrayente).val();
+	var count=0;
+	//var $primerApellido = $("#txtPrimerApellido").val();
+	  p= new Array();    
+	/*    p[0]="dni="+$nroDocumento;
+	    p[1]="primerApellido="+$primerApellido;*/    
+	    
+	   $( "#divCon01").find(':text,:hidden').each(function(index, obj) {
+   		  var idObjeto= $(this).attr('id');
+		  var atributoBean=  idObjeto.substr(3,idObjeto.length);
+		 p[count++]= atributoBean+"=" +  $(this).val();
+   		 
+   	 	});
+	  
+	   p[count++]= "CoNacionalidad01=" +  $("#cboCoNacionalidad01").val();
+	   p[count++]= "TipoDocumento01=" +  $("#cboTipoDocumento01").val();
+	   
+	   
+	   
+	   // alert( p.join("&"));
+	    $( "#divCon02").find(':text,:hidden').each(function(index, obj) {
+	   		  var idObjeto= $(this).attr('id');
+			   var atributoBean=  idObjeto.substr(3,idObjeto.length);
+			 p[count++]= atributoBean+"=" +  $(this).val();
+	   		 	
+	   	 	});
+	    
+	    p[count++]= "CoNacionalidad02=" +  $("#cboCoNacionalidad02").val();
+	    p[count++]= "TipoDocumento02=" +  $("#cboTipoDocumento02").val();
+	    
+	
+	 $.ajax({
+         url: "registrarContrayente.htm",
+         type:"POST",
+         cache: false,
+         data: p.join("&"),
+        // global: false,  //hacemos omitir el manejo de error global
+         success: function(data, textStatus, jqXHR) {    
+        	 
+        	 //alert("Se genero el Acta de Celebracion Nro "+data.numeroActaCelebra);
+        	 var msg = "Los contrayentes han sido registrados y " +
+        	 			  "se ha generado el Acta de Celebración Nro: " + data.numeroActaCelebra;
+        	 cAlert(msg, null, "0", null);
+        	 $("#txtNroActaCelebracion").val(data.numeroActaCelebra);
+
+        	 //mostrar tab testigos
+        	 fnCargarTab(2);
+        	 
+         },
+         error: function(jqXHR, textStatus, errorThrown){
+           
+         }
+   });   
+		
+}
+
+
+function fnSetearDatosDni(rolCiudadano, response){
+	
+	
+	$("#txtApPrimer" + rolCiudadano).val(response.apPrimer);
+	$("#txtApSegundo" + rolCiudadano).val(response.apSegundo);
+	$("#txtPreNomInscrito" + rolCiudadano).val(
+			response.preNomInscrito);
+	$("#txtEdad" + rolCiudadano).val(response.edad);
+	$("#txtDeGenero" + rolCiudadano).val(response.deGenero);
+	// $(
+	// "#txtDeNacionalidad"+tipoContrayente).val(data.deNacionalidad);
+	$("#txtDeEstadoCivil" + rolCiudadano).val(
+			response.deEstadoCivil);
+	// alert(data.deUbigeoNac);
+	$("#txtDeUbigeoNac" + rolCiudadano)
+			.val(response.deUbigeoNac);
+	$("#txtDeUbigeoDom" + rolCiudadano)
+			.val(response.deUbigeoDom);
+	$("#txtDeDomicilio" + rolCiudadano)
+			.val(response.deDomicilio);
+
+	$("#hidCoContinenteNaci" + rolCiudadano).val(
+			response.coContinenteNaci);
+	$("#hidCoPaisNaci" + rolCiudadano).val(response.coPaisNaci);
+	$("#hidCoDepartamentoNaci" + rolCiudadano).val(
+			response.coDepartamentoNaci);
+	$("#hidCoProvinciaNaci" + rolCiudadano).val(
+			response.coProvinciaNaci);
+	$("#hidCoDistritoNaci" + rolCiudadano).val(
+			response.coDistritoNaci);
+	$("#hidCoCentropobladoNaci" + rolCiudadano).val(
+			response.coCentropobladoNaci);
+	$("#hidCoContinenteDomicilio" + rolCiudadano).val(
+			response.coContinenteDomicilio);
+	$("#hidCoPaisDomicilio" + rolCiudadano).val(
+			response.coPaisDomicilio);
+	$("#hidCoDepartamentoDomicilio" + rolCiudadano).val(
+			response.coDepartamentoDomicilio);
+	$("#hidCoProvinciaDomicilio" + rolCiudadano).val(
+			response.coProvinciaDomicilio);
+	$("#hidCoDistritoDomicilio" + rolCiudadano).val(
+			response.coDistritoDomicilio);
+	$("#hidCoCentropobladoDomicilio" + rolCiudadano).val(
+			response.coCentropobladoDomicilio);
+
+	$("#hidCoEstadoCivil" + rolCiudadano).val(
+			response.coEstadoCivil);
+	$("#hidCoGenero" + rolCiudadano).val(response.coGenero);
+
+	$(
+			'#cboCoNacionalidad' + rolCiudadano
+					+ ' option:eq(' + response.coNacionalidad + ')')
+			.prop('selected', true);
+	
+	//fnInhabilitarControles('divCon'+rolCiudadano);
+	
+}

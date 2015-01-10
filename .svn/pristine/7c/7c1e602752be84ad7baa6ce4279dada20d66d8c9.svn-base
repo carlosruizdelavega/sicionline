@@ -1,0 +1,189 @@
+package pe.gob.reniec.actacelebracion.bean;
+ 
+import java.io.Serializable;
+
+public class UsuarioBean implements Serializable{
+ 
+	private static final long serialVersionUID = 4630951917262228446L;
+	private String usuario;
+	private String password;
+	private String nuDni;
+	private String caPass;
+	private String caPassNew;
+	private String caPassNewConfirm;
+	private String coAplicativo;
+	private String ipUsuario;
+	private Integer tiIdentificacion;
+	private String daSeis;
+	private String daSiete;
+	private String daOcho;
+	private String daNueve;
+	private String daDiez;
+	private String noEmpleado;
+	private String coEmpleado;
+	
+	
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getNuDni() {
+		return nuDni;
+	}
+
+	public void setNuDni(String nuDni) {
+		this.nuDni = nuDni;
+	}
+
+	public String getCaPass() {
+		return caPass;
+	}
+
+	public void setCaPass(String caPass) {
+		this.caPass = caPass;
+	}
+
+	/**
+	 * @return the caPassNew
+	 */
+	public String getCaPassNew() {
+		return caPassNew;
+	}
+
+	/**
+	 * @param caPassNew the caPassNew to set
+	 */
+	public void setCaPassNew(String caPassNew) {
+		this.caPassNew = caPassNew;
+	}
+
+	/**
+	 * @return the caPassNewConfirm
+	 */
+	public String getCaPassNewConfirm() {
+		return caPassNewConfirm;
+	}
+
+	/**
+	 * @param caPassNewConfirm the caPassNewConfirm to set
+	 */
+	public void setCaPassNewConfirm(String caPassNewConfirm) {
+		this.caPassNewConfirm = caPassNewConfirm;
+	}
+
+	public String getCoAplicativo() {
+		return coAplicativo;
+	}
+
+	public void setCoAplicativo(String coAplicativo) {
+		this.coAplicativo = coAplicativo;
+	}
+
+	public String getIpUsuario() {
+		return ipUsuario;
+	}
+
+	public void setIpUsuario(String ipUsuario) {
+		this.ipUsuario = ipUsuario;
+	}
+
+	public Integer getTiIdentificacion() {
+		return tiIdentificacion;
+	}
+
+	public void setTiIdentificacion(Integer tiIdentificacion) {
+		this.tiIdentificacion = tiIdentificacion;
+	}
+
+	public String getDaSeis() {
+		return daSeis;
+	}
+
+	public void setDaSeis(String daSeis) {
+		this.daSeis = daSeis;
+	}
+
+	public String getDaSiete() {
+		return daSiete;
+	}
+
+	public void setDaSiete(String daSiete) {
+		this.daSiete = daSiete;
+	}
+
+	public String getDaOcho() {
+		return daOcho;
+	}
+
+	public void setDaOcho(String daOcho) {
+		this.daOcho = daOcho;
+	}
+
+	public String getDaNueve() {
+		return daNueve;
+	}
+
+	public void setDaNueve(String daNueve) {
+		this.daNueve = daNueve;
+	}
+
+	public String getDaDiez() {
+		return daDiez;
+	}
+
+	public void setDaDiez(String daDiez) {
+		this.daDiez = daDiez;
+	}
+
+	public String getNoEmpleado() {
+		return noEmpleado;
+	}
+
+	public void setNoEmpleado(String noEmpleado) {
+		this.noEmpleado = noEmpleado;
+	}
+
+	public String getCoEmpleado() {
+		return coEmpleado;
+	}
+
+	public void setCoEmpleado(String coEmpleado) {
+		this.coEmpleado = coEmpleado;
+	}
+	
+	
+	public void limpiarUsuario(){
+		this.usuario=null;
+		this.password=null;
+		
+		this.nuDni=null;
+		this.caPass=null;
+		this.caPassNew=null;
+		this.caPassNewConfirm=null;
+		this.coAplicativo=null;
+		this.ipUsuario=null;
+		this.tiIdentificacion=null;
+		this.daSeis=null;
+		this.daSiete=null;
+		this.daOcho=null;
+		this.daNueve=null;
+		this.daDiez=null;
+		this.noEmpleado=null;
+		this.coEmpleado=null;
+		
+	}
+
+}

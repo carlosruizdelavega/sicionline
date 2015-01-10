@@ -1,0 +1,160 @@
+package pe.gob.reniec.actacelebracion.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.AniBean;
+import pe.gob.reniec.actacelebracion.bean.GeneroBean;
+import pe.gob.reniec.actacelebracion.bean.TipoDocIdentidadBean;
+import pe.gob.reniec.actacelebracion.bean.TipoEstadoCivilBean;
+import pe.gob.reniec.actacelebracion.bean.TipoNacionalidadBean;
+import pe.gob.reniec.actacelebracion.bean.UbigeoBean;
+import pe.gob.reniec.actacelebracion.service.UtilService;
+ 
+@Controller
+public class RegistroController {
+	
+	private static final Logger log = Logger.getLogger(RegistroController.class);
+	
+	@Autowired
+	private UtilService utilService;
+	
+	/*
+	@RequestMapping("/registrarActa.htm")
+    public ModelAndView iniciaVerificacion(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo registrarActa");
+		ModelAndView mv = new ModelAndView("actaCeleb/registrarActa");
+        return mv;
+	}*/
+	
+	@RequestMapping("/cargarRegistroActa.htm")
+    public ModelAndView cargarRegistroActa(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo registrarActa");
+		List<TipoDocIdentidadBean> listaTipoDocIdentidad = utilService.listarTipoDocumentoIdentidad();
+		List<TipoNacionalidadBean> listaTipoNacionalidad = utilService.listarTipoNacionalidad();
+		ModelAndView mv = new ModelAndView("actaCeleb/registrarActa");
+		
+		mv.addObject("listaTipoDocIdentidad", listaTipoDocIdentidad);
+		mv.addObject("listaTipoNacionalidad", listaTipoNacionalidad);
+		
+		return mv;
+	}
+	
+	
+	@RequestMapping("/cargarTabContrayente.htm")
+    public ModelAndView cargarTabContrayente(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo cargarTabContrayente");
+		List<TipoDocIdentidadBean> listaTipoDocIdentidad = utilService.listarTipoDocumentoIdentidad();
+		List<TipoNacionalidadBean> listaTipoNacionalidad = utilService.listarTipoNacionalidad();
+		ModelAndView mv = new ModelAndView("actaCeleb/tabContrayente");
+		
+		mv.addObject("listaTipoDocIdentidad", listaTipoDocIdentidad);
+		mv.addObject("listaTipoNacionalidad", listaTipoNacionalidad);
+		
+		return mv;
+	}
+	
+	
+	/*@RequestMapping("/cargarVerificarCiudadano.htm")
+    public ModelAndView cargarVerificarCiudadano(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo registrarActa");
+		List<TipoDocIdentidadBean> listaTipoDocIdentidad = utilService.listarTipoDocumentoIdentidad();
+		
+		ModelAndView mv = new ModelAndView("actaCeleb/verificarCiudadano");
+		mv.addObject("listaTipoDocIdentidad", listaTipoDocIdentidad);
+		return mv;
+	}*/
+	
+	
+	
+	@RequestMapping(value = "/consultarPorDniAniIndex.htm")
+	public @ResponseBody 
+	AniBean consultarPorDniAniIndex (HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		log.info("Ingresa a metodo consultarPorDniAniIndex");	
+		
+		String dni = req.getParameter("dni") == null ? "" : req.getParameter("dni");
+		//String apPrimer = req.getParameter("apPrimer") == null ? "" : req.getParameter("apPrimer");
+		
+		log.info("dni:"+dni);
+		//log.info("apPrimer:"+apPrimer);
+		
+		
+		int existeDni= utilService.verificarExisteDni(dni);
+		
+		AniBean aniBean = new AniBean();
+		
+		if (existeDni==1){
+		
+			 aniBean =utilService.buscarPorDniIndex(dni);
+			 
+		}else{
+			
+			aniBean.setExisteDni(false);
+		}
+		
+		return aniBean;
+		
+	}
+
+	
+	@RequestMapping(value = "/obtenerDatosAniPorDni.htm")
+	public @ResponseBody 
+	AniBean consultarPorDniAni (HttpServletRequest req, HttpServletResponse res, HttpSession session) throws Exception {
+		log.info("Ingresa a metodo consultarPorDniAni");	
+		String dni = req.getParameter("dni") == null ? "" : req.getParameter("dni");
+		String tipoContrayente = req.getParameter("rolCiudadano") == null ? "" : req.getParameter("rolCiudadano");
+		log.info("dni:"+dni);
+		AniBean aniBean =utilService.buscarPorDniAni(dni);
+		String fechaNacDni = aniBean.getFeNacimiento();
+		aniBean.setEdad(utilService.calcularEdadDni(fechaNacDni));
+		//TipoNacionalidadBean nacionalidadBean =	utilService.obtenerNacionalidadDni("01");
+		//aniBean.setDeNacionalidad(nacionalidadBean.getDeNacionalidad());
+		//Nacionalidad Peruano
+		aniBean.setCoNacionalidad("01");
+		GeneroBean generoBean = utilService.obtenerGeneroDni(aniBean.getCoGenero());
+		aniBean.setDeGenero(generoBean.getDeSexo());
+		UbigeoBean ubigeoBean = new UbigeoBean();
+		
+		ubigeoBean = utilService.obtenerDescripcionUbigeo(aniBean.getCoContinenteNaci(), aniBean.getCoPaisNaci(), aniBean.getCoDepartamentoNaci(),
+																	 aniBean.getCoProvinciaNaci(), aniBean.getCoDistritoNaci(), aniBean.getCoCentropobladoNaci());
+		aniBean.setDeUbigeoNac(ubigeoBean.getDeUbigeo());
+		
+		ubigeoBean = utilService.obtenerDescripcionUbigeo(aniBean.getCoContinenteDomicilio(), aniBean.getCoPaisDomicilio(), aniBean.getCoDepartamentoDomicilio(),
+				 											aniBean.getCoProvinciaDomicilio(), aniBean.getCoDistritoDomicilio(), aniBean.getCoCentropobladoDomicilio());
+		
+		aniBean.setDeUbigeoDom(ubigeoBean.getDeUbigeo());
+		
+		TipoEstadoCivilBean tipoEstadoCivilBean = utilService.obtenerDescripcionEstadoCivil(aniBean.getCoEstadoCivil());
+		
+		aniBean.setDeEstadoCivil(tipoEstadoCivilBean.getDeEstadoCivil());
+		
+		
+		session.setAttribute("aniBeanCon"+tipoContrayente, aniBean);
+		
+		
+		
+		
+		
+		
+		return aniBean;
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+}

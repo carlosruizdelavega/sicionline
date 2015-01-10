@@ -1,0 +1,148 @@
+package pe.gob.reniec.actacelebracion.dao.impl;
+
+import java.sql.Types;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Repository;
+
+import pe.gob.reniec.actacelebracion.bean.UsuarioBean;
+import pe.gob.reniec.actacelebracion.dao.UsuarioDao;
+
+@Repository
+public class UsuarioDaoImpl implements UsuarioDao {
+
+	// define templates
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	// define log
+	private static final Logger log = Logger.getLogger(UsuarioDaoImpl.class);
+	
+	
+	public UsuarioBean listaUsuario(UsuarioBean usuarioBean){
+		
+		// define procedimiento
+		SimpleJdbcCall consultaPermisosUsuario = new SimpleJdbcCall(
+				jdbcTemplate)
+				.withCatalogName("IDOUSU.PK_SEGURIDAD")
+				.withProcedureName("SP_RESPUESTA_IDENTIFICACION")
+				.withoutProcedureColumnMetaDataAccess()
+				.declareParameters(new SqlParameter("usuario", Types.VARCHAR),
+						new SqlParameter("clave", Types.VARCHAR),
+						new SqlParameter("aplicacion", Types.VARCHAR),
+						new SqlParameter("ip", Types.VARCHAR),
+						new SqlParameter("tipo", Types.NUMERIC),
+						new SqlOutParameter("codigo", Types.VARCHAR),
+						new SqlOutParameter("descripcion", Types.VARCHAR),
+						new SqlOutParameter("coEmpleado", Types.VARCHAR),
+						new SqlOutParameter("coDependencia", Types.VARCHAR),
+						new SqlOutParameter("coLocal", Types.VARCHAR));
+
+		// define parametros
+		log.info("usuarioBean.getNuDni():" + usuarioBean.getNuDni());
+		log.info("usuarioBean.getCaPass():" + usuarioBean.getCaPass());
+		log.info("usuarioBean.getCoAplicativo():"
+				+ usuarioBean.getCoAplicativo());
+		log.info("usuarioBean.getIpUsuario():" + usuarioBean.getIpUsuario());
+		log.info("usuarioBean.getTiIdentificacion():"
+				+ usuarioBean.getTiIdentificacion());
+
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("usuario", usuarioBean.getNuDni());
+		parameters.put("clave", usuarioBean.getCaPass());
+		parameters.put("aplicacion", usuarioBean.getCoAplicativo());
+		parameters.put("ip", usuarioBean.getIpUsuario());
+		parameters.put("tipo", usuarioBean.getTiIdentificacion());
+						
+		// ejecuta procedimiento
+		Map<?, ?> resultado = consultaPermisosUsuario.execute(parameters);	
+		
+		UsuarioBean usuarioBeanOut = new UsuarioBean();
+		
+		log.info("codigo-6:" + (String) resultado.get("codigo"));
+		log.info("descripcion-7:" + (String) resultado.get("descripcion"));
+		log.info("coEmpleado-8:" + (String) resultado.get("coEmpleado"));
+		log.info("coDependencia-9:" + (String) resultado.get("coDependencia"));
+		log.info("coLocal-10:" + (String) resultado.get("coLocal"));
+		
+		usuarioBeanOut.setDaSeis((String) resultado.get("codigo"));
+		usuarioBeanOut.setDaSiete((String) resultado.get("descripcion"));
+		usuarioBeanOut.setDaOcho((String) resultado.get("coEmpleado"));
+		usuarioBeanOut.setDaNueve((String) resultado.get("coDependencia"));
+		usuarioBeanOut.setDaDiez((String) resultado.get("coLocal"));
+				
+		return usuarioBeanOut;
+	}
+	
+	public UsuarioBean cambiarContrasenia (UsuarioBean usuarioBean){
+		
+		// define procedimiento
+		SimpleJdbcCall cambiarContrasenia = new SimpleJdbcCall(
+				jdbcTemplate)
+				.withCatalogName("IDOUSU.PK_SEGURIDAD")
+				.withProcedureName("SP_MODIFICAR_CLAVE")
+				.withoutProcedureColumnMetaDataAccess()
+				.declareParameters(new SqlParameter("usuario", Types.VARCHAR),
+						new SqlParameter("clave", Types.VARCHAR),
+						new SqlParameter("nueva", Types.VARCHAR),
+						new SqlParameter("ip", Types.VARCHAR),
+						new SqlParameter("tipo", Types.NUMERIC),
+						new SqlOutParameter("codigo", Types.VARCHAR),
+						new SqlOutParameter("descripcion", Types.VARCHAR));
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("usuario", usuarioBean.getNuDni());
+		parameters.put("clave", usuarioBean.getCaPass());
+		parameters.put("nueva", usuarioBean.getCaPassNew());
+		parameters.put("ip", usuarioBean.getIpUsuario());
+		parameters.put("tipo", usuarioBean.getTiIdentificacion());
+		
+		Map<?, ?> resultado = cambiarContrasenia.execute(parameters);	
+		
+		UsuarioBean usuarioBeanOut = new UsuarioBean();
+		usuarioBeanOut.setDaSeis((String) resultado.get("codigo"));
+		usuarioBeanOut.setDaSiete((String) resultado.get("descripcion"));
+		
+		return usuarioBeanOut;
+		
+	}
+	
+	public void cerrarSesion(UsuarioBean usuarioBean){
+		
+		SimpleJdbcCall cerrarSesion = new SimpleJdbcCall(
+				jdbcTemplate)
+				.withCatalogName("IDOUSU.PK_SEGURIDAD")
+				.withProcedureName("SP_CERRAR_SESION")
+				.withoutProcedureColumnMetaDataAccess()
+				.declareParameters(new SqlParameter("usuario", Types.VARCHAR),
+						new SqlParameter("tipo", Types.NUMERIC),
+						new SqlParameter("aplicativo", Types.VARCHAR),
+						new SqlParameter("ip", Types.VARCHAR));
+		
+		log.info("nuDni:"+usuarioBean.getNuDni().trim());
+		log.info("CoAplicativo:"+usuarioBean.getCoAplicativo().trim());
+		log.info("IpUsuario:"+usuarioBean.getIpUsuario().trim());
+		log.info("TiIdentificacion:"+usuarioBean.getTiIdentificacion());
+		
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("usuario", usuarioBean.getNuDni().trim());
+		parameters.put("tipo", usuarioBean.getTiIdentificacion());
+		parameters.put("aplicativo", usuarioBean.getCoAplicativo().trim());
+		parameters.put("ip", usuarioBean.getIpUsuario().trim());
+		
+		cerrarSesion.execute(parameters);
+		
+	}
+	
+	
+	
+
+}

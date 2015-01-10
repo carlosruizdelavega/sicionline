@@ -1,0 +1,27 @@
+function fnRegistrarActa() {
+	fnCargarContenido("cargarRegistroActa.htm", null, "#contenido");	
+}
+
+function fnEditarActa() {
+	fnCargarContenido("editarActa01.htm", null, "#contenido");
+}
+
+function fnCargarActa() {
+	fnCargarContenido("cargarActa.htm", null, "#contenido");
+}
+
+function fnEnviarActa() {
+	fnCargarContenido("enviarActa.htm", null, "#contenido");
+}
+
+function fnReporteActa() {
+	fnCargarContenido("consultaReporte.htm", null, "#contenido");
+}
+
+function fnActasObservadas() {
+	fnCargarContenido("actasObservadas.htm", null, "#contenido");
+}
+
+function fnProcesamientoActa() {
+	fnCargarContenido("asignacionActa.htm", null, "#contenido");
+}

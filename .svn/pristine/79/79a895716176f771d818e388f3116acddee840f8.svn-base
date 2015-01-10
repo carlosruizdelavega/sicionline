@@ -1,0 +1,130 @@
+<%@include file="/jsp/include/taglibs.jsp" %>
+
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades</title>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="${ruta}/js/jquery/jquery-1.10.2.min.js"></script>
+		
+		<!-- jquery ui -->
+		<script type="text/javascript" src="${ruta}/js/jquery/plugin/jquery-ui-1.10.3.custom.min.js"></script>		
+
+		<!-- bootstrap -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/bootstrap/css/bootstrap.min.css" />
+		
+		<!-- librerias propias -->
+		<script type="text/javascript" src="${ruta}/js/login/login.js"></script>
+		<script type="text/javascript" src="${ruta}/js/utilitarios/jqueryUtil.js"></script>
+		<script type="text/javascript" src="${ruta}/js/utilitarios/validacionUtil.js"></script>
+				
+		<!-- estilos propios -->
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/estiloGlobal.css" />
+		<link rel="stylesheet" type="text/css" href="${ruta}/css/jquery/plugin/jquery-ui-1.10.0.custom.css" />
+	
+		<!-- icon -->
+		<link rel="shortcut icon" href="./images/favicon.ico"></link>
+		
+	</head>
+	
+	<body>
+		
+		<!-- header -->
+		<div class="row-fluid">
+			<div class="span1"></div>	
+			<div class="span10"  style="height:103px; margin-top:80px; margin-bottom:40px;">
+				<div style="display:block; width:729px; height:103px; margin:auto;">
+					<img alt="Sistema de Acta de Celebraci&oacute;n Electr&oacute;nica en Municipalidades" 
+						src="images/titleSistema_2.png" width="729" height="103" 
+						style="float:left; border:0px;" />
+				</div>
+			</div>
+			<div class="span1"></div>
+		</div>
+
+		<!-- content -->
+		<div class="row-fluid">
+			<div class="span1"></div>
+			<div class="span10">
+					
+				<div class="backContent" style="display:block; width: 568px; height: 198px; margin:auto; 
+						background: url('images/backForm.png') #F4F4F4 no-repeat right top;">
+						
+					<div style="display:block; width:568px; height:198px;">						 
+
+						<div class="form-horizontal" style=" margin-left: -80px; margin-top: 40px;">
+						    	
+						    <div class="control-group" style="">
+							    <label class="control-label" for="usuario">Usuario</label>
+							    <div class="controls">
+							    	<input type="text" id="txtUser" name="txtUser" placeholder="Ingrese usuario" onkeydown="fnValidarNumero(this)" onkeyup="fnValidarNumero(this)" maxlength="8">
+							    </div>
+							</div>
+							
+						    <div class="control-group">
+						    	<label class="control-label" for="password">Contrase&ntilde;a</label>
+						    	<div class="controls">
+						    		<input type="password" id="codigo" name="codigo" placeholder="Ingrese contrase&ntilde;a" maxlength="15">
+						    	</div>
+						    </div>
+						    
+						    <div class="control-group">
+						    	<div class="controls">
+						    		<button id="btnLoginIngresar" onClick="fnAccesoSistema();" class="btn btn-primary">
+						    			Ingresar
+						    		</button>
+						    		<button id="btnLoginContrasenia" onClick="fnAbrirCambiaPass();" class="btn btn-info">
+						    			Cambiar contrase&ntilde;a
+						    		</button>
+						    	</div>
+						    </div>
+	
+						</div>
+					
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="span1"></div>
+		</div>
+			
+		<!-- modal -->
+		<div id="dialogCambiaPass" title="Cambiar Contraseña" style="display:none;">
+			<jsp:include page="login/cambioContrasenia.jsp" />
+		</div>
+		
+		<!-- footer -->
+		<div class="row-fluid">
+			<div class="span3"></div>
+			<div class="span6" style="margin-top:80px; margin-bottom:30px;">
+			
+				<div style="display:block; width:305px; height:81px; margin: auto;">
+					<div style="float:left; width:70px; height:81px;">
+						<img alt="ISO de Calidad RENIEC" src="images/iconIsoReniec.png" width="63" height="81" border="0" />
+					</div>
+					<div style="float:left; width:235px; height:81px;">
+						<p style="line-height: 16px; margin-top:2px;">
+							<small>
+								<strong>Gerencia de Tecnolog&iacute;a de la Informaci&oacute;n</strong><br />
+								Sub Gerencia de Ingenier&iacute;a de Software
+							</small>
+						</p>							
+						<p class="text-info" style="line-height: 16px;">
+							<strong>Equipo:</strong> Grupo de Registros Civiles
+						</p>														
+					</div>
+				</div>
+				
+			</div>
+			<div class="span3"></div>
+		</div>
+
+	</body>
+	
+</html>

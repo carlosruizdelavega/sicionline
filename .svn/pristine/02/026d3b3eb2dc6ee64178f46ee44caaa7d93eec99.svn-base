@@ -1,0 +1,514 @@
+<!-- importar librerias -->
+<%@include file="/jsp/include/taglibs.jsp"%>
+
+<table style="width:100%;">
+	
+	<tr>
+		
+		<td style="width:50%;">
+		
+			<!-- Primer contrayente  -->
+			<div id="divCon01" 
+				class="contenedorForm01" 
+				style="float:left; border:1px solid #555555;">
+
+				<div style="margin:auto; width:430px; height:560px;">
+
+					<!-- titulo -->
+					<div style="float:left; clear:left; margin-top: 10px;">
+						
+						<div style="float:left; clear:left; width:auto; height:30px; border-bottom:1px solid #ccc;">
+							<span class="titulo03">Primer Contrayente (Hombre)</span>
+						</div>
+						
+					</div>
+
+					<!-- tipo de documento y nro de documento -->
+					<div style="float:left; clear:left; margin-top: 10px;">
+					
+						<div style="float:left; width:auto;">
+							
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">
+									Tipo de documento
+								</small>
+							</label>
+							
+							<select id="cboTipoDocumento01"  
+								style="margin-top:-7px; height:26px; padding-top:4px; width:220px; font-size: 12px;">
+							
+								<c:forEach var="listaDoc" items="${listaTipoDocIdentidad}">
+									
+									<c:choose>
+										
+										<c:when test="${listaDoc.coTipoDocIdentidad=='01'}">
+											<option id="${listaDoc.coTipoDocIdentidad}" 
+												value="${listaDoc.coTipoDocIdentidad}" 
+												selected="selected">
+											<c:out value="${listaDoc.deDocIdentidad}" /></option>
+										</c:when>
+										
+										<c:otherwise>
+											<option id="${listaDoc.coTipoDocIdentidad}" 
+												value="${listaDoc.coTipoDocIdentidad}">
+											<c:out value="${listaDoc.deDocIdentidad}" /></option>
+										</c:otherwise>
+										
+									</c:choose>
+									
+								</c:forEach>
+								
+							</select>
+
+						</div>
+
+						<div style="float:left; width:auto; margin-left:10px;">
+						
+							<label>
+								<small style="font-size:11px; font-weight:bold;">
+									Nro. Documento
+								</small>
+							</label>
+							
+							<div style="margin-top:-7px;">
+								<input id="txtNroDocumento01"  type="text" 
+									style="width:100px; text-transform: uppercase; font-size: 12px;" maxlength="20" />
+									
+								<button onclick="fnBuscarCiudadano('01','01');" 
+									style="margin-top:-10px;" 
+									class="btn btn-small btn-info" 
+									type="button">
+									<i class="icon-search icon-white"></i>&nbsp;Buscar
+								</button>
+							</div>
+							
+						</div>
+						
+					</div>
+
+					<!-- primer apellido -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Primer Apellido
+							</small>
+						</label>
+						
+						<input id="txtApPrimer01"  type="text" 
+							style="margin-top:-7px; width:420px; text-transform: uppercase; font-size: 12px;" />
+							
+					</div>
+
+					<!-- segundo apellido -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size:11px; font-weight:bold;">
+								Segundo Apellido
+							</small>
+						</label>
+						
+						<input id="txtApSegundo01"  type="text" 
+							style="margin-top:-7px; width:420px; text-transform: uppercase; font-size: 12px;" />
+						
+					</div>
+
+					<!-- pre nombres -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Pre Nombres
+							</small>
+						</label>
+						
+						<input id="txtPreNomInscrito01"  type="text" 
+							style="margin-top: -7px; width: 420px; text-transform: uppercase; font-size: 12px;" />
+							
+					</div>
+
+					<!-- edad, sexo y estado civil -->
+					<div style="float:left; clear:left;">
+						
+						<div style="float:left; width:auto;">
+							
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">Edad</small>
+							</label>
+							
+							<input id="txtEdad01"  type="text" 
+								style="width:30px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" maxlength="3" />
+							
+						</div>
+
+						<div style="float:left; width: auto; margin-left: 10px;">
+						
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">Sexo</small>
+							</label>
+							
+							<input id="txtDeGenero01"  type="text"
+								style="width:100px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+
+							<input type="hidden" id="hidCoGenero01" />
+								
+						</div>
+
+						<div style="float: left; width: auto; margin-left: 10px;">
+						
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">
+									Estado Civil
+								</small>
+							</label>
+
+							<input id="txtDeEstadoCivil01"  type="text" 
+								style="width: 100px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+							
+							<input type="hidden" id="hidCoEstadoCivil01" />
+							
+						</div>
+
+					</div>
+					
+					<!-- nacionalidad -->
+					<div style="float:left; clear:left;">
+					
+						<label>
+							<small style="font-size:11px; font-weight:bold;">
+								Nacionalidad
+							</small>
+						</label>
+						
+						<select id="cboCoNacionalidad01"  
+							style="height:26px; margin-top:-7px; padding-top:4px; font-size:12px; width:250px">
+							
+							<option id="00" value="00">SELECCIONE NACIONALIDAD</option>
+							
+							<c:forEach var="listaNacionalidad" items="${listaTipoNacionalidad}">
+								
+								<option id="${listaNacionalidad.coNacionalidad}" 
+									value="${listaNacionalidad.coNacionalidad}">
+								
+									<c:out value="${listaNacionalidad.deNacionalidad}" />
+									
+								</option>
+								
+							</c:forEach>
+							
+						</select>
+						
+					</div>
+
+					<!-- ubigeo nacimiento -->
+					<div style="float:left; clear:left;">
+					
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Ubigeo Nacimiento
+							</small>
+						</label>
+
+						<input id="txtDeUbigeoNac01"  type="text" 
+							style="width:420px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+							
+						<input type="hidden" id="hidCoContinenteNaci01" />
+						<input type="hidden" id="hidCoPaisNaci01" /> 
+						<input type="hidden" id="hidCoDepartamentoNaci01" />
+						<input type="hidden" id="hidCoProvinciaNaci01" />
+						<input type="hidden" id="hidCoDistritoNaci01" /> 
+						<input type="hidden" id="hidCoCentropobladoNaci01" />
+
+					</div>
+
+					<!-- ubigeo domicilio -->
+					<div style="float:left; clear: left;">
+					
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Ubigeo Domicilio
+							</small>
+						</label>
+						
+						<input id="txtDeUbigeoDom01"  type="text" 
+							style="width:420px; margin-top: -7px; text-transform: uppercase; font-size: 12px;" />
+
+						<input type="hidden" id="hidCoContinenteDomicilio01" />
+						<input type="hidden" id="hidCoPaisDomicilio01" />
+						<input type="hidden" id="hidCoDepartamentoDomicilio01" />
+						<input type="hidden" id="hidCoProvinciaDomicilio01" />
+						<input type="hidden" id="hidCoDistritoDomicilio01" />
+						<input type="hidden" id="hidCoCentropobladoDomicilio01" />
+						
+					</div>
+
+					<!-- direccion -->
+					<div style="float:left; clear:left;">
+					
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">Direcci&oacute;n</small>
+						</label>
+						
+						<input id="txtDeDomicilio01"  type="text" 
+							style="width:420px; margin-top: -7px; text-transform: uppercase; font-size: 12px;" />
+
+					</div>
+				
+				</div>
+
+			</div>
+		
+		</td>
+
+		<td style="width:50%;">
+		
+			<!-- Segundo contrayente  -->
+			<div id="divCon02" class="contenedorForm02"  
+				style="float:right; border:1px solid #555555;">
+			
+				<div style="margin:auto; width:430px; height:560px;">
+				
+					<!-- titulo -->
+					<div style="float:left; clear:left; margin-top: 10px;">
+				
+						<div style="float:left; clear:left; width:auto; height:30px; border-bottom:1px solid #ccc;">
+							<span class="titulo03">Segundo Contrayente (Mujer)</span>
+						</div>
+					
+					</div>
+				
+					<!-- tipo de documento y nro de documento -->
+					<div style="float:left; clear:left; margin-top: 10px;">
+				
+						<div style="float:left; width:auto;">
+							
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">
+									Tipo de documento
+								</small>
+							</label>
+				
+							<select id="cboTipoDocumento02"  
+								style="margin-top:-7px; height:26px; padding-top:4px; width:220px; font-size: 12px;">
+								
+								<c:forEach var="listaDoc" items="${listaTipoDocIdentidad}">
+				
+									<c:choose>
+										<c:when test="${listaDoc.coTipoDocIdentidad=='01'}">
+											<option id="${listaDoc.coTipoDocIdentidad}"
+												value="${listaDoc.coTipoDocIdentidad}" selected="selected"><c:out
+													value="${listaDoc.deDocIdentidad}" /></option>
+										</c:when>
+										<c:otherwise>
+											<option id="${listaDoc.coTipoDocIdentidad}"
+												value="${listaDoc.coTipoDocIdentidad}"><c:out
+													value="${listaDoc.deDocIdentidad}" /></option>
+										</c:otherwise>
+									</c:choose>
+				
+								</c:forEach>
+								
+							</select>
+							
+						</div>
+				
+						<div style="float:left; width:auto; margin-left:10px;">
+							
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">
+									Nro. Documento
+								</small>
+							</label>
+				
+							<div style="margin-top:-7px;">
+							
+								<input id="txtNroDocumento02"  type="text" 
+									style="width: 100px;  text-transform: uppercase; font-size: 12px;" maxlength="20" />
+									
+								<button onclick="fnBuscarCiudadano('02','01');" 
+									style="margin-top: -10px;" class="btn btn-small btn-info"
+									type="button">
+									<i class="icon-search icon-white"></i>&nbsp;Buscar
+								</button>
+								
+							</div>
+							
+						</div>
+						
+					</div>
+				
+					<!-- primer apellido -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Primer Apellido
+							</small>
+						</label>
+						
+						<input id="txtApPrimer02"  type="text" 
+							style="margin-top:-7px; width:420px; text-transform: uppercase; font-size: 12px;" />
+							
+					</div>
+				
+					<!-- segundo apellido -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Segundo Apellido
+							</small>
+						</label> 
+						
+						<input id="txtApSegundo02"  type="text" 
+							style="margin-top:-7px; width:420px; text-transform: uppercase; font-size: 12px;" />
+							
+					</div>
+				
+					<!-- pre nombres -->
+					<div style="float:left; clear:left;">
+				
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">Pre Nombres</small>
+						</label>
+						
+						<input id="txtPreNomInscrito02"  type="text" 
+							style="margin-top: -7px; width: 420px; text-transform: uppercase; font-size: 12px;" />
+							
+					</div>
+				
+					<!-- edad, sexo y estado civil -->
+					<div style="float:left; clear:left;">
+				
+						<div style="float:left; width:auto;">
+							
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">Edad</small>
+							</label>
+							
+							<input id="txtEdad02"  type="text" 
+								style="width:30px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" maxlength="3" />
+								
+						</div>
+				
+						<div style="float:left; width: auto; margin-left: 10px;">
+						
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">Sexo</small>
+							</label>
+							
+							<input id="txtDeGenero02"  type="text" 
+								style="width:100px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+				
+							<input type="hidden" id="hidCoGenero02" />
+							
+						</div>
+				
+						<div style="float: left; width: auto; margin-left: 10px;">
+						
+							<label>
+								<small style="font-size: 11px; font-weight: bold;">
+									Estado Civil
+								</small>
+							</label>
+				
+							<input id="txtDeEstadoCivil02"  type="text" 
+								style="width:100px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+								
+							<input type="hidden" id="hidCoEstadoCivil02" />
+				
+						</div>
+						
+					</div>
+				
+					<!-- nacionalidad -->
+					<div style="float:left; clear:left;">	
+				
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">Nacionalidad</small>
+						</label>
+						
+						<select id="cboCoNacionalidad02" 
+							style="height:26px; margin-top:-7px; padding-top:4px; font-size:12px; width:250px;">
+							
+							<option id="00" value="00">SELECCIONE NACIONALIDAD</option>
+							
+							<c:forEach var="listaNacionalidad" items="${listaTipoNacionalidad}">
+								<option id="${listaNacionalidad.coNacionalidad}" 
+									value="${listaNacionalidad.coNacionalidad}">
+									<c:out value="${listaNacionalidad.deNacionalidad}" />
+								</option>
+							</c:forEach>
+							
+						</select>
+						
+					</div>
+				
+					<!-- ubigeo nacimiento -->
+					<div style="float:left; clear:left;">
+				
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Ubigeo Nacimiento
+							</small>
+						</label>
+				
+						<input id="txtDeUbigeoNac02"  type="text" 
+							style="width:420px; margin-top:-7px; text-transform: uppercase; font-size: 12px;" />
+						
+						<input type="hidden" id="hidCoContinenteNaci02" />
+						<input type="hidden" id="hidCoPaisNaci02" />
+						<input type="hidden" id="hidCoDepartamentoNaci02" />
+						<input type="hidden" id="hidCoProvinciaNaci02" />
+						<input type="hidden" id="hidCoDistritoNaci02" />
+						<input type="hidden" id="hidCoCentropobladoNaci02" />
+						
+					</div>
+				
+					<!-- ubigeo domicilio -->
+					<div style="float:left; clear: left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">
+								Ubigeo Domicilio
+							</small>
+						</label>
+				
+						<input id="txtDeUbigeoDom02"  type="text" 
+							style="width:420px; margin-top: -7px; text-transform: uppercase; font-size: 12px;" />
+						
+						<input type="hidden" id="hidCoContinenteDomicilio02" />
+						<input type="hidden" id="hidCoPaisDomicilio02" />
+						<input type="hidden" id="hidCoDepartamentoDomicilio02" />
+						<input type="hidden" id="hidCoProvinciaDomicilio02" />
+						<input type="hidden" id="hidCoDistritoDomicilio02" />
+						<input type="hidden" id="hidCoCentropobladoDomicilio02" />
+						
+					</div>
+				
+					<!-- direccion -->
+					<div style="float:left; clear:left;">
+						
+						<label>
+							<small style="font-size: 11px; font-weight: bold;">Dirección</small>
+						</label>
+						
+						<input id="txtDeDomicilio02"  type="text" 
+							style="width:420px; margin-top: -7px; text-transform: uppercase; font-size: 12px;" />
+						
+					</div>
+				
+				</div>					
+				
+			</div>
+
+		</td>
+		
+	</tr>
+	
+	<tr>
+		<td style="min-height: 10px; height: 10px;"></td>
+	</tr>
+	
+</table>

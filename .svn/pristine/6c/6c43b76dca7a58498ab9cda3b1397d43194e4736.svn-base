@@ -1,0 +1,94 @@
+package pe.gob.reniec.actacelebracion.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import pe.gob.reniec.actacelebracion.bean.CelebracionBean;
+import pe.gob.reniec.actacelebracion.bean.ContrayenteBean;
+import pe.gob.reniec.actacelebracion.bean.ResultadoBean;
+import pe.gob.reniec.actacelebracion.bean.TestigoBean;
+import pe.gob.reniec.actacelebracion.dao.ActaCelebraDao;
+import pe.gob.reniec.actacelebracion.service.ActaCelebraService;
+
+@Service
+public class ActaCelebraServiceImpl implements ActaCelebraService {
+		
+	@Autowired
+	private ActaCelebraDao actaCelebraDao;
+	
+	public int registrarTestigo(TestigoBean testigoBean){
+		
+		return actaCelebraDao.registrarTestigo(testigoBean);
+		
+	}
+	
+	
+	@Transactional
+	public int actualizarCelebracion(CelebracionBean celebracionBean){
+		
+		int regCelebracion = 0;
+		int regCelebracionMov = 0;
+		
+		regCelebracion = actaCelebraDao.actualizarCelebracion(celebracionBean);
+		regCelebracionMov = actaCelebraDao.registrarCelebracionMov(celebracionBean);
+		
+		if (regCelebracion == 1 && regCelebracionMov == 1){
+			return 1;
+			
+		}else{
+			return 0;
+		}
+		
+	}
+	
+	
+	@Transactional
+	public ResultadoBean registrarContrayente(ContrayenteBean contrayenteBean01, 
+									ContrayenteBean contrayenteBean02,
+									String usuario){
+		
+		int regCelebracion = 0;
+		int regCelebracionMov = 0;
+		int regContrayente01 = 0;
+		int regContrayente02 = 0;
+		
+		ResultadoBean resultadoBean = new ResultadoBean();
+		
+		int numeroActaCelebracion= actaCelebraDao.generarSecuenciaCelebracion();
+		
+		CelebracionBean celebracionBean = new CelebracionBean();
+		
+		celebracionBean.setNuActaCelebracion(String.valueOf(numeroActaCelebracion));
+		
+		resultadoBean.setNumeroActaCelebra(String.valueOf(numeroActaCelebracion));
+		celebracionBean.setIdCrea(usuario);
+		celebracionBean.setCoEstado("01");
+		celebracionBean.setCoAccion("01");
+		contrayenteBean01.setNuActaCelebracion(String.valueOf(numeroActaCelebracion));
+		contrayenteBean02.setNuActaCelebracion(String.valueOf(numeroActaCelebracion));
+		
+		regCelebracion = actaCelebraDao.registrarCelebracion(celebracionBean);
+		regContrayente01 =actaCelebraDao.registrarContrayente(contrayenteBean01);
+		regContrayente02 =actaCelebraDao.registrarContrayente(contrayenteBean02);
+		regCelebracionMov = actaCelebraDao.registrarCelebracionMov(celebracionBean);
+		
+		if (regCelebracion == 1 && 
+				regContrayente01 ==1 &&
+				regContrayente02 ==1 &&
+				regCelebracionMov == 1){
+			
+			resultadoBean.setCoStatus("1");
+			
+		}else{
+			resultadoBean.setCoStatus("0");
+		}
+		
+		return resultadoBean;
+		
+	}
+	
+	
+	
+
+}

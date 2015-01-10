@@ -1,0 +1,43 @@
+/**
+ * Funcion que permite ejecutar las operaciones especificadas, cuando se ha cargado completamente el DOM
+ */
+$(document).ready(function(){
+
+	//implementar funciones
+	
+});
+
+/**
+ * Funcion que permite cargar pagina del registro de acta de celebracion
+ */
+function fnRegistrarActa() {
+	fnCargarContenido("cargarRegistroActa.htm", null, "#contenido");	
+}
+
+/**
+ * Funcion que permite cargar pagina de envio de acta
+ */
+function fnEnviarActa() {
+	fnCargarContenido("enviarActa.htm", null, "#contenido");
+}
+
+/**
+ * Funcion que permite cargar pagina de reporte de acta
+ */
+function fnReporteActa() {
+	fnCargarContenido("consultaReporte.htm", null, "#contenido");
+}
+
+/**
+ * Funcion que permite cargar pagina de bandeja de actas oservadas 
+ */
+function fnActasObservadas() {
+	fnCargarContenido("actasObservadas.htm", null, "#contenido");
+}
+
+/**
+ * Funcion que permite cargar pagina de procesamiento de actas
+ */
+function fnProcesamientoActa() {
+	fnCargarContenido("asignacionActa.htm", null, "#contenido");
+}

@@ -1,0 +1,8 @@
+<!-- login.jsp -->
+<script type="text/javascript" src="${ruta}/js/particular/login/login${min}.js"></script>
+
+<!-- menuPrincipal.jsp -->
+<script type="text/javascript" src="${ruta}/js/particular/menuPrincipal/menuPrincipal${min}.js"></script>
+
+<!-- registrarActa.jsp -->
+<script type="text/javascript" src="${ruta}/js/particular/actaCelebracion/actaCelebracion${min}.js"></script>

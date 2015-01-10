@@ -1,0 +1,136 @@
+package pe.gob.reniec.actacelebracion.controller;
+ 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import pe.gob.reniec.actacelebracion.bean.ResultadoBean;
+import pe.gob.reniec.actacelebracion.bean.UsuarioBean;
+import pe.gob.reniec.actacelebracion.service.UsuarioService;
+import pe.gob.reniec.actacelebracion.util.Constantes;
+
+
+@Controller
+public class UsuarioController {
+
+	private static final Logger log = Logger.getLogger(UsuarioController.class);
+
+	@Autowired
+	ResultadoBean resultadoBean;
+	
+	@Autowired
+	private UsuarioService  usuarioService;
+
+	@RequestMapping("/inicio.htm")
+    public ModelAndView mostrarInicio(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		log.info("Ingresa a metodo mostrarInicio");
+        ModelAndView mv = new ModelAndView("inicio");
+        return mv;
+    }
+	
+	@RequestMapping(value = "/obtenerAccesoSistema.htm", method = RequestMethod.POST)
+    public @ResponseBody
+    ResultadoBean obtenerAccesoSistema(HttpServletRequest req, 
+    								   HttpServletResponse res, 
+    								   HttpSession session) {
+		
+			log.info("Ingresa a metodo obtenerAccesoSistema");
+            String coUsuario = req.getParameter("coUsuario") == null ? "" : req.getParameter("coUsuario");
+            String coPassw = req.getParameter("paUsuario") == null ? "" : req.getParameter("paUsuario");
+            
+            String coAplicativo = Constantes.CODIGO_APLICATIVO;
+            String ipAddress = req.getRemoteAddr();
+            Integer tiIdentificacion = 0;
+            
+            UsuarioBean usuarioBeanInp = new UsuarioBean();
+    		
+            usuarioBeanInp.setNuDni(coUsuario);
+    		usuarioBeanInp.setCaPass(coPassw);
+    		usuarioBeanInp.setCoAplicativo(coAplicativo);
+    		usuarioBeanInp.setIpUsuario(ipAddress);
+    		usuarioBeanInp.setTiIdentificacion(tiIdentificacion);
+            
+    		usuarioBeanInp = usuarioService.listaUsuario(usuarioBeanInp);
+    		
+    		if (usuarioBeanInp.getDaSeis() != null) {
+    			resultadoBean.setCoStatus(usuarioBeanInp.getDaSeis());
+    			resultadoBean.setDeStatus(usuarioBeanInp.getDaSiete());
+    			if (usuarioBeanInp.getDaSeis().equals("00")) {
+        			session.setAttribute("coUsuario", coUsuario);
+        			log.info("Login Success");
+        		}
+    		}else {
+    			resultadoBean.setCoStatus("23");
+    			resultadoBean.setDeStatus("El empleado no se encuentra registrado");
+    		}
+
+            return resultadoBean;
+
+    }
+	
+	@RequestMapping(value = "/cerrarSesion.htm", method = RequestMethod.POST)
+	public @ResponseBody
+    String cerrarSesion(HttpServletRequest req, HttpServletResponse res, HttpSession session) {
+		log.info("Ingresa a metodo cerrarSesion");
+		
+		String usuario = (String) session.getAttribute("coUsuario") == null ? "" : (String) session.getAttribute("coUsuario");
+		String mensaje = "";
+		
+		if (usuario.equals("")) {
+			mensaje = "Su sesion ha expirado. Por favor cierre el navegador e ingrese nuevamente.";
+		}else{
+			UsuarioBean usuarioBean = new UsuarioBean();
+			usuarioBean.setNuDni(usuario);
+			usuarioBean.setCoAplicativo(Constantes.CODIGO_APLICATIVO);
+			usuarioBean.setIpUsuario(req.getRemoteAddr());
+			usuarioBean.setTiIdentificacion(0);
+			
+			usuarioService.cerrarSesion(usuarioBean);
+			
+			mensaje = "OK";
+		}
+		return mensaje;
+	}
+	
+	
+	@RequestMapping(value = "/cambiarContrasenia.htm", method = RequestMethod.POST)
+    public @ResponseBody
+    ResultadoBean cambiarContrasenia(HttpServletRequest req, HttpServletResponse res, HttpSession session) {
+		log.info("Ingresa a metodo cambiarContrasenia");
+	
+		String nuDni = req.getParameter("nuDni") == null ? "" : req.getParameter("nuDni");
+        String passActual = req.getParameter("passAnt") == null ? "" : req.getParameter("passAnt");
+        String passNuevo = req.getParameter("passNue") == null ? "" : req.getParameter("passNue");
+        String ipAddress = req.getRemoteAddr();
+        int tiIdentificacion = 0;
+                
+        UsuarioBean usuarioBeanInp = new UsuarioBean();
+
+		usuarioBeanInp.setNuDni(nuDni);
+		usuarioBeanInp.setCaPass(passActual);
+		usuarioBeanInp.setCaPassNew(passNuevo);
+		usuarioBeanInp.setIpUsuario(ipAddress);
+		usuarioBeanInp.setTiIdentificacion(tiIdentificacion);
+		
+		usuarioBeanInp = usuarioService.cambiarContrasenia(usuarioBeanInp);
+
+		if (usuarioBeanInp.getDaSeis() != null) {
+			resultadoBean.setCoStatus(usuarioBeanInp.getDaSeis());
+			resultadoBean.setDeStatus(usuarioBeanInp.getDaSiete());
+		}else{
+			resultadoBean.setCoStatus("01");
+			resultadoBean.setDeStatus("Error al cambiar contraseña");
+		}
+
+		return resultadoBean;
+        
+	}
+}
