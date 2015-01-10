@@ -14,7 +14,7 @@ import pe.gob.essalud.sicionline.bean.CitaBean;
 import pe.gob.essalud.sicionline.util.PdfDocumentEventAlt;
 import pe.gob.essalud.sicionline.util.PdfUtil;
 
-import com.barcode.rbarcode.Bc;
+//import com.barcode.rbarcode.Bc;
 import com.lowagie.text.Document;
 import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfCell;
@@ -81,10 +81,10 @@ public class ImpresionView extends AbstractPdfView  {
 			String codigo = "0000011111";
 			logger.info("codigo del numero de barras:"+codigo);
 			
-			Image codeBarras = Image.getInstance((new Bc(codigo)).getImage());
+			//Image codeBarras = Image.getInstance((new Bc(codigo)).getImage());
 			
-			//URL urlCodeBarras = getClass().getResource("/images/barCode.jpg");
-			//Image codeBarras = Image.getInstance(urlCodeBarras);
+			URL urlCodeBarras = getClass().getResource("/images/barCode.jpg");
+			Image codeBarras = Image.getInstance(urlCodeBarras);
 
 			// crear tabla
 			PdfPTable tab = PdfUtil.creaTabla(9, PdfCell.NO_BORDER, 100, new float[]{20f, 20f, 20f, 21f, 18f, 21f, 20f, 20f, 20f}, PdfCell.ALIGN_CENTER);
