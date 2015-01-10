@@ -60,7 +60,7 @@
 							</small>
 						</p>							
 						<p class="text-info" style="line-height: 16px;">
-							<strong>Equipo:</strong> Software Basado en Web
+							<strong>Equipo:</strong> Ambientes de Desarrollo de Software
 						</p>														
 					</div>
 				</div>
