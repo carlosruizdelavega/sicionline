@@ -162,11 +162,6 @@
         </dependency>
 
 		<!-- librerias Reniec -->
-		<dependency>
-			<groupId>pe.jbase</groupId>
-			<artifactId>jbase</artifactId>
-			<version>1.0</version>
-		</dependency>
 
 	</dependencies>
 	
