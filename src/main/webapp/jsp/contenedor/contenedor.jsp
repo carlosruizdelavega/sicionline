@@ -60,7 +60,7 @@
 							</small>
 						</p>							
 						<p class="text-info" style="line-height: 16px;">
-							<strong>Equipo:</strong> Ambientes de Desarrollo de Software
+							<strong>Equipo:</strong> ADS - Jenkins
 						</p>														
 					</div>
 				</div>
